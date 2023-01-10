@@ -2,7 +2,7 @@ CREATE TABLE "users"(
     "id" SERIAL NOT NULL,
     "username" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
-    "password" VARCHAR(255) NOT NULL 
+    "password" VARCHAR(255) NOT NULL
 );
 ALTER TABLE
     "users" ADD PRIMARY KEY("id");
@@ -28,24 +28,24 @@ CREATE TABLE "comments"(
     "id" SERIAL NOT NULL,
     "building_id" INTEGER NOT NULL,
     "content" VARCHAR(255) NOT NULL,
-    "user_id" BIGINT NOT NULL
+    "user_id" INTEGER NOT NULL
 );
 ALTER TABLE
     "comments" ADD PRIMARY KEY("id");
-CREATE TABLE "annonces / post"(
+CREATE TABLE "annonces"(
     "id" SERIAL NOT NULL,
-    "user_id" BIGINT NOT NULL,
+    "user_id" INTEGER NOT NULL,
     "content" VARCHAR(255) NOT NULL,
     "date" INTEGER NOT NULL
 );
 ALTER TABLE
-    "annonces / post" ADD PRIMARY KEY("id");
+    "annonces" ADD PRIMARY KEY("id");
 CREATE TABLE "messages"(
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "content" VARCHAR(255) NOT NULL,
     "date" INTEGER NOT NULL,
-    "discussion_id" BIGINT NOT NULL
+    "discussion_id" INTEGER NOT NULL
 );
 ALTER TABLE
     "messages" ADD PRIMARY KEY("id");
@@ -58,7 +58,7 @@ ALTER TABLE
 CREATE TABLE "like_per_building"(
     "id" SERIAL NOT NULL,
     "building_id" INTEGER NOT NULL,
-    "user_id" BIGINT NOT NULL
+    "user_id" INTEGER NOT NULL
 );
 ALTER TABLE
     "like_per_building" ADD PRIMARY KEY("id");
@@ -69,7 +69,7 @@ ALTER TABLE
 ALTER TABLE
     "Buildings" ADD CONSTRAINT "buildings_admin_id_foreign" FOREIGN KEY("admin_id") REFERENCES "users"("id");
 ALTER TABLE
-    "annonces / post" ADD CONSTRAINT "annonces / post_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
+    "annonces" ADD CONSTRAINT "annonces_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
 ALTER TABLE
     "messages" ADD CONSTRAINT "messages_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
 ALTER TABLE

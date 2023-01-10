@@ -4,7 +4,8 @@
   "description": "team project",
   "main": "./server/server.mjs",
   "scripts": {
-    "dev": "nodemon ./server/server.mjs"
+    "start": "node ./server/server.mjs",
+    "server": "nodemon ./server/server.mjs"
   },
   "repository": {
     "type": "git",

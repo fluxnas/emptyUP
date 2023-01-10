@@ -1,14 +1,15 @@
 import Navigation from "../components/Navigation"
 import UploadLogo from "../components/UploadLogo"
 
-const ListPage =() => {
+const FiltersPage =() => {
 	return(
 		<div className="Homepage">
-			<h1>LISTPAGE</h1>
+			<h1>FILTERSPAGE</h1>
 			<Navigation />
 			<UploadLogo/>
 		</div>
+
 	)
 }
 
-export default ListPage
+export default FiltersPage

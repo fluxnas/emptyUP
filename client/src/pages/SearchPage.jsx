@@ -1,14 +1,14 @@
 import Navigation from "../components/Navigation"
 import UploadLogo from "../components/UploadLogo"
 
-const ListPage =() => {
+const SearchPage =() => {
 	return(
 		<div className="Homepage">
-			<h1>LISTPAGE</h1>
+			<h1>SEARCHPAGE</h1>
 			<Navigation />
 			<UploadLogo/>
 		</div>
 	)
 }
 
-export default ListPage
+export default SearchPage

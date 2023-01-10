@@ -13,7 +13,9 @@ import MessagesPage from "./pages/MessagesPage"
 import ProfilePage from "./pages/ProfilePage"
 import UploadedPage from "./pages/UploadedPage"
 import UploadPage from "./pages/UploadPage"
-import { Main } from "./views/Main";
+import SearchPage from "./pages/SearchPage"
+import FiltersPage from "./pages/FiltersPage"
+
 
 
 const App = () => {
@@ -34,9 +36,8 @@ const App = () => {
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/uploaded" element={<UploadedPage/>}/>
         <Route path="/upload" element={<UploadPage/>}/>
-        
-        
-        
+        <Route path="/search" element={<SearchPage/>}/>
+        <Route path="/filters" element={<FiltersPage/>}/>
       </Routes>
     </BrowserRouter>
     </div>

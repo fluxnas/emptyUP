@@ -1,5 +1,5 @@
 import markerIcon from "leaflet/dist/images/marker-icon.png"
-import { Marker, Popup, useMap } from 'react-leaflet';
+import { Marker, useMap } from 'react-leaflet';
 import useGeoLocation from '../hooks/geoLocationHook';
 import useUserDefaultLocation from '../hooks/userDefaultPositionHook';
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ export const LeafletMap = () => {
     const { userLocation } = useUserDefaultLocation(position);
 
     const map = useMap();
-    
+       
     useEffect(() => {
         map.setView(userLocation);
     }, [userLocation]);

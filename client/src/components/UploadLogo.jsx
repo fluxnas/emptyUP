@@ -1,13 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import Filters from '../assets/Filters.png';
 import Logonotext from "../assets/logonotext.png"
+import "../App.css"
 
 const UploadLogo = () => {
 	return (
-		<div className="UploadLogo">
+		<div>
 				<NavLink to="/upload"> 
-					<img src= {Logonotext} alt="Upload a building" style={{ height: '60px', }} />
-					<p> UPLOAD A SPACE </p>
+					<div className="UploadLogo">
+						<img src= {Logonotext} alt="Upload a building" style={{ height: '50px', }} />
+						<p> UPLOAD A SPACE </p>
+					</div>
 				</NavLink>
 				
 		</div>	

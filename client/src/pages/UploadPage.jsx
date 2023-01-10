@@ -1,6 +1,10 @@
+import FormLogReg from "../components/FormLogReg";
+import HomePage from "./HomePage";
+
 const UploadPage =() => {
 	return(
-		<div> UploadPAGE
+		<div className="uploadPage"> 
+		    <FormLogReg />
 		</div>
 	)
 }

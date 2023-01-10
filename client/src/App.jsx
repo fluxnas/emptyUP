@@ -1,3 +1,4 @@
+import "./App.css";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import HomePage from "./pages/HomePage"
 import AnnouncementPage from "./pages/AnnouncementPage"
@@ -12,12 +13,15 @@ import MessagesPage from "./pages/MessagesPage"
 import ProfilePage from "./pages/ProfilePage"
 import UploadedPage from "./pages/UploadedPage"
 import UploadPage from "./pages/UploadPage"
+import { Main } from "./views/Main";
+
 
 const App = () => {
   return (
+    <div className="App">
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
+        <Route path="/" element={<HomePage className="homepage"/>}/>
         <Route path="/announcement" element={<AnnouncementPage/>}/>
         <Route path="/announcements" element={<AnnouncementsPage/>}/>
         <Route path="/building" element={<BuildingPage/>}/>
@@ -35,6 +39,7 @@ const App = () => {
         
       </Routes>
     </BrowserRouter>
+    </div>
   );
 }
 

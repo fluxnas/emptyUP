@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-const ProfilePage = () => {
-	return(
-		<div> PROFILEPAGE
-=======
 import ProfilePicture from "../components/ProfilePicture"
 import UploadPicto from "../components/UploadPicto"
 const Username="Roro68"
@@ -16,7 +11,6 @@ const ProfilePage = () => {
 				<UploadPicto/>
 				<p style={{ fontsize:14,fontWeight:"bold"}}>Upload a new profile picture </p>		
 			</div>
->>>>>>> estime
 		</div>
 	)
 }

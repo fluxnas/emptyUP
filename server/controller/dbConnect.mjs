@@ -1,8 +1,9 @@
-import DB from "./DB.mjs"
+import client from "./Client.mjs"
+
 
 const dbConnect = async () =>{
     try {
-        await DB.connect()
+        await client.connect()
         console.log('DB connected succesfuly')
     } catch ( err ) {
         console.log( ` connexion failed ${ err }`)

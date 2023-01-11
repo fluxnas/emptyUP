@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-const HomePage =() => {
-	return(
-		<div> HOMEPAGE
-=======
 
 import Navigation from "../components/Navigation"
 import UploadLogo from "../components/UploadLogo"
@@ -18,7 +13,6 @@ const HomePage =() => {
       <LeafletMap />
     </LeafletContainer>
 			<UploadLogo/>
->>>>>>> estime
 		</div>
 	)
 }

@@ -33,8 +33,39 @@
   color: black;
   font-weight: bold;
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 705f5d5e9cffa85014bfcc9e157be81166e3fd51
+.uploadPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formContainer {
+  width: 250px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.buttondiv {
+  display: flex;
+}
+<<<<<<< HEAD
 a {
   text-decoration: none;
 
+}
+
+.leaflet-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+  z-index: 0;
+=======
+
+a {
+  text-decoration: none;
+>>>>>>> 705f5d5e9cffa85014bfcc9e157be81166e3fd51
 }

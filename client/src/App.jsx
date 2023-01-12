@@ -17,8 +17,6 @@ import SearchPage from "./pages/SearchPage"
 import FiltersPage from "./pages/FiltersPage"
 import TermsPage from "./pages/TermsPage"
 
-
-
 const App = () => {
   return (
     <div className="App">

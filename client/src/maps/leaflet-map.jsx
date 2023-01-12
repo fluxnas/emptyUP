@@ -20,6 +20,8 @@ export const LeafletMap = () => {
         iconSize: [22, 38],
         iconAnchor: [11, 19],
     });
+
+    
     return <div>
         <Marker position={userLocation} icon={userIcon}>
         </Marker>

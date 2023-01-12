@@ -21,7 +21,7 @@ const HomePage = () => {
       </LeafletContainer>
       <UploadLogo setActive={setModalActive} />
       <Modal active={modalActive} setActive={setModalActive}>
-        <p>To upload a photo please login or register</p>
+      <p>You need to register and login before uploading spaces. </p>
         <button
           onClick={() => {
             setModalActive(false);
@@ -50,6 +50,8 @@ const HomePage = () => {
         }}/>
       </Modal>
     </div>
+
+
   );
 };
 

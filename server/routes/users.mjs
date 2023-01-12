@@ -3,7 +3,14 @@ import client from "../controller/Client.mjs"
 const router = express.Router()
 
 
+
+
+
+
+
+
 // Users
+
 // get all users
 router.get('/', async ( req, res ) =>{
     try {
@@ -15,6 +22,7 @@ router.get('/', async ( req, res ) =>{
         console.error(err.message)
     }
 })
+
 // get one user
 router.get('/user/:id', async ( req, res ) =>{
     const { id } = req.params
@@ -28,27 +36,29 @@ router.get('/user/:id', async ( req, res ) =>{
         console.error(err.message)
     }
 })
+
 // get one user by sorting id into filterd 
 router.get('/test/:id/:field', async (req, res) => {
-    const fields = ['username', 'email', 'password'];
+    const fields = ['username', 'email', 'password']
     if (!fields.includes(req.params.field)) {
-      return res.status(400).json({message: "Invalid field"});
+      return res.status(400).json({message: "Invalid field"})
     }
     try {
     // utilise la concatenation pour y ajouter le field
-      const test = await client.query("SELECT " + req.params.field + " FROM users WHERE id = $1", [req.params.id]);
+      const test = await client.query("SELECT " + req.params.field + " FROM users WHERE id = $1", [req.params.id])
     // si la ligne est null message d'erreur 
       if (test.rows.length === 0) {
         res.status(404).json({ message: "No user" });
       } else {
     // sinon renvoi les params du field 
-        res.json({ [req.params.field]: test.rows[0][req.params.field] });
+        res.json({ [req.params.field]: test.rows[0][req.params.field] })
       }
     } catch (err) {
-      console.error(err.message);
-      res.status(500).json({ message: "Internal Server Error" });
+      console.error(err.message)
+      res.status(500).json({ message: "Internal Server Error" })
     }
-  });
+  })
+
 // create user
 router.post('/user', async ( req, res ) =>{
     try {
@@ -62,7 +72,6 @@ router.post('/user', async ( req, res ) =>{
         console.error( err.message )
     }
 })
-
 
 // update a user
 router.put('/user/:id', async (req, res) => {
@@ -110,7 +119,6 @@ router.get('/buildings', async ( req, res ) =>{
         }
 })
 
-
 //get one building by ID
 router.get('/building/:id', async ( req, res ) =>{
     const { id } = req.params
@@ -124,7 +132,6 @@ router.get('/building/:id', async ( req, res ) =>{
         console.error(err.message)
     }
 })
-
 
 //get one building by zipcode
 router.get('/zipcode/:zipcode', async (req, res) => {
@@ -141,7 +148,6 @@ router.get('/zipcode/:zipcode', async (req, res) => {
     }
   })
 
-
 // get one building by city
 router.get('/city/:city', async (req, res) => {
     try {
@@ -157,7 +163,6 @@ router.get('/city/:city', async (req, res) => {
     }
   })
 
-
 //get one building by adress need to find a way to retrieve full adresses
 router.get('/adress/:adress', async (req, res) => {
     try {
@@ -172,7 +177,6 @@ router.get('/adress/:adress', async (req, res) => {
       res.status(500).json({ message: "Internal Server Error" });
     }
   })
-
 
 //create a building
 router.post ('/building', async ( req, res ) =>{
@@ -191,7 +195,6 @@ router.post ('/building', async ( req, res ) =>{
         console.error( err.message )
     }
 })
-
 
 //delete a building
 router.delete('/building/:id', async ( req, res ) =>{

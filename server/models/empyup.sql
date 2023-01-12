@@ -11,72 +11,80 @@ ALTER TABLE
 ALTER TABLE
     "users" ADD CONSTRAINT "users_email_unique" UNIQUE("email");
 CREATE TABLE "buildings"(
-    "id" SERIAL NOT NULL,
+    "id" SERIAL,
     "adress" VARCHAR(255) NOT NULL,
     "zipcode" INTEGER NOT NULL,
     "city" VARCHAR(255) NOT NULL,
     "type" VARCHAR(255) NOT NULL,
-    "dateofpost" INTEGER NOT NULL,
-    "admin_id" INTEGER NOT NULL,
-    "photo_url" TEXT NOT NULL
+    "dateofpost" DATE,
+    "admin_id" INTEGER
 );
 ALTER TABLE
     "buildings" ADD PRIMARY KEY("id");
 ALTER TABLE
     "buildings" ADD CONSTRAINT "buildings_adress_unique" UNIQUE("adress");
 CREATE TABLE "comments"(
-    "id" SERIAL NOT NULL,
+    "id" SERIAL,
     "building_id" INTEGER NOT NULL,
-    "content" VARCHAR(255) NOT NULL,
-    "user_id" INTEGER NOT NULL
+    "content" TEXT,
+    "user_id" BIGINT NOT NULL
 );
 ALTER TABLE
     "comments" ADD PRIMARY KEY("id");
 CREATE TABLE "annonces"(
-    "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
-    "content" VARCHAR(255) NOT NULL,
-    "date" INTEGER NOT NULL
+    "id" SERIAL,
+    "user_id" BIGINT NOT NULL,
+    "content" TEXT,
+    "date" DATE
 );
 ALTER TABLE
     "annonces" ADD PRIMARY KEY("id");
 CREATE TABLE "messages"(
-    "id" SERIAL NOT NULL,
+    "id" SERIAL,
     "user_id" INTEGER NOT NULL,
-    "content" VARCHAR(255) NOT NULL,
-    "date" INTEGER NOT NULL,
-    "discussion_id" INTEGER NOT NULL
+    "content" TEXT,
+    "date" DATE,
+    "discussion_id" BIGINT NOT NULL
 );
 ALTER TABLE
     "messages" ADD PRIMARY KEY("id");
 CREATE TABLE "discussion"(
-    "id" SERIAL NOT NULL,
+    "id" SERIAL,
     "user_id" INTEGER NOT NULL
 );
 ALTER TABLE
     "discussion" ADD PRIMARY KEY("id");
 CREATE TABLE "like_per_building"(
-    "id" SERIAL NOT NULL,
+    "id" SERIAL,
     "building_id" INTEGER NOT NULL,
-    "user_id" INTEGER NOT NULL
+    "user_id" BIGINT NOT NULL
 );
 ALTER TABLE
     "like_per_building" ADD PRIMARY KEY("id");
+CREATE TABLE "pictures"(
+    "id" SERIAL,
+    "filename" TEXT NOT NULL,
+    "building_id" INTEGER NOT NULL
+);
 ALTER TABLE
-    "comments" ADD CONSTRAINT "comments_building_id_foreign" FOREIGN KEY("building_id") REFERENCES "buildings"("id");
+    "pictures" ADD PRIMARY KEY("id");
 ALTER TABLE
-    "like_per_building" ADD CONSTRAINT "like_per_building_building_id_foreign" FOREIGN KEY("building_id") REFERENCES "buildings"("id");
+    "comments" ADD CONSTRAINT "comments_building_id_foreign" FOREIGN KEY("building_id") REFERENCES "Buildings"("id");
 ALTER TABLE
-    "Buildings" ADD CONSTRAINT "buildings_admin_id_foreign" FOREIGN KEY("admin_id") REFERENCES "users"("id");
+    "like_per_building" ADD CONSTRAINT "like_per_building_building_id_foreign" FOREIGN KEY("building_id") REFERENCES "Buildings"("id");
 ALTER TABLE
-    "annonces" ADD CONSTRAINT "annonces_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
+    "pictures" ADD CONSTRAINT "pictures_building_id_foreign" FOREIGN KEY("building_id") REFERENCES "Buildings"("id");
 ALTER TABLE
-    "messages" ADD CONSTRAINT "messages_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
+    "Buildings" ADD CONSTRAINT "buildings_admin_id_foreign" FOREIGN KEY("admin_id") REFERENCES "Users"("id");
 ALTER TABLE
-    "discussion" ADD CONSTRAINT "discussion_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
+    "annonces" ADD CONSTRAINT "annonces_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "Users"("id");
 ALTER TABLE
-    "like_per_building" ADD CONSTRAINT "like_per_building_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
+    "messages" ADD CONSTRAINT "messages_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "Users"("id");
 ALTER TABLE
-    "comments" ADD CONSTRAINT "comments_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id");
+    "discussion" ADD CONSTRAINT "discussion_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "Users"("id");
+ALTER TABLE
+    "like_per_building" ADD CONSTRAINT "like_per_building_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "Users"("id");
+ALTER TABLE
+    "comments" ADD CONSTRAINT "comments_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "Users"("id");
 ALTER TABLE
     "messages" ADD CONSTRAINT "messages_discussion_id_foreign" FOREIGN KEY("discussion_id") REFERENCES "discussion"("id");

@@ -4,6 +4,7 @@
   "description": "empty up",
   "main": "index.mjs",
   "scripts": {
+    "dev": "nodemon server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

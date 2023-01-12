@@ -12,6 +12,7 @@ export const getBuildings = async (req, res) => {
 
 export const getBuilding = (req, res) => {
   const { adress, zipcode, city, type } = req.body;
+
   
  pool.query(
       "SELECT * FROM buildings WHERE adress = $1 OR zipcode = $2 OR city = $3 OR type = $4",

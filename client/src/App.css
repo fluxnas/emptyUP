@@ -1,7 +1,5 @@
 
 .HomePage {
-  height: 100vh;
-  width: 100vw;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -33,10 +31,7 @@
   color: black;
   font-weight: bold;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 705f5d5e9cffa85014bfcc9e157be81166e3fd51
 .uploadPage {
   display: flex;
   justify-content: center;
@@ -55,7 +50,7 @@
 .buttondiv {
   display: flex;
 }
-<<<<<<< HEAD
+
 a {
   text-decoration: none;
 
@@ -63,9 +58,8 @@ a {
 
 .leaflet-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
   z-index: 0;
-=======
+}
 
 a {
   text-decoration: none;
->>>>>>> 705f5d5e9cffa85014bfcc9e157be81166e3fd51
 }

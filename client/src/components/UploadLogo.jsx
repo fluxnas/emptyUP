@@ -6,7 +6,6 @@ import "../App.css"
 const UploadLogo = ({setActive}) => {
 	return (
 		<div>
-				<NavLink> 
 					<div className="UploadLogo" onClick={() => setActive(true)}>
 						<img src= {Logonotext} alt="Upload a building" style={{ height: '50px', }} />
 						<p> UPLOAD A SPACE </p>

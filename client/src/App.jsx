@@ -15,6 +15,7 @@ import UploadedPage from "./pages/UploadedPage"
 import UploadPage from "./pages/UploadPage"
 import SearchPage from "./pages/SearchPage"
 import FiltersPage from "./pages/FiltersPage"
+import TermsPage from "./pages/TermsPage"
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/upload" element={<UploadPage/>}/>
         <Route path="/search" element={<SearchPage/>}/>
         <Route path="/filters" element={<FiltersPage/>}/>
+        <Route path="/terms" element={<TermsPage/>}/>
       </Routes>
     </BrowserRouter>
     </div>

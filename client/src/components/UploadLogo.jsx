@@ -17,5 +17,3 @@ const UploadLogo = ({setActive}) => {
 }
 
 export default UploadLogo
-
-//navlink-to="/upload"

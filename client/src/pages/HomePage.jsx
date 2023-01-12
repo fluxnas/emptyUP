@@ -3,8 +3,10 @@ import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import Modal from "../components/Modal";
+import FormLog from "../components/FormLog";
 import "../App.css";
 import { useState } from "react";
+import FormReg from "../components/FormReg";
 
 const HomePage = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -19,7 +21,7 @@ const HomePage = () => {
       </LeafletContainer>
       <UploadLogo setActive={setModalActive} />
       <Modal active={modalActive} setActive={setModalActive}>
-		<p>We are not responsible bla bla bla</p>
+        <p>To upload a photo please login or register</p>
         <button
           onClick={() => {
             setModalActive(false);
@@ -31,22 +33,21 @@ const HomePage = () => {
         <button
           onClick={() => {
             setModalActive(false);
-			setModalActiveReg(true);
+            setModalActiveReg(true);
           }}
         >
           Register
         </button>
       </Modal>
       <Modal active={modalActiveLog} setActive={setModalActiveLog}>
-        <input type="text" />
-        <input type="text" />
-        <button>Login</button>
+        <FormLog/>
       </Modal>
-	  <Modal active={modalActiveReg} setActive={setModalActiveReg}>
-        <input type="text" />
-        <input type="text" />
-		<input type="text" />
-        <button>Register</button>
+      <Modal active={modalActiveReg} setActive={setModalActiveReg}>
+        <FormReg onSubmit={(event) => {
+          event.preventDefault();
+          setModalActiveReg(false);
+          setModalActiveLog(true);
+        }}/>
       </Modal>
     </div>
   );

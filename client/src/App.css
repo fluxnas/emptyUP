@@ -37,12 +37,7 @@
   justify-content: center;
   align-items: center;
 }
-.formContainer {
-  width: 250px;
-  height: 150px;
-  border: 1px solid black;
-  border-radius: 10px;
-}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -50,7 +45,6 @@
 .buttondiv {
   display: flex;
 }
-
 a {
   text-decoration: none;
 
@@ -58,8 +52,4 @@ a {
 
 .leaflet-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
   z-index: 0;
-}
-
-a {
-  text-decoration: none;
 }

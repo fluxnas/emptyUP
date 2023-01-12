@@ -16,8 +16,6 @@ import UploadPage from "./pages/UploadPage"
 import SearchPage from "./pages/SearchPage"
 import FiltersPage from "./pages/FiltersPage"
 
-
-
 const App = () => {
   return (
     <div className="App">

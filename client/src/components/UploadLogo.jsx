@@ -6,7 +6,7 @@ import "../App.css"
 const UploadLogo = () => {
 	return (
 		<div>
-				<NavLink to="/upload"> 
+				<NavLink to="/terms"> 
 					<div className="UploadLogo">
 						<img src= {Logonotext} alt="Upload a building" style={{ height: '50px', }} />
 						<p> UPLOAD A SPACE </p>

@@ -3,9 +3,10 @@ import bodyParser from "body-parser"
 
 import { getBuildings, getBuilding, addBuilding } from "./controllers/buildings.mjs";
 import { dbConnect } from "./models/dbConnect.mjs"
-// import cookie from "cookie-parser";
+import cookie from "cookie-parser";
 import dotenv from "dotenv"
-import {pool} from "./models/dbPool.mjs"
+import {register, login } from "./controllers/users.mjs"
+
 
 dotenv.config()
 dbConnect()
@@ -14,7 +15,7 @@ const server = express()
 
 server.use(express.json())
 server.use(bodyParser.urlencoded({ extended: true }));
-// server.use(cookie(process.env.SECRET_JWT));
+server.use(cookie(process.env.SECRET_JWT));
 server.use(bodyParser.json());
 
 server.get("/", (req, res) => {
@@ -23,6 +24,8 @@ server.get("/", (req, res) => {
 
 server.post("/api/addbuilding", addBuilding )
 server.get("/api/building", getBuilding)
+server.post("/api/user/register", register)
+server.post("/api/user/login", login)
 
 
 

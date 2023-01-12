@@ -5,6 +5,8 @@ import JWT from "jsonwebtoken";
 import { promisify } from "util";
 import dotenv from "dotenv"
 
+const sign = promisify(JWT.sign);
+
 dotenv.config()
 
 
@@ -31,6 +33,7 @@ export const register = async (req, res) => {
 
   export const login = async (req, res) => {
     const { email, password } = req.body;
+
   
     if (!email || !password)
       return res.status(400).send({ error: "invalid request" });
@@ -46,18 +49,19 @@ export const register = async (req, res) => {
   
     const result = query.rows[0];
     const match = await bcrypt.compare(password, result.password);
+    
   
     if (match) {
       try {
         const token = await sign(
-          { id: result.id, username: result.username, email },
+          { email },
           process.env.SECRET_JWT,
           {
             algorithm: "HS512",
             expiresIn: "1h",
           }
         );
-  
+        // return res.send({ token });  => it works when asking to response send the token, but "cannot generate" when sending to the cookie
         res.cookie("access_token", token, {
           httpOnly: true,
         });

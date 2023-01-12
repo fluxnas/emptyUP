@@ -6,8 +6,6 @@ import AnnouncementsPage from "./pages/AnnouncementsPage"
 import BuildingPage from "./pages/BuildingPage"
 import FavoritesPage from "./pages/FavoritesPage"
 import ListPage from "./pages/ListPage"
-import LoginPage from "./pages/LoginPage"
-import RegisterPage from "./pages/RegisterPage"
 import MessagePage from "./pages/MessagePage"
 import MessagesPage from "./pages/MessagesPage"
 import ProfilePage from "./pages/ProfilePage"
@@ -28,8 +26,6 @@ const App = () => {
         <Route path="/building" element={<BuildingPage/>}/>
         <Route path="/favorites" element={<FavoritesPage/>}/>
         <Route path="/list" element={<ListPage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/message" element={<MessagePage/>}/>
         <Route path="/messages" element={<MessagesPage/>}/>
         <Route path="/profile" element={<ProfilePage/>}/>

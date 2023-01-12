@@ -19,7 +19,7 @@ const HomePage = () => {
       </LeafletContainer>
       <UploadLogo setActive={setModalActive} />
       <Modal active={modalActive} setActive={setModalActive}>
-		<p>We are not responsible bla bla bla</p>
+        <p>You need to register and login before uploading spaces. </p>
         <button
           onClick={() => {
             setModalActive(false);
@@ -46,9 +46,12 @@ const HomePage = () => {
         <input type="text" />
         <input type="text" />
 		<input type="text" />
+    
         <button>Register</button>
       </Modal>
     </div>
+
+
   );
 };
 

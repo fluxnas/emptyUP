@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import Filters from '../assets/Filters.png';
 import Loupe from '../assets/loupe.png';
 import UserLogo from '../assets/user.svg'
+import "../App.css"
 
 const Navigation = () => {
 	return (

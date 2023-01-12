@@ -61,6 +61,7 @@ export const register = async (req, res) => {
             expiresIn: "1h",
           }
         );
+        console.log(token)
         // return res.send({ token });  => it works when asking to response send the token, but "cannot generate" when sending to the cookie
         res.cookie("access_token", token, {
           httpOnly: true,

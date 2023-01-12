@@ -27,10 +27,11 @@ export const getBuilding = (req, res) => {
 
 export const addBuilding = (req, res) => {
     const { adress, zipcode, city, type } = req.body; 
+    const admin_id = req.decoded
     
     pool.query(
-            "insert into buildings (adress, zipcode, city, type) values ($1, $2, $3, $4)",
-            [adress, zipcode, city, type]
+            "insert into buildings (adress, zipcode, city, type, admin_id) values ($1, $2, $3, $4)",
+            [adress, zipcode, city, type, admin_id]
         );
         return res.send({info: "building successfully added"});
 };

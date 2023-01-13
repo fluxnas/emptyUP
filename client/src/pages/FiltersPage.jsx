@@ -3,10 +3,10 @@ import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
+//import Calendar from 'react-calendar';
 import "../App.css";
 import Modal from "../components/Modal";
-import CalenderForm from "../components/CalenderForm";
+//import CalenderForm from "../components/CalenderForm";
 
 
 
@@ -14,8 +14,8 @@ import CalenderForm from "../components/CalenderForm";
 const FiltersPage =() => {
 	const [modalActive, setModalActive] = useState(false);
 	 const [value, setValue] = useState(new Date());
-	return(
-		<div className="HomePage">
+	return
+	/*	<div className="HomePage">
 			<Navigation />
 			<label>Type
 				<select>
@@ -27,9 +27,9 @@ const FiltersPage =() => {
 						<option value="Multiple">Multiple</option>
 				</select>
 			</label>
-		 	<CalenderForm setActive={setModalActive} />
-		 	<Modal active={modalActive} setActive={setModalActive}>
-		 		<Calendar onChange={setValue} value={value} />
+		 	//<CalenderForm setActive={setModalActive} />
+		 	//<Modal active={modalActive} setActive={setModalActive}>
+		 	//	<Calendar onChange={setValue} value={value} />
 		    </Modal>
 		    
 		    <div>
@@ -46,8 +46,8 @@ const FiltersPage =() => {
      		</LeafletContainer>
 			<UploadLogo/>
 		</div>
-
-	)
+*/
+	
 }
 
 export default FiltersPage

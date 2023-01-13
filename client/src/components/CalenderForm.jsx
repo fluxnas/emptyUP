@@ -1,4 +1,4 @@
-import "../App.css"
+/*
 
 const CalenderForm = ({setActive}) => {
 	return (
@@ -9,3 +9,4 @@ const CalenderForm = ({setActive}) => {
 }
 
 export default CalenderForm
+*/

@@ -13,7 +13,7 @@ import CalenderForm from "../components/CalenderForm";
 
 const FiltersPage =() => {
 	const [modalActive, setModalActive] = useState(false);
-	 const [value, onChange] = useState(new Date());
+	 const [value, setValue] = useState(new Date());
 	return(
 		<div className="HomePage">
 			<Navigation />
@@ -29,7 +29,7 @@ const FiltersPage =() => {
 			</label>
 		 	<CalenderForm setActive={setModalActive} />
 		 	<Modal active={modalActive} setActive={setModalActive}>
-		 		<Calendar onChange={onChange} value={value} />
+		 		<Calendar onChange={setValue} value={value} />
 		    </Modal>
 		    
 		    <div>

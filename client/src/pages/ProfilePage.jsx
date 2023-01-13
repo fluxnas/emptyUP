@@ -1,15 +1,22 @@
 import ProfilePicture from "../components/ProfilePicture"
 import UploadPicto from "../components/UploadPicto"
+import '../styles/styles.css';
+
 const Username="Roro68"
 
 const ProfilePage = () => {
 	return(
-		<div> 
-			<h3>Welcome {Username}</h3>
+
+		<div className="flex-basis: 100%;"> 
+		<h1 className="text-3xl font-bold text-red-100 underline">
+      Hello world!
+    </h1>
+			<h3 className="text-blue-800">
+			Welcome {Username}</h3>
 			<ProfilePicture/>
-			<div style={{ width:'150px', height: '150px', backgroundColor : 'grey' }}>
+			<div className="w-15, h-150, bg-slate-300">
 				<UploadPicto/>
-				<p style={{ fontsize:14,fontWeight:"bold"}}>Upload a new profile picture </p>		
+				<p className="text-red-900">Upload a new profile picture </p>		
 			</div>
 		</div>
 	)

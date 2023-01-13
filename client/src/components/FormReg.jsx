@@ -1,19 +1,37 @@
 import { useRef, useState } from "react";
+import axios from 'axios';
 
 const FormReg = ({ onSubmit }) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const inputRefPseudo = useRef();
+  const inputRefUsername = useRef();
   const inputRefEmail = useRef();
   const inputRefPassword = useRef();
   const inputRefConfPassword = useRef();
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(inputRefPseudo.current.value);
+    console.log(inputRefUsername.current.value);
     console.log(inputRefEmail.current.value);
     console.log(inputRefPassword.current.value);
     console.log(inputRefConfPassword.current.value);
+    setIsSubmitting(true);
+    const data = {
+        username: inputRefUsername.current.value,
+        email: inputRefEmail.current.value,
+        password: inputRefPassword.current.value,
+        confirm_password: inputRefConfPassword.current.value
+    };
+    axios.post('/api/user/register', data)
+        .then(response => {
+            console.log(response.data);
+            setIsSubmitting(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setIsSubmitting(false);
+        });
   };
 
   return (
@@ -31,7 +49,7 @@ const FormReg = ({ onSubmit }) => {
             <input
               type="text"
               placeholder="Enter your name"
-              ref={inputRefPseudo}
+              ref={inputRefUsername}
             />
           </label>
           <label htmlFor="input">

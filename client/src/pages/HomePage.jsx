@@ -3,10 +3,10 @@ import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import Modal from "../components/Modal";
-import FormLog from "../components/FormLog";
 import "../App.css";
 import { useState } from "react";
 import FormReg from "../components/FormReg";
+import FormLog from "../components/FormLog";
 
 const HomePage = () => {
   const [modalActive, setModalActive] = useState(false);

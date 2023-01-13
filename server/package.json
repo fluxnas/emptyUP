@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "empty up",
-  "main": "index.mjs",
+  "main": "server.mjs",
   "scripts": {
     "dev": "nodemon server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"

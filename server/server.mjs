@@ -6,6 +6,7 @@ import { dbConnect } from "./models/dbConnect.mjs"
 import cookie from "cookie-parser";
 import dotenv from "dotenv"
 import {register, login } from "./controllers/users.mjs"
+import jwtAuthentification from "./middleware/verifyToken.mjs";
 
 
 dotenv.config()
@@ -22,11 +23,13 @@ server.get("/", (req, res) => {
     res.send("hello")
 })
 
-server.post("/api/addbuilding", addBuilding )
-server.get("/api/building", getBuilding)
+// user related endpoints
 server.post("/api/user/register", register)
 server.post("/api/user/login", login)
 
+// buildings related endpoints
+server.post("/api/addbuilding", jwtAuthentification ,addBuilding )
+server.get("/api/building", getBuilding)
 
 
 server.listen(5500, () => {

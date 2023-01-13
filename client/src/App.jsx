@@ -16,7 +16,7 @@ import TermsPage from "./pages/TermsPage"
 
 const App = () => {
   return (
-    <div>
+    
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage className="homepage"/>}/>
@@ -36,7 +36,6 @@ const App = () => {
       </Routes>
     </BrowserRouter>
     
-    </div>
   );
 }
 

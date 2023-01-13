@@ -1,8 +1,8 @@
-import pgkg from "pg"
+import pg from "pg"
 import * as dotenv from "dotenv"
 dotenv.config()
 
-const pool = new pgkg.Client({
+export const pool = new pg.Pool({
     user: "empty_up_db_admin",
     host: "localhost",
     database: "empty_up_db",
@@ -10,5 +10,5 @@ const pool = new pgkg.Client({
     port: 5432 ,
 })
 
-export default pool
+
 

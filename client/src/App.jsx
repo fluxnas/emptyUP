@@ -46,23 +46,3 @@ const App = () => {
 }
 
 export default App;
-
-// function App() {
-//   const [ file, setfile ] = useState("");
-
-//   const handleChange = (e) =>{
-//     console.log(e.target.files)
-//     // setfile(e.target.files)
-//   }
-//   const handleChange = () =>{
-//     console.log(e.target.files)
-//     // setfile(e.target.files)
-//   }
-// }
-
-// <form onSubmit={e=> handleSubmit(e)}>
-//   <label htmlFor="fileInput">Upload your photo here</label>
-//   <input type="file" id="fileInput" onChange={e=> handleChange(e)} required
-//   accept="image/png, image/jpeg, image/jpg, image/jfif"/>
-//   <button className="btn btn-primary">submit</button>
-// </form> 

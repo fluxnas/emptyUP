@@ -6,9 +6,11 @@ import "../App.css"
 const UploadLogo = ({setActive}) => {
 	return (
 		<div>
-					<div className="UploadLogo" onClick={() => setActive(true)}>
-						<img src= {Logonotext} alt="Upload a building" style={{ height: '50px', }} />
-						<p> UPLOAD A SPACE </p>
+					<div className="UploadLogo" className="hover:scale-125 my-2
+					flex flex-col  items-center  w-15  "   onClick={() => setActive(true)}>
+						<img src= {Logonotext} alt="Upload a building" className="
+					flex justify-center item-center w-11  " />
+						<p className="justify-center text-blue-800 flex items-center text-xs font-bold px-2 text-center w-15"> UPLOAD A SPACE </p>
 					</div>
 		</div>	
 		)

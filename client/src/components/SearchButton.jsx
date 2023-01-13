@@ -4,7 +4,7 @@ import Loupe from '../assets/loupe.png';
 const SearchButton = ({setActive}) => {
 	return (
 		<div>
-		<img src= {Loupe} alt="logo search" style={{ height: '30px', }} onClick={() => setActive(true)} />
+		<img src= {Loupe} alt="logo search" className="hover:scale-125" style={{ height: '30px', }} onClick={() => setActive(true)} />
 		</div>	
 		)
 }

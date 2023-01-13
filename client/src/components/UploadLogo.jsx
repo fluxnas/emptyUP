@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom'
-import Filters from '../assets/Filters.png';
-import Logonotext from "../assets/logonotext.png"
-import "../App.css"
+import { NavLink } from "react-router-dom";
+import Filters from "../assets/Filters.png";
+import Logonotext from "../assets/logonotext.png";
+import "../App.css";
 
 const UploadLogo = ({setActive}) => {
 	return (
@@ -16,4 +16,5 @@ const UploadLogo = ({setActive}) => {
 		)
 }
 
-export default UploadLogo
+
+export default UploadLogo;

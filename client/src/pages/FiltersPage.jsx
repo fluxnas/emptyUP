@@ -7,15 +7,21 @@ import React, { useState } from 'react';
 import "../App.css";
 import Modal from "../components/Modal";
 //import CalenderForm from "../components/CalenderForm";
+import FormReg from "../components/FormReg";
+import FormLog from "../components/FormLog";
 
 
 
 
 const FiltersPage =() => {
 	const [modalActive, setModalActive] = useState(false);
-	 const [value, setValue] = useState(new Date());
-	return
-	/*	<div className="HomePage">
+	 const [value, onChange] = useState(new Date());
+	 const [modalActiveLogo, setModalActiveLogo] = useState(false);
+	 const [modalActiveLog, setModalActiveLog] = useState(false);
+	 const [modalActiveReg, setModalActiveReg] = useState(false);
+   
+	return(
+		<div className="HomePage">
 			<Navigation />
 			<label>Type
 				<select>
@@ -44,9 +50,37 @@ const FiltersPage =() => {
 			<LeafletContainer>
         		<LeafletMap />
      		</LeafletContainer>
-			<UploadLogo/>
-		</div>
-*/
+			 <UploadLogo setActive={setModalActiveLogo} />
+      <Modal active={modalActiveLogo} setActive={setModalActiveLogo}>
+      <p>You need to register and login before uploading spaces. </p>
+        <button
+          onClick={() => {
+            setModalActiveLogo(false);
+            setModalActiveLog(true);
+          }}
+        >
+          Login
+        </button>
+        <button
+          onClick={() => {
+            setModalActiveLogo(false);
+            setModalActiveReg(true);
+          }}
+        >
+          Register
+        </button>
+      </Modal>
+      <Modal active={modalActiveLog} setActive={setModalActiveLog}>
+        <FormLog/>
+      </Modal>
+      <Modal active={modalActiveReg} setActive={setModalActiveReg}>
+        <FormReg onSubmit={(event) => {
+          event.preventDefault();
+          setModalActiveReg(false);
+          setModalActiveLog(true);
+        }}/>
+      </Modal>
+		</div>)
 	
 }
 

@@ -3,8 +3,8 @@ import Picto from '../assets/uploadpicto.png';
 
 const UploadPicto = () => {
 	return (
-		<div className="Picto">
-					<img src= {Picto} alt="upload" style={{ width:'30px'}} />
+		<div >
+					<img src= {Picto} alt="upload" className="w-12 font-bold" />
 		</div>	
 
 		)

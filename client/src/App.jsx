@@ -1,4 +1,3 @@
-import "./App.css";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import HomePage from "./pages/HomePage"
 import AnnouncementPage from "./pages/AnnouncementPage"
@@ -17,7 +16,7 @@ import TermsPage from "./pages/TermsPage"
 
 const App = () => {
   return (
-    <div className="App">
+    <div>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage className="homepage"/>}/>
@@ -36,6 +35,7 @@ const App = () => {
         <Route path="/terms" element={<TermsPage/>}/>
       </Routes>
     </BrowserRouter>
+    
     </div>
   );
 }

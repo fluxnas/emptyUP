@@ -31,7 +31,7 @@ const FormLog = () => {
 
   return (
     <div className="formContainer">
-     <form className="form" onSubmit={(event) => {
+     <form className="flex flex-col" onSubmit={(event) => {
         onSubmitHandler(event)
       }}>
         <div className="inputDiv">
@@ -46,7 +46,7 @@ const FormLog = () => {
             ref={inputRefPassword}
           />
         </div>
-        <div className="buttonDiv">
+        <div className="flex">
             <button type="submit">Login</button>
         </div>
       </form>

@@ -16,7 +16,7 @@ import TermsPage from "./pages/TermsPage"
 
 const App = () => {
   return (
-    <div>
+    <div className="h-screen w-full appContainer p-0 m-0">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage className="homepage"/>}/>

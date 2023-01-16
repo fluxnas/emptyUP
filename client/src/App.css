@@ -1,6 +1,11 @@
+/* .appContainer {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+} */
 
-
-.HomePage {
+/* .HomePage {
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -11,19 +16,19 @@
   justify-content: space-between;
 
   
-}
+} */
 
-.Navigation {
+/* .Navigation {
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
 
-}
+} */
 
 
-.UploadLogo  {
+/* .UploadLogo  {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,26 +36,34 @@
   font-size: 14px;
   color: black;
   font-weight: bold;
-}
+} */
 
-.uploadPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form {
+/* .form {
   display: flex;
   flex-direction: column;
-}
-.buttondiv {
+} */
+/* .buttondiv {
   display: flex;
-}
+} */
 a {
   text-decoration: none;
 
 }
 
-.leaflet-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+/* .leaflet-map.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
   z-index: 0;
+} */
+
+.uploadPage, .formContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;  
+}
+
+.buildingFormMap{
+  height: 80%;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
 }

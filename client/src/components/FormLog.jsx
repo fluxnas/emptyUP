@@ -32,8 +32,9 @@ const FormLog = () => {
 
   return (
     <div className="formContainer">
-     <form className="form" onSubmit={(event) => {
-        onSubmitHandler(event)}}>
+     <form className="flex flex-col" onSubmit={(event) => {
+        onSubmitHandler(event)
+      }}>
         <div className="inputDiv">
           <input
             type="text"

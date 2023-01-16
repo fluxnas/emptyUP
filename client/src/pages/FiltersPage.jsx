@@ -3,10 +3,10 @@ import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import React, { useState } from 'react';
-//import Calendar from 'react-calendar';
+import Calendar from 'react-calendar';
 import "../App.css";
 import Modal from "../components/Modal";
-//import CalenderForm from "../components/CalenderForm";
+import CalenderForm from "../components/CalenderForm";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
 
@@ -15,7 +15,7 @@ import FormLog from "../components/FormLog";
 
 const FiltersPage =() => {
 	const [modalActive, setModalActive] = useState(false);
-	 const [value, onChange] = useState(new Date());
+	 const [value, setValue] = useState(new Date());
 	 const [modalActiveLogo, setModalActiveLogo] = useState(false);
 	 const [modalActiveLog, setModalActiveLog] = useState(false);
 	 const [modalActiveReg, setModalActiveReg] = useState(false);

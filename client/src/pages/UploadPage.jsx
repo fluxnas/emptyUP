@@ -1,9 +1,10 @@
 import "../App.css";
+import BuildingForm from "../components/BuildingForm";
 
 const UploadPage = () => {
   return (
-    <div className="uploadPage">
-      Upload Page
+    <div className="h-full w-full flex flex-col">
+      <BuildingForm />
     </div>
   );
 };

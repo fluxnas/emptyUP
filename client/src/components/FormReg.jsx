@@ -38,7 +38,7 @@ const FormReg = ({ onSubmit }) => {
   return (
     <div className="formContainer">
       <form
-        className="form"
+        className="flex flex-col"
         onSubmit={(event) => {
           onSubmit(event);
           onSubmitHandler(event);
@@ -73,7 +73,7 @@ const FormReg = ({ onSubmit }) => {
             Confirm your password:{" "}
             <input
               type="password"
-              placeholder="nfirm your password"
+              placeholder="Confirm your password"
               ref={inputRefConfPassword}
             />
           </label>

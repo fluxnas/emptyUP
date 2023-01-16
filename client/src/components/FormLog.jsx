@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
+import LoginButton from "../components/LoginButton"
 
 const FormLog = () => {
   const navigate = useNavigate();
@@ -32,8 +33,7 @@ const FormLog = () => {
   return (
     <div className="formContainer">
      <form className="form" onSubmit={(event) => {
-        onSubmitHandler(event)
-      }}>
+        onSubmitHandler(event)}}>
         <div className="inputDiv">
           <input
             type="text"
@@ -47,7 +47,7 @@ const FormLog = () => {
           />
         </div>
         <div className="buttonDiv">
-            <button type="submit">Login</button>
+            <LoginButton type="submit"/>
         </div>
       </form>
     </div>

@@ -17,7 +17,7 @@ const ProfilePage = () => {
 				<ProfilePicture/>
 				<div className=" hover:shadow-inner hover:shadow-md cursor-pointer w-32 h-32 rounded-full flex-col flex items-center justify-center  px-5 bg-slate-300 flex ">
 					<UploadPicto/>
-					<p className="  text-blue-800 flex items-center text-xs font-bold px-2 text-center w-30">Upload a new profile picture ! </p>		
+					<p className="text-blue-800 flex items-center text-xs font-bold px-2 text-center w-30">Upload a new profile picture ! </p>		
 				</div>
 			</div>
 

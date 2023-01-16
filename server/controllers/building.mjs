@@ -13,6 +13,7 @@ export const getBuildings = async ( req, res ) =>{
     }
 }
 
+
 //get one building by ID
 export const oneBuilding = async ( req, res ) =>{
 const { id } = req.params
@@ -73,16 +74,16 @@ try {
 }
 
 //create a building
-export const creatOneBuilding = async ( req, res ) =>{
+export const createOneBuilding = async ( req, res ) =>{
 try {
     const { adress, zipcode, city, type } = req.body
-    const dateofpost = "123456"
+    const dateofpost = Date.now()
     const admin_id = "3"
-    const photo_url = "tezzzzz"
+    
 
     const newBuilding = await pool.query (
-        "INSERT INTO buildings ( adress, zipcode, city, type, dateofpost, admin_id, photo_url ) VALUES ( $1, $2, $3, $4, $5, $6, $7 ) RETURNING *",
-        [ adress, zipcode, city, type, dateofpost, admin_id, photo_url ]
+        "INSERT INTO buildings ( adress, zipcode, city, type, dateofpost, admin_id ) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING *",
+        [ adress, zipcode, city, type, dateofpost, admin_id ]
     )
     res.json(newBuilding.rows[0])
 } catch ( err ) {
@@ -99,7 +100,7 @@ export const updateBuilding = async (req, res) => {
           "UPDATE buildings SET adress = $1, zipcode = $2, city = $3, type = $4 WHERE id = $5", 
           [adress, zipcode, city, type, id ]
       )
-      res.json("building  updated successfully")
+      res.json("building updated successfully")
   } catch (err) {
       console.error(err.message)
       res.status(500).json("Error updating building ")

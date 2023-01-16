@@ -3,49 +3,91 @@ import bodyParser from "body-parser"
 import cookie from "cookie-parser";
 import * as dotenv from "dotenv"
 import jwtauth from "./middleware/verifToken.mjs"
+import fileUpload from "express-fileupload"
 import { dbConnect }from "./models/dbConnect.mjs"
 import { login, register } from "./controllers/reg-log.mjs"
-import { deleteBuilding,getAdress, 
+import { createOneBuilding, deleteBuilding,getAdress, 
         getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/building.mjs";
 import { createUser, deleteUser, getUsers, oneUser } from "./controllers/user.mjs";
+import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
+import { createLike } from "./controllers/likes.mjs"
+import { uploadImage } from "./controllers/photos.mjs";
+
+
 
 
 dotenv.config()
 const server = express()
-const PORT = 5000
+const PORT = 5500
 // connexion to DB  
 dbConnect()
-
-
 // Body-Parser
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({extended: true}))
 // JSON
+server.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: './uploads',
+    limits: { fileSize: 50 * 1024 * 1024 }
+}));
 server.use(express.urlencoded({extended: true, limit: '50mb'}))
 server.use(express.json({limit: '50mb'}))
 // Server side browser 5000
 server.get('/', ( req, res ) =>{
     res.send("Hello")
 })
-server.post('/api/user/login', login)
-server.post('/api/user/register', register)
-server.post('/api/addbuilding',jwtauth, getBuildings )
+// login
+server.post('/api/login', login)
+// register
+server.post('/api/register', register)
+
+// BUILDINGS
+// all buildings
 server.get('/api/buildings', getBuildings)
-server.get('/api/buildings/:ID', oneBuilding )
+// one building
+server.get('/api/building/:id', oneBuilding )
+// building zipcode
 server.get('/api/building/zipcode', getZipcode)
+// building city
 server.get('/api/building/city', getCity)
+// building adress
 server.get('/api/building/adress', getAdress)
-server.put('/api/user/updateuser/:ID', updateBuilding)
+// create building
+server.post('/api/addbuilding', createOneBuilding)
+// update building
+server.put('/api/updatebuilding/:id', updateBuilding)
+// delete building
 server.delete('/api/deletebuilding', deleteBuilding)
-server.post('/api/user/adduser', createUser)
-server.get('/api/user/users', getUsers)
-server.get('/api/user/userid/:ID', oneUser)
-server.delete('api/user/deleteuser', deleteUser)
+
+// USERS
+// create user
+server.post('/api/adduser',jwtauth, createUser)
+// see all users
+server.get('/api/users', getUsers)
+// one user
+server.get('/api/user/:id', oneUser)
+// delete user
+server.delete('api/deleteuser', deleteUser)
+
+// ANNONCES
+// all annonces
+server.get('/api/annonces', getAnnonces)
+// create annonce
+server.post('/api/addannonce', createAnnonce)
+// one annonce
+server.get('/api/annonce/:id', oneAnnonce)
+// update annonce need token to make it work
+server.put('/api/annonce/:id', updateAnnonce)
+// delete annonce
+server.delete('/api/annonce/:id', deleteAnnonce)
+// create likes
+server.post('/api/like', createLike)
+// upload images
+server.post('/api/upload', uploadImage)
 
 
 
-
-
+    
 
 
 server.listen(PORT, () => console.log(`Backend running on port: ${PORT}`))

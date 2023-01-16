@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
+import LoginButton from "../components/LoginButton"
 
 const FormLog = () => {
   const navigate = useNavigate();
@@ -46,8 +47,8 @@ const FormLog = () => {
             ref={inputRefPassword}
           />
         </div>
-        <div className="flex">
-            <button type="submit">Login</button>
+        <div className="buttonDiv">
+            <LoginButton type="submit"/>
         </div>
       </form>
     </div>

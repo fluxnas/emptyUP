@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import axios from 'axios';
+import RegisterButton from "../components/RegisterButton"
 
 const FormReg = ({ onSubmit }) => {
   const [isChecked, setIsChecked] = useState(false);
@@ -86,10 +87,8 @@ const FormReg = ({ onSubmit }) => {
             advice, instead all the information and materials...learn more
           </label>
         </div>
-        <div className="flex">
-          <button type="submit" disabled={!isChecked}>
-            Register
-          </button>
+        <div className="buttonDiv">
+          <RegisterButton type="submit" disabled={!isChecked}/>
         </div>
       </form>
     </div>

@@ -35,8 +35,8 @@ const App = () => {
         <Route path="/terms" element={<TermsPage/>}/>
       </Routes>
     </BrowserRouter>
-    
     </div>
+    
   );
 }
 

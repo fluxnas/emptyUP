@@ -1,5 +1,5 @@
 import { pool } from "../models/Client.mjs"
-import cloudinary from "cloudinary"
+import cloudinary from "../middleware/cloudinary.mjs"
 
 
 export const uploadImage = (req, res) => {
@@ -20,4 +20,18 @@ export const uploadImage = (req, res) => {
             console.log(error)
             res.send(error)
         });
+}
+
+// delete image
+export const deleteUploadImage = async ( req, res ) =>{
+    try{
+        const { id } = req.params
+        const deleteImage = await pool.query(
+            "DELETE FROM images WHERE id = $1",
+            [id]
+        )
+        res.json("Image has been deleted!")
+    } catch ( err ) {
+        console.error(err.message)
+    }
 }

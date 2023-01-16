@@ -11,7 +11,7 @@ import { createOneBuilding, deleteBuilding,getAdress,
 import { createUser, deleteUser, getUsers, oneUser } from "./controllers/user.mjs";
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
 import { createLike } from "./controllers/likes.mjs"
-import { uploadImage } from "./controllers/photos.mjs";
+import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
 
 
 
@@ -24,6 +24,7 @@ dbConnect()
 // Body-Parser
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({extended: true}))
+server.use(cookie())
 // JSON
 server.use(fileUpload({
     useTempFiles: true,
@@ -82,8 +83,11 @@ server.put('/api/annonce/:id', updateAnnonce)
 server.delete('/api/annonce/:id', deleteAnnonce)
 // create likes
 server.post('/api/like', createLike)
+
+// IMAGES
 // upload images
 server.post('/api/upload', uploadImage)
+server.delete('/api/delupload/:id', deleteUploadImage)
 
 
 

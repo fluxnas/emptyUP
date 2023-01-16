@@ -35,9 +35,9 @@ server.use(fileUpload({
 }))
 
 cloudinary.config({
-  cloud_name: 'dn5m5l5tm',
-  api_key: '521678454952891',
-  api_secret: 'F-pnU7X4E7fg0vY2q6L6NQ-E04k'
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
 });
 
 

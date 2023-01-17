@@ -76,7 +76,7 @@ const MessagesPage =() => {
           			/>
           			<PostButton type="submit"/>
           		</div>
-          		<input className="w-4/5  bg-red-200 flex  h-24"
+          		<input className=" bg-red-200 flex  h-24"
             	type="text"
             	placeholder="You can wrote a message here!..........................................................................................................................................................................................................."
             	ref={inputRefMessage}

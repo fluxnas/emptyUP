@@ -24,7 +24,7 @@ dbConnect()
 // Body-Parser
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({extended: true}))
-server.use(cookie())
+server.use(cookie(process.env.SECRET_JWT))
 // JSON
 server.use(fileUpload({
     useTempFiles: true,
@@ -62,7 +62,7 @@ server.delete('/api/deletebuilding', deleteBuilding)
 
 // USERS
 // create user
-server.post('/api/adduser',jwtauth, createUser)
+server.post('/api/adduser', createUser)
 // see all users
 server.get('/api/users', getUsers)
 // one user

@@ -12,20 +12,11 @@ const sign = promisify(JWT.sign);
 // Register
 
 export const register = async (req, res) => {
-  const { username, email, password, confirm_password } = req.body;
+  const { username, email, password } = req.body;
 
   if (!email || !password || !username)
     return res.status(400).send({ error: "invalid request" });
 
-  if (password !== confirm_password) {
-    return res.status(400).send({ error: "passwords do not match" });
-  }
-
-  if (!password || !confirm_password) {
-    return res
-      .status(400)
-      .send({ error: "password or confirm password is not provided" });
-  }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);

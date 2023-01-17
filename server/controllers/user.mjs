@@ -32,11 +32,11 @@ export const oneUser = async ( req, res ) =>{
 export const createUser = async ( req, res ) =>{
     try {
         const { username, email, password } = req.body
-        const newBuilding = await pool.query (
+        const newUser = await pool.query (
             "INSERT INTO users ( username, email, password ) VALUES ( $1, $2, $3 ) RETURNING *",
             [ username, email, password ]
         )
-        res.json(newBuilding.rows[0])
+        res.json(newUser.rows[0])
     } catch ( err ) {
         console.error( err.message )
     }

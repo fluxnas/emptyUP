@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import Pp from '../assets/Pp.png';
-
 const ProfilePicture = () => {
 	return (
-		<div className="ProfilePicture">
-					<img src= {Pp} alt="profile picture" style={{ width:'150px', height: '150px', boxSizing: 'cover'}} />
+		<div className="hover:scale-125 px-5 "
+		>
+					<img src= {Pp} alt="profile picture" className="  rounded-full  w-32 h-32 " />
+					
+
 		</div>	
 
 		)

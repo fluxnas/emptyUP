@@ -1,4 +1,3 @@
-import "./App.css";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import HomePage from "./pages/HomePage"
 import AnnouncementPage from "./pages/AnnouncementPage"
@@ -6,8 +5,6 @@ import AnnouncementsPage from "./pages/AnnouncementsPage"
 import BuildingPage from "./pages/BuildingPage"
 import FavoritesPage from "./pages/FavoritesPage"
 import ListPage from "./pages/ListPage"
-import LoginPage from "./pages/LoginPage"
-import RegisterPage from "./pages/RegisterPage"
 import MessagePage from "./pages/MessagePage"
 import MessagesPage from "./pages/MessagesPage"
 import ProfilePage from "./pages/ProfilePage"
@@ -15,13 +12,11 @@ import UploadedPage from "./pages/UploadedPage"
 import UploadPage from "./pages/UploadPage"
 import SearchPage from "./pages/SearchPage"
 import FiltersPage from "./pages/FiltersPage"
-import { useState } from "react";
-
-
+import TermsPage from "./pages/TermsPage"
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="h-screen w-full appContainer p-0 m-0">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage className="homepage"/>}/>
@@ -30,8 +25,6 @@ const App = () => {
         <Route path="/building" element={<BuildingPage/>}/>
         <Route path="/favorites" element={<FavoritesPage/>}/>
         <Route path="/list" element={<ListPage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/message" element={<MessagePage/>}/>
         <Route path="/messages" element={<MessagesPage/>}/>
         <Route path="/profile" element={<ProfilePage/>}/>
@@ -39,9 +32,11 @@ const App = () => {
         <Route path="/upload" element={<UploadPage/>}/>
         <Route path="/search" element={<SearchPage/>}/>
         <Route path="/filters" element={<FiltersPage/>}/>
+        <Route path="/terms" element={<TermsPage/>}/>
       </Routes>
     </BrowserRouter>
     </div>
+    
   );
 }
 

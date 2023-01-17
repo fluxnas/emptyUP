@@ -27,7 +27,7 @@
     "eject": "react-scripts eject",
     "build:css": "postcss src/styles/styles.css -o src/styles/public/styles.css"
   },
-  "proxy": "http://localhost:5000",
+  
   
   "eslintConfig": {
     "extends": [

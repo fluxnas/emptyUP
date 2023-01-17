@@ -14,7 +14,7 @@ import { dbConnect } from "./models/dbConnect.mjs";
 import cookie from "cookie-parser";
 import dotenv from "dotenv";
 import { register, login } from "./controllers/users.mjs";
-import { uploadImage } from "./controllers/imagesUpload.mjs";
+import { uploadImage } from "./controllers/images.mjs";
 import jwtAuthentification from "./middleware/verifyToken.mjs";
 import * as cloudinary from "cloudinary";
 
@@ -51,7 +51,7 @@ server.post("/api/user/register", register);
 server.post("/api/user/login", login);
 
 // buildings related endpoints
-server.post("/api/addbuilding", jwtAuthentification, addBuilding);
+server.post("/api/addbuilding",  addBuilding); //jwtAuthentification,
 server.get("/api/building", getBuilding);
 
 // images related endpoints

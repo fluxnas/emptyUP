@@ -50,9 +50,12 @@ export const login = async (req, res) => {
     [email]
   );
 
+  
+    
   if (query.rowCount === 0) {
     return res.status(404).send({ error: "user do not exists" });
   }
+  
 
   const result = query.rows[0];
   const match = await bcrypt.compare(password, result.password);
@@ -68,6 +71,9 @@ export const login = async (req, res) => {
       res.cookie("access_token", token, {
         httpOnly: true,
       });
+      res.send({id : `${query.rows[0].id}`})
+      
+      
     } catch (err) {
       console.log(err);
       return res.status(500).send({ error: "Cannot generate token" });

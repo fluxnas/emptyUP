@@ -3,7 +3,6 @@ import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import Modal from "../components/Modal";
-// import "../App.css";
 import { useState } from "react";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
@@ -29,7 +28,9 @@ const onClickReg=() => {
       <LeafletContainer>
         <LeafletMap/>
       </LeafletContainer>
+      
       <UploadLogo setActive={setModalActive}/>
+      
       <Modal active={modalActive} setActive={setModalActive}>
         <p className="flex justify-center text-base">You need to register and login before uploading spaces. </p>
         <div className="flex justify-around">

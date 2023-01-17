@@ -5,6 +5,9 @@ import { LeafletContainer } from "../maps/formMap/leaflet-container";
 import { LeafletMap } from "../maps/formMap/leaflet-map";
 import { Popup } from "react-leaflet";
 
+
+
+
 const BuildingForm = ({ submit }) => {
   const inputRefCity = useRef();
   const inputRefZipcode = useRef();
@@ -136,8 +139,7 @@ const BuildingForm = ({ submit }) => {
         <LeafletContainer
           className="buildingFormMap"
           center={[coordinates.lat, coordinates.lon]}
-          zoom={13}
-        >
+          zoom={13}>
           <LeafletMap coordinates={coordinates} onClick={() => setPopup(true)}>
             <Popup className="popup">
               {image && (
@@ -155,6 +157,8 @@ const BuildingForm = ({ submit }) => {
             </Popup>
           </LeafletMap>
         </LeafletContainer>
+
+
       )}
     </div>
   );

@@ -15,9 +15,9 @@ const Username="Roro68"
 const MessagesPage =() => {
 
 const [msgs, setMsgs] = useState([]);
-
 const [newMsg, setNewMsg] = useState("")
-// Save todos to localStorage
+const [newUsername, setNewUsername] = useState("")
+
  
 //COMPORTEMENTS
 const deleteMsg= (id) => {
@@ -31,23 +31,29 @@ const deleteMsg= (id) => {
 
 const handleSubmit = (event) => {
   event.preventDefault()
-  //copie
-  const copyMsgs = [...msgs]
+  
   //manipuler
   const id = new Date().getTime()
   const name = newMsg
-  const msgToAdd={ id, name}
-  copyMsgs.push(msgToAdd)
+  const username=newUsername
+  const msgToAdd={ id, name, username}
+  msgs.push(msgToAdd)
   //actualiser
-  setMsgs(copyMsgs);
+  setMsgs(msgs);
   setNewMsg("")
+  setNewUsername("")
 }
 
 
 const handleChange =(event) =>{
   setNewMsg(event.target.value)
-
 }
+
+
+const handleChangeU =(event) =>{
+  setNewUsername(event.target.value)
+}
+
 
 
 /*
@@ -103,10 +109,10 @@ const handleChange =(event) =>{
        				<div className=" w-full   box-border flex pb-2">
         					<h4 className="font-bold text-sm italic ">SEND A MESSAGE TO: </h4>
           					<input className=" italic h-4 bg-slate-50 text-xs mx-3 text-blue-800  shadow-inner p-3 text-center"
-            				//value={}
+            				value={newUsername}
             				type="text"
             				placeholder="Enter the username"
-            				onChange={handleChange}/>
+            				onChange={handleChangeU}/>
           			</div>
           			<div className="box-border shadow-inner w-11/12 h-3/5     ">
           				<input className="  h-full w-full bg-slate-50 "

@@ -11,9 +11,12 @@ return(
          <NavLink to="/message" className="flex">
 			<ProfilePicture /> 
 			<div className="flex flex-col   ">
+				<h5 className="text-blue-800 text-xl font-bold capitalize p-0 m-0">{props.info.username}{""}</h5>
 				<h5 className="text-blue-800 p-0 m-0">{Username} wrote on {date} :</h5>
-				<p className="text-justify text-sm pr-6 h-16 overflow-hidden ">
-				{props.info.name}{""}
+				<p className="text-justify italic text-sm pr-6 h-16 overflow-hidden ">
+				"{props.info.name}{""}"
+
+				
 				</p>
 			</div>
 		</NavLink> 

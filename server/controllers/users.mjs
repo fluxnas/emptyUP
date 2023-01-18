@@ -50,7 +50,7 @@ export const login = async (req, res) => {
     [email]
   );
 
-  console.log(query)
+
     
   if (query.rowCount === 0) {
     return res.status(404).send({ error: "user do not exists" });

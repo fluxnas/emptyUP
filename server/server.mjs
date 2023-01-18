@@ -9,12 +9,19 @@ import {
   addBuilding,
 } from "./controllers/buildings.mjs";
 
+import{
+    postAnnonces, 
+    getAllAnnonces,
+    getOneAnnonce,
+    deleteAnnonce,
+    updateAnnonce
+} from "./controllers/annonces.mjs"
 
 import { dbConnect } from "./models/dbConnect.mjs";
 import cookie from "cookie-parser";
 import dotenv from "dotenv";
 import { register, login,  uploadProfilPicture } from "./controllers/users.mjs";
-import { uploadBuilgingImage  } from "./controllers/images.mjs";
+import { uploadImage  } from "./controllers/images.mjs";
 import jwtAuthentification from "./middleware/verifyToken.mjs";
 import * as cloudinary from "cloudinary";
 
@@ -56,7 +63,15 @@ server.post("/api/addbuilding",  addBuilding); //jwtAuthentification,
 server.get("/api/building", getBuilding);
 
 // images related endpoints
-server.post("/api/building/uploadimage", uploadBuilgingImage);
+server.post("/api/building/uploadimage", uploadImage);
+
+// announcement
+server.post("/api/annonces/add", postAnnonces )
+server.get("/api/annonces", getAllAnnonces)
+server.get("/api/annonces/:id", getOneAnnonce)
+server.put("/api/annonces/update", updateAnnonce)
+server.delete("/api/annonces/:id", deleteAnnonce)
+
 
 server.listen(5500, () => {
   console.log("app is runing");

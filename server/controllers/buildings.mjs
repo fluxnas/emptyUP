@@ -10,30 +10,38 @@ export const getBuildings = async (req, res) => {
   }
 };
 
-export const getBuilding = (req, res) => {
+export const getBuilding = async (req, res) => {
   const { adress, zipcode, city, type } = req.body;
 
-  
- pool.query(
+  try {
+    const result = await pool.query(
       "SELECT * FROM buildings WHERE adress = $1 OR zipcode = $2 OR city = $3 OR type = $4",
-      [adress, zipcode, city, type], (error, results) => {
-        if (error) {
-          throw error;
-        }
-        res.status(200).json(results.rows);
-      });
- 
+      [adress, zipcode, city, type]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    if (error.code === "42P01") {
+      return res.status(404).json({ error: "Table not found" });
+    }
+    res.status(400).json({ error: "Bad request" });
+  }
 };
 
-export const addBuilding = (req, res) => {
-    const { adress, zipcode, city, type } = req.body; 
-    const admin_id = req.decoded
-    
-    pool.query(
-            "insert into buildings (adress, zipcode, city, type, admin_id) values ($1, $2, $3, $4)",
-            [adress, zipcode, city, type, admin_id]
-        );
-        return res.send({info: "building successfully added"});
+export const addBuilding = async (req, res) => {
+  const { adress, zipcode, city, type } = req.body;
+  const admin_id = "2"
+  if (!adress || !zipcode || !city || !type) {
+    return res.status(400).json({ error: "Missing parameters" });
+  }
+  try {
+    await pool.query(
+      "insert into buildings (adress, zipcode, city, type, admin_id) values ($1, $2, $3, $4, $5)",
+      [adress, zipcode, city, type, admin_id]
+    );
+    return res.status(201).send({ info: "building successfully added" });
+  } catch (error) {
+    res.status(400).send({ error: "invalid request" });
+  }
 };
 
 export const updateBuilding = (req, res) => {};

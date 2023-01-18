@@ -14,7 +14,7 @@ import { dbConnect } from "./models/dbConnect.mjs";
 import cookie from "cookie-parser";
 import dotenv from "dotenv";
 import { register, login } from "./controllers/users.mjs";
-import { uploadBuilgingImage, uploadProfilPicture  } from "./controllers/images.mjs";
+import { uploadImage } from "./controllers/imagesUpload.mjs";
 import jwtAuthentification from "./middleware/verifyToken.mjs";
 import * as cloudinary from "cloudinary";
 
@@ -49,14 +49,13 @@ server.get("/", (req, res) => {
 // user related endpoints
 server.post("/api/user/register", register);
 server.post("/api/user/login", login);
-server.post("/api/user/profilpicture", uploadProfilPicture  ) //jwtauthentification
 
 // buildings related endpoints
-server.post("/api/addbuilding",  addBuilding); //jwtAuthentification,
+server.post("/api/addbuilding", jwtAuthentification, addBuilding);
 server.get("/api/building", getBuilding);
 
 // images related endpoints
-server.post("/api/building/uploadimage", uploadBuilgingImage);
+server.post("/api/building/uploadimage", uploadImage);
 
 server.listen(5500, () => {
   console.log("app is runing");

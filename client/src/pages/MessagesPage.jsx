@@ -10,7 +10,7 @@ import Message from "../components/Message"
 import Pp from '../assets/Pp.png';
 
 const Username="Roro68"
-const date="07/12/22"
+
 
 const MessagesPage =() => {
 
@@ -35,8 +35,8 @@ const handleSubmit = (event) => {
   const copyMsgs = [...msgs]
   //manipuler
   const id = new Date().getTime()
-  const msg = newMsg
-  const msgToAdd={ id, msg}
+  const name = newMsg
+  const msgToAdd={ id, name}
   copyMsgs.push(msgToAdd)
   //actualiser
   setMsgs(copyMsgs);
@@ -81,42 +81,43 @@ const handleChange =(event) =>{
 
 		 <div className="h-full flex flex-col box-border " id="box">
 		 	
-				<NavLink to="/profile" className="flex h-1/12 box-border font-bold justify-flex-start p-2 hover:shadow-inner">
-        			<img src={Left} alt="back" className="flex box-border" style={{ height: '20px', marginTop :'2px',marginRight:'3px'}}/> 
+				<NavLink to="/profile" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
+        			<img src={Left} alt="back" className="flex box-border" style={{ width: '20px',height: '20px', marginTop :'2px',marginRight:'3px'}}/> 
         			<a className=" text-l hover:decoration-double text-left " alt="filters bar">
         			BACK TO PROFIL 
         			</a>
       			</NavLink>
-     		
-     		
-     		<div className="h-full flex flex-col box-border justify-between items-center  rounded-[25px]   "> 
-				<h3 className="text-black font-bold text-5xl flex justify-center py-2">
+     		<h3 className="text-black box-border h-1/6 font-bold text-5xl flex justify-center  ">
 				My Messages</h3>
-				<ul className=" box-border h-2/4 w-11/12 my-2 flex overflow-hidden flex-col  items-start ">
+     		
+     		<div className="h-4/6 flex flex-col box-border  items-center  rounded-[25px]   "> 
+				
+				<ul className=" shadow-inner h-4/6 box-border bg-slate-50  w-11/12  rounded-[25px] p-3 flex overflow-scroll  flex-col  items-start ">
         				{msgs.map((msg) => (
           					<Message info={msg} delete={deleteMsg} key={msg.id}/>
         				))}
       			</ul>
       			
 
-  				<form className="p-3 mx-4 flex  justify-between box-border flex-col items-center border-dotted border-3 border border-black rounded-[25px] h-1/4 w-11/12" action="submit" onSubmit={handleSubmit}>
+  				<form className="p-3 mt-4 flex  justify-between box-border flex-col items-center border-dotted border-3 border border-black rounded-[25px] h-2/6 w-11/12" action="submit" onSubmit={handleSubmit}>
        				<div className=" w-full   box-border flex pb-2">
         					<h4 className="font-bold text-sm italic ">SEND A MESSAGE TO: </h4>
-          					<input className=" italic h-4 bg-slate-50 text-sm mx-3 text-blue-800  shadow-inner p-3 text-center"
-            				value={newMsg}
+          					<input className=" italic h-4 bg-slate-50 text-xs mx-3 text-blue-800  shadow-inner p-3 text-center"
+            				//value={}
             				type="text"
             				placeholder="Enter the username"
             				onChange={handleChange}/>
           			</div>
-          		
-          			<input className=" box-border shadow-inner w-11/12 h-3/5 bg-slate-50   flex "
-            		value={newMsg}
-            		type="text"
-            		placeholder="You can wrote a message here!..........................................................................................................................................................................................................."
-            		onChange={handleChange}/>
+          			<div className="box-border shadow-inner w-11/12 h-3/5     ">
+          				<input className="  h-full w-full bg-slate-50 "
+            			value={newMsg}
+            			type="text"
+            			placeholder="You can wrote a message here!"
+            			onChange={handleChange}/>  
+            		</div>
             		<PostButton type="submit"/>
-            	
       			</form>
+      			<footer className="h-1/12"></footer>
       		</div>
 		</div>
 	)

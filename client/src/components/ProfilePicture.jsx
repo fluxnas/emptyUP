@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom'
 import Pp from '../assets/Pp.png';
 const ProfilePicture = () => {
 	return (
-		<div className=" px-5 ">
-					<img src= {Pp} alt="profile picture" className="    m-2 w-32 h-32 " />	
+		<div className=" pr-3 pb-3 ">
+					<img src= {Pp} alt="profile picture" className="     w-32 h-32 " />	
 
 
 		</div>	

@@ -50,8 +50,6 @@ return (
                  </p>		
 				      </div>
           </div>
-
-
 			<NavLink to="/favorites"> 
         <button className=" rounded-lg border-slate-150 border-2 hover:shadow-md hover:text-blue-400 hover:shadow-inner  w-64 bg-white-300 text-blue-800  font-bold cursor-pointer text-l  p-1 flex justify-center ">
         My Favorites
@@ -87,22 +85,21 @@ return (
       <UploadLogo/> 
       </NavLink> 
 
-  <UnsubscribeButton setActive={setModalActive} />
-       <Modal active={modalActive} setActive={setModalActive}>
-        <p className="flex justify-center py-5 text-base">Are you sure you want to unsubscribe from EmptyUp ? </p>
-        <div className="flex px-10 py-5 justify-around">
-          <YesButton onClick={onClickYes}/> 
-          <NoButton onClick={onClickNo}/>
-        </div>
+      <UnsubscribeButton setActive={setModalActive} />
+
+      <Modal active={modalActive} setActive={setModalActive}>
+          <p className="flex justify-center py-5 text-base">Are you sure you want to unsubscribe from EmptyUp ? </p>
+          <div className="flex px-10 py-5 justify-around">
+            <YesButton onClick={onClickYes}/>
+            <NoButton onClick={onClickNo}/>
+          </div>
       </Modal>
       <Modal active={modalActiveYes} setActive={setModalActiveYes}>
         <p className="flex justify-center py-5 text-base">You have sucessfully unsubscribe from EmptyUp! </p>
       </Modal>
-     
-      
-      </div>
-        </div>
-    )
+    </div>
+  </div>
+  )
 }
 
 export default ProfilePage

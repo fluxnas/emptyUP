@@ -23,14 +23,15 @@ const BuildingForm = ({ submit }) => {
       city: inputRefCity.current.value,
       zipcode: inputRefZipcode.current.value,
       address: inputRefAddress.current.value,
-      position: [coordinates.lat, coordinates.lon],
+      // position: [coordinates.lat, coordinates.lon],
       type: inputRefType.current.value,
-      dateofpost: inputRefDate.current.value
-      //admin_id
+      dateofpost: inputRefDate.current.value,
+      // admin_id
     };
+
     console.log(newBuilding);
     // submit(newBuilding);
-
+   
     const address =
       inputRefZipcode.current.value +
       " " +
@@ -47,31 +48,19 @@ const BuildingForm = ({ submit }) => {
         const { lat, lon } = response.data[0];
         setCoordinates({ lat, lon });
       });
-      // const formData = new FormData();
-      // formData.append('file', image);
-      // formData.append('upload_preset', 'your_upload_preset');
-      // formData.append('cloud_name', 'dbi2upcex');
-      // formData.append('api_key', '814837794796234');
-      
-      const formData = {
-        file: image,
-        cloud_name: 'dbi2upcex',
-        api_key: '814837794796234'
-      }
 
-      console.log(formData)
-      console.log(image)
-  
-      const config = {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      };
-  
-
-    const res = axios.post(
-      'https://api.cloudinary.com/v1_1/dbi2upcex/image/upload',
-      formData,
-      config
-    );
+    const formData = new FormData();
+    formData.append('image', image);
+    
+   axios.post('/api/building/uploadimage', formData)
+    .then(response => {
+        console.log(response);
+        // setIsSubmitting(false);
+    })
+    .catch(error => {
+        console.log(error);
+        // setIsSubmitting(false);
+    });
   };
   return (
     <div className="h-full w-full flex flex-col">
@@ -125,16 +114,12 @@ const BuildingForm = ({ submit }) => {
         </Form.Group>
         <Form.Group controlId="date">
           <Form.Label>Date: </Form.Label>
-          <Form.Control
-            type="date"
-            ref={inputRefDate}
-          />
+          <Form.Control type="date" ref={inputRefDate} />
         </Form.Group>
         <Button type="submit">Add a building</Button>
       </Form>
       {coordinates.lat !== 0 && coordinates.lon !== 0 && (
         <LeafletContainer
-          className="buildingFormMap"
           center={[coordinates.lat, coordinates.lon]}
           zoom={13}
         >

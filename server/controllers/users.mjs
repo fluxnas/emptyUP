@@ -82,3 +82,17 @@ export const login = async (req, res) => {
     return res.status(403).send({ error: "wrong password" });
   }
 };
+
+
+export const uploadProfilPicture = async (req, res) => {
+  const file = await req.files.image
+  try{
+      const result = await cloudinary.uploader.upload(file.tempFilePath)
+      const user_id = req.decoded
+      const profilPicture = await pool.query('insert into users (profilpicture_url) values ($1) where id = $2', 
+      [result.secure_url, user_id ]);
+      return res.send({ info : `profil picture succesfully uploaded for user ${user_id} `})
+  }catch(err) {
+      res.status(400).send({error : err})
+  }
+}

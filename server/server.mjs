@@ -13,8 +13,8 @@ import {
 import { dbConnect } from "./models/dbConnect.mjs";
 import cookie from "cookie-parser";
 import dotenv from "dotenv";
-import { register, login } from "./controllers/users.mjs";
-import { uploadBuilgingImage, uploadProfilPicture  } from "./controllers/images.mjs";
+import { register, login,  uploadProfilPicture } from "./controllers/users.mjs";
+import { uploadBuilgingImage  } from "./controllers/images.mjs";
 import jwtAuthentification from "./middleware/verifyToken.mjs";
 import * as cloudinary from "cloudinary";
 

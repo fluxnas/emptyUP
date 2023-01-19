@@ -16,28 +16,30 @@ const AnnoucementsPage =() => {
 	const [newPost, setNewPost] = useState("")
 	const [newSubject, setNewSubject] = useState("")
 
-	const deletePost= (id) => {
-  	setPosts(posts.filter((post) => post.id !== id));
-	}
+
+    const id = new Date().getTime()
+    const content = newPost
+    const subject = newSubject
+    const postToAdd={ id, content, subject}
+
+
+    const deletePost= (id) => {
+    setPosts(posts.filter((post) => post.id !== id));
+    }
 
 	const handleSubmit = (event) => {
-  	event.preventDefault()
-  	const id = new Date().getTime()
-  	const name = newPost
-  	const subject = newSubject
-  	const postToAdd={ id, name, subject}
-  	posts.push(postToAdd)
-    axios.post('/api/annonces/add', postToAdd)
-        .then(response => {
-            console.log(response.postToAdd);
-        })
-        .catch(error => {
+  	     event.preventDefault()
+  	     posts.push(postToAdd)
+  	     setPosts(posts);
+  	     setNewPost("")
+  	     setNewSubject("")
+         axios.post('/api/annonces/add', postToAdd)
+         .then(response => {
+            console.log(response)
+         })
+         .catch(error => {
             console.log(error);
-        });
-
-  	setPosts(posts);
-  	setNewPost("")
-  	setNewSubject("")
+         });
 	}
 
     const handleChange =(event) =>{
@@ -90,6 +92,22 @@ const AnnoucementsPage =() => {
 		</div>
 	)
 }
+/*const navigate = useNavigate();
+  const inputRefUserName = useRef();
+  const inputRefMessage = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(inputRefMessage.current.value);
+    console.log(inputRefUserName.current.value);
+    navigate("/messages");
+    setIsSubmitting(true);
+    const data = {
+        userName: inputRefUserName.current.value,
+        src: Pp
+        message: inputRefMessage.current.value
+    };*/
 
 
 export default AnnoucementsPage

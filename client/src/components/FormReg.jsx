@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
-import axios from 'axios';
-import RegisterButton from "../components/RegisterButton"
+import axios from "axios";
+import RegisterButton from "../components/RegisterButton";
 
 const FormReg = ({ onSubmit }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const inputRefUsername = useRef();
   const inputRefEmail = useRef();
   const inputRefPassword = useRef();
@@ -19,20 +18,21 @@ const FormReg = ({ onSubmit }) => {
     console.log(inputRefConfPassword.current.value);
     setIsSubmitting(true);
     const data = {
-        username: inputRefUsername.current.value,
-        email: inputRefEmail.current.value,
-        password: inputRefPassword.current.value,
-        confirm_password: inputRefConfPassword.current.value
+      username: inputRefUsername.current.value,
+      email: inputRefEmail.current.value,
+      password: inputRefPassword.current.value,
+      confirm_password: inputRefConfPassword.current.value,
     };
-    axios.post('/api/user/register', data)
-        .then(response => {
-            console.log(response.data);
-            setIsSubmitting(false);
-        })
-        .catch(error => {
-            console.log(error);
-            setIsSubmitting(false);
-        });
+     axios
+      .post("/api/user/register", data)
+      .then((response) => {
+        console.log(response.data);
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -88,7 +88,7 @@ const FormReg = ({ onSubmit }) => {
           </label>
         </div>
         <div className="buttonDiv">
-          <RegisterButton type="submit" disabled={!isChecked}/>
+          <RegisterButton type="submit" disabled={!isChecked} />
         </div>
       </form>
     </div>

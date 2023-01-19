@@ -2,25 +2,23 @@ import { pool } from "../models/Client.mjs"
 import cloudinary from "../middleware/cloudinary.mjs"
 
 
-export const uploadImage = (req, res) => {
-        const file = req.files.image
-        cloudinary.uploader
-        .upload(file.tempFilePath)
-        .then(result => {
-            console.log(result)
+export const uploadImage = async (req, res) => {
+        const file = await req.files.image
+        try{
+            const result = await cloudinary.uploader.upload( file.tempFilePath )
             const public_id = result.public_id
             const building_id = "2"
-            console.log(public_id)
-            res.send(public_id)
-            pool.query("insert into images (cloudinary_id, image_url, building_id) values ($1, $2, $3) RETURNING *",
-            [result.public_id, result.secure_url, building_id])
-        })
+            await pool.query(
+                "INSERT INTO images (cloudinary_id, image_url, building_id) VALUES ($1, $2, $3) RETURNING *",
+                [result.public_id, result.secure_url, building_id]
+            )
+            return res.send({ info: "image uploaded succesfuly" })
 
-        .catch(error => {
-            console.log(error)
-            res.send(error)
-        });
-}
+        }   catch ( err ) { 
+            console.error( err.message )
+        }
+    }
+        
 
 // delete image
 export const deleteUploadImage = async ( req, res ) =>{

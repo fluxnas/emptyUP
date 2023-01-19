@@ -7,11 +7,12 @@ import fileUpload from "express-fileupload"
 import { dbConnect }from "./models/dbConnect.mjs"
 import { login, register } from "./controllers/reg-log.mjs"
 import { createOneBuilding, deleteBuilding,getAdress, 
-        getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/building.mjs";
+        getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/buildings.mjs";
 import { createUser, deleteUser, getUsers, oneUser } from "./controllers/user.mjs";
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
 import { createLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
+import { createMessage } from "./controllers/messages.mjs";
 
 
 
@@ -42,6 +43,16 @@ server.post('/api/login', login)
 // register
 server.post('/api/register', register)
 
+// USERS
+// create user
+server.post('/api/adduser', createUser)
+// see all users
+server.get('/api/users', getUsers)
+// one user
+server.get('/api/user/:id', oneUser)
+// delete user
+server.delete('api/deleteuser', deleteUser)
+
 // BUILDINGS
 // all buildings
 server.get('/api/buildings', getBuildings)
@@ -60,15 +71,8 @@ server.put('/api/updatebuilding/:id', updateBuilding)
 // delete building
 server.delete('/api/deletebuilding', deleteBuilding)
 
-// USERS
-// create user
-server.post('/api/adduser', createUser)
-// see all users
-server.get('/api/users', getUsers)
-// one user
-server.get('/api/user/:id', oneUser)
-// delete user
-server.delete('api/deleteuser', deleteUser)
+// MESSAGES
+server.post('/api/messages', createMessage)
 
 // ANNONCES
 // all annonces

@@ -33,8 +33,9 @@ export const uploadImage = async (req, res) => {
         const admin_id = "2"
         const building = await pool.query("select id from buildings where admin_id = $1", [admin_id])
         const building_id = building.rows[0].id
-        await pool.query("insert into images (cloudinary_id, image_url, building_id) values ($1, $2, $3)",
-        [result.public_id, result.secure_url, building_id])
+        const date = new Date()
+        await pool.query("insert into images (cloudinary_id, image_url, building_id, dateofpost) values ($1, $2, $3, $4)",
+        [result.public_id, result.secure_url, building_id, date])
         return res.send({ info: "image succesfully uploaded" })
 
     }catch (error) {

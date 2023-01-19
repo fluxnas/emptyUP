@@ -3,12 +3,19 @@ import pg from "pg";
 
 export const getBuildings = async (req, res) => {
   try {
-    await pool.query("SELECT * FROM buildings"),
-      res.status(200).json(results.rows);
+    const result = await pool.query("SELECT * FROM buildings")
+    console.log(result)
+    
+    if (result.rows.length === 0) {
+      return res.status(400).json({ message: "No data to be displayed" });
+    }
+    return res.status(200).json({data : result.rows});
   } catch (error) {
     res.status(400).send({ error: "invalid request" });
   }
 };
+
+
 
 export const getBuilding = async (req, res) => {
   const { adress, zipcode, city, type } = req.body;
@@ -29,14 +36,15 @@ export const getBuilding = async (req, res) => {
 
 export const addBuilding = async (req, res) => {
   const { adress, zipcode, city, type } = req.body;
+  const dateofpost = new Date()
   const admin_id = "2"
   if (!adress || !zipcode || !city || !type) {
     return res.status(400).json({ error: "Missing parameters" });
   }
   try {
     await pool.query(
-      "insert into buildings (adress, zipcode, city, type, admin_id) values ($1, $2, $3, $4, $5)",
-      [adress, zipcode, city, type, admin_id]
+      "insert into buildings (adress, zipcode, city, type, dateofpost, admin_id) values ($1, $2, $3, $4, $5, $6)",
+      [adress, zipcode, city, type, dateofpost, admin_id]
     );
     return res.status(201).send({ info: "building successfully added" });
   } catch (error) {

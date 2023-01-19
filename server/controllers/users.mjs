@@ -96,3 +96,17 @@ export const uploadProfilPicture = async (req, res) => {
       res.status(400).send({error : err})
   }
 }
+
+export const unsubscribeUser = async (req, res) => {
+  const id = req.params.id;
+  try {
+      const result = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+      if (result.rows.length === 0) {
+          return res.status(404).send({ error: "user not found" });
+      }
+      await pool.query("DELETE FROM users WHERE id = $1", [id]);
+      return res.status(200).send({ message: "successfully unsubscribed" });
+  } catch (error) {
+      res.status(500).send({ error: "Internal server error" });
+  }
+};

@@ -4,10 +4,8 @@ import { useRef, useState } from "react";
 import { NavLink } from 'react-router-dom'
 import UploadLogo from "../components/UploadLogo";
 import Left from "../assets/Left.svg";
-import ProfilePicture from "../components/ProfilePicture"
 import PostButton from"../components/PostButton"
 import Message from "../components/Message"
-import Pp from '../assets/Pp.png';
 
 const Username="Roro68"
 //change with backend
@@ -50,7 +48,7 @@ const handleChangeU =(event) =>{
 }
 
 	return(
-		  <div className="h-full flex flex-col box-border " id="box">
+		  <div className="h-screen flex flex-col box-border " id="box">
 				<NavLink to="/profile" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
         			<img src={Left} alt="back" className="flex box-border" style={{ width: '20px',height: '20px', marginTop :'2px',marginRight:'3px'}}/> 
         			<a className=" text-l hover:decoration-double text-left " alt="filters bar">

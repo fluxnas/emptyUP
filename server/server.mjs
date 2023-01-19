@@ -12,7 +12,7 @@ import { createUser, deleteUser, getUsers, oneUser } from "./controllers/user.mj
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
 import { createLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
-import { createMessage } from "./controllers/messages.mjs";
+import { createMessage, deleteMessage } from "./controllers/messages.mjs";
 
 
 
@@ -73,7 +73,7 @@ server.delete('/api/deletebuilding', deleteBuilding)
 
 // MESSAGES
 server.post('/api/messages', createMessage)
-
+server.delete('/api/delmessage', deleteMessage)
 // ANNONCES
 // all annonces
 server.get('/api/annonces', getAnnonces)

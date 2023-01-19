@@ -10,7 +10,6 @@ const BuildingForm = ({ submit }) => {
   const inputRefZipcode = useRef();
   const inputRefAddress = useRef();
   const inputRefType = useRef();
-  const inputRefDate = useRef();
   const [image, setImage] = useState("");
   const [coordinates, setCoordinates] = useState({ lat: 0, lon: 0 });
   //const [marker, setMarker] = useState([]);
@@ -19,19 +18,17 @@ const BuildingForm = ({ submit }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const newBuilding = {
-      image,
       city: inputRefCity.current.value,
       zipcode: inputRefZipcode.current.value,
-      address: inputRefAddress.current.value,
+      adress: inputRefAddress.current.value,
       // position: [coordinates.lat, coordinates.lon],
       type: inputRefType.current.value,
-      dateofpost: inputRefDate.current.value,
-      // admin_id
+      admin_id: JSON.parse(localStorage.getItem("user_id")),
     };
 
     console.log(newBuilding);
     // submit(newBuilding);
-   
+
     const address =
       inputRefZipcode.current.value +
       " " +
@@ -50,21 +47,37 @@ const BuildingForm = ({ submit }) => {
       });
 
     const formData = new FormData();
-    formData.append('image', image);
-    
-   axios.post('/api/building/uploadimage', formData)
-    .then(response => {
+    formData.append("image", image);
+
+    axios
+      .post("/api/building/uploadimage", formData)
+      .then((response) => {
         console.log(response);
         // setIsSubmitting(false);
-    })
-    .catch(error => {
+      })
+      .catch((error) => {
         console.log(error);
         // setIsSubmitting(false);
-    });
+      });
+    axios
+      .post("/api/addbuilding", newBuilding)
+      .then((response) => {
+        console.log(response);
+        // setIsSubmitting(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setIsSubmitting(false);
+      });
   };
   return (
-    <div className="h-full w-full flex flex-col">
-      <Form onSubmit={onSubmit}>
+    <div className="h-full w-full flex">
+      <Form
+        onSubmit={onSubmit}
+        className="w-full"
+        style={{ width: "calc(30vw)" }}
+      >
+        <h2 className="text-xl">Fill in the building form: </h2>
         <Form.Group controlId="image">
           <Form.Label>Image: </Form.Label>
           <Form.Control
@@ -112,17 +125,10 @@ const BuildingForm = ({ submit }) => {
             <option value="Multiple">Multiple</option>
           </select>
         </Form.Group>
-        <Form.Group controlId="date">
-          <Form.Label>Date: </Form.Label>
-          <Form.Control type="date" ref={inputRefDate} />
-        </Form.Group>
         <Button type="submit">Add a building</Button>
       </Form>
       {coordinates.lat !== 0 && coordinates.lon !== 0 && (
-        <LeafletContainer
-          center={[coordinates.lat, coordinates.lon]}
-          zoom={13}
-        >
+        <LeafletContainer center={[coordinates.lat, coordinates.lon]} zoom={13}>
           <LeafletMap coordinates={coordinates} onClick={() => setPopup(true)}>
             <Popup className="popup">
               {image && (
@@ -136,7 +142,6 @@ const BuildingForm = ({ submit }) => {
               <p>Zipcode: {inputRefZipcode.current.value}</p>
               <p>Address: {inputRefAddress.current.value}</p>
               <p>Type: {inputRefType.current.value}</p>
-              <p>Date: {inputRefDate.current.value}</p>
             </Popup>
           </LeafletMap>
         </LeafletContainer>

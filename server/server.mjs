@@ -60,8 +60,8 @@ server.post("/api/user/profilpicture", uploadProfilPicture  )
 server.delete("/api/user/unsubscribe/:id", unsubscribeUser)
 
 // buildings related endpoints
-server.post("/api/addbuilding", addBuilding); 
-server.get("/api/buildings", getBuildings);
+server.post("/api/addbuilding",addBuilding); 
+server.get("/api/buildings",getBuildings);
 server.get("/api/buildings/:id")
 
 // images related endpoints

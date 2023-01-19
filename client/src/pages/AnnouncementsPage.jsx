@@ -27,6 +27,14 @@ const AnnoucementsPage =() => {
   	const subject = newSubject
   	const postToAdd={ id, name, subject}
   	posts.push(postToAdd)
+    axios.post('/api/annonces/add', postToAdd)
+        .then(response => {
+            console.log(response.postToAdd);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
   	setPosts(posts);
   	setNewPost("")
   	setNewSubject("")
@@ -82,32 +90,6 @@ const AnnoucementsPage =() => {
 		</div>
 	)
 }
-/*
-	const navigate = useNavigate();
-  const inputRefUserName = useRef();
-  const inputRefMessage = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    console.log(inputRefMessage.current.value);
-    console.log(inputRefUserName.current.value);
-    navigate("/messages");
-    setIsSubmitting(true);
-    const data = {
-        userName: inputRefUserName.current.value,
-        src: Pp
-        message: inputRefMessage.current.value
-    };
-    axios.post('/api/user/message', data)
-        .then(response => {
-            console.log(response.data);
-            setIsSubmitting(false);
-        })
-        .catch(error => {
-            console.log(error);
-            setIsSubmitting(false);
-        });
-  };*/
 
 export default AnnoucementsPage

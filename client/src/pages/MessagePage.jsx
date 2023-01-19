@@ -4,10 +4,8 @@ import { useRef, useState } from "react";
 import { NavLink } from 'react-router-dom'
 import UploadLogo from "../components/UploadLogo";
 import Left from "../assets/Left.svg";
-import ProfilePicture from "../components/ProfilePicture"
 import PostButton from"../components/PostButton"
 import Message from "../components/Message"
-import Pp from '../assets/Pp.png';
 
 const Username="Roro68"
 //change with backend
@@ -73,7 +71,7 @@ const handleChangeU =(event) =>{
        		<div className=" w-full   box-border flex pb-2">
         					<h4 className="font-bold text-sm italic ">SEND A MESSAGE TO: </h4>
           					<input className=" italic h-4 bg-slate-50 text-xs mx-3 text-blue-800  shadow-inner p-3 text-center"
-            				value={newUsername}
+            				value={Username}
             				type="text"
             				placeholder="Enter the username"
             				onChange={handleChangeU}/>

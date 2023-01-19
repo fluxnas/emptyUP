@@ -10,8 +10,6 @@ import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
 
 
-
-
 const FiltersPage =() => {
 	const [modalActive, setModalActive] = useState(false);
   const [value, setValue] = useState(new Date());

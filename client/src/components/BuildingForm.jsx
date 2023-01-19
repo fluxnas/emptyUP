@@ -30,15 +30,15 @@ const BuildingForm = ({ submit }) => {
     // submit(newBuilding);
 
     const address =
-      inputRefZipcode.current.value +
-      " " +
-      inputRefAddress.current.value +
-      ", " +
-      inputRefCity.current.value;
+    inputRefZipcode.current.value +
+    " " +
+    inputRefAddress.current.value +
+    ", " +
+    inputRefCity.current.value;
 
     axios
-      .get(
-        `https://nominatim.openstreetmap.org/search?q=${address}&format=json&limit=1`
+    .get(
+      `https://nominatim.openstreetmap.org/search?q=${address}&format=json&limit=1`
       )
       .then((response) => {
         console.log(response.data[0]);
@@ -88,35 +88,35 @@ const BuildingForm = ({ submit }) => {
                 //URL.createObjectURL(event.target.files[0])
               }
             }}
-          />
-        </Form.Group>
-        <Form.Group controlId="city">
-          <Form.Label>City: </Form.Label>
-          <Form.Control
+            />
+            </Form.Group>
+            <Form.Group controlId="city">
+            <Form.Label>City: </Form.Label>
+            <Form.Control
             type="text"
             ref={inputRefCity}
             placeholder="Enter your city"
-          />
-        </Form.Group>
-        <Form.Group controlId="zipcode">
-          <Form.Label>Zipcode: </Form.Label>
-          <Form.Control
+            />
+            </Form.Group>
+            <Form.Group controlId="zipcode">
+            <Form.Label>Zipcode: </Form.Label>
+            <Form.Control
             type="text"
             ref={inputRefZipcode}
             placeholder="Enter your zipcode"
-          />
-        </Form.Group>
-        <Form.Group controlId="address">
-          <Form.Label>Address: </Form.Label>
-          <Form.Control
+            />
+            </Form.Group>
+            <Form.Group controlId="address">
+            <Form.Label>Address: </Form.Label>
+            <Form.Control
             type="text"
             ref={inputRefAddress}
             placeholder="Enter your address"
-          />
-        </Form.Group>
-        <Form.Group controlId="typeSelect">
-          <Form.Label>Type: </Form.Label>
-          <select ref={inputRefType}>
+            />
+            </Form.Group>
+            <Form.Group controlId="typeSelect">
+            <Form.Label>Type: </Form.Label>
+            <select ref={inputRefType}>
             <option value="All"></option>
             <option value="Housing">Housing</option>
             <option value="Gardens">Gardens</option>
@@ -133,11 +133,11 @@ const BuildingForm = ({ submit }) => {
             <Popup className="popup">
               {image && (
                 <img
-                  src={image}
-                  alt="selected photo"
-                  style={{ width: "150px", height: "150px" }}
+                src={image}
+                alt="selected photo"
+                style={{ width: "150px", height: "150px" }}
                 />
-              )}
+                )}
               <p>City: {inputRefCity.current.value}</p>
               <p>Zipcode: {inputRefZipcode.current.value}</p>
               <p>Address: {inputRefAddress.current.value}</p>
@@ -150,3 +150,4 @@ const BuildingForm = ({ submit }) => {
   );
 };
 export default BuildingForm;
+

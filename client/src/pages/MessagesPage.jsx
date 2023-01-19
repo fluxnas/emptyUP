@@ -9,12 +9,12 @@ import Message from "../components/Message"
 
 const Username="Roro68"
 //change with backend
-const MessagePage =() => {
+const MessagesPage =() => {
 //STATE
 const [msgs, setMsgs] = useState([]);
 const [newMsg, setNewMsg] = useState("")
 const [newUsername, setNewUsername] = useState("")
-
+ 
 //COMPORTEMENTS
 const deleteMsg= (id) => {
   //copie
@@ -44,22 +44,22 @@ const handleChange =(event) =>{
 }
 
 const handleChangeU =(event) =>{
-  console.log(event.target.value)
+  setNewUsername(event.target.value)
 }
 
 	return(
-		  <div className="h-full flex flex-col box-border " id="box">
+		  <div className="h-screen flex flex-col box-border " id="box">
 				<NavLink to="/profile" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
-        			<img src={Left} alt="back" className="flex box-border" style={{ width: '20px',height: '20px', marginTop :'2px',marginRight:'3px'}}/>
+        			<img src={Left} alt="back" className="flex box-border" style={{ width: '20px',height: '20px', marginTop :'2px',marginRight:'3px'}}/> 
         			<a className=" text-l hover:decoration-double text-left " alt="filters bar">
-        			BACK TO PROFIL
+        			BACK TO PROFIL 
         			</a>
       	</NavLink>
 
      		<h3 className="text-black box-border h-1/6 font-bold text-5xl flex justify-center  ">
 				My Messages</h3>
-
-     		<div className="h-4/6 flex flex-col box-border  items-center  rounded-[25px]   ">
+     		
+     		<div className="h-4/6 flex flex-col box-border  items-center  rounded-[25px]   "> 
 
 				<ul className=" shadow-inner h-4/6 box-border bg-slate-50  w-11/12  rounded-[25px] p-3 flex overflow-scroll  flex-col  items-start ">
         				{msgs.map((msg) => (
@@ -71,7 +71,7 @@ const handleChangeU =(event) =>{
        		<div className=" w-full   box-border flex pb-2">
         					<h4 className="font-bold text-sm italic ">SEND A MESSAGE TO: </h4>
           					<input className=" italic h-4 bg-slate-50 text-xs mx-3 text-blue-800  shadow-inner p-3 text-center"
-            				value={Username}
+            				value={newUsername}
             				type="text"
             				placeholder="Enter the username"
             				onChange={handleChangeU}/>
@@ -82,7 +82,7 @@ const handleChangeU =(event) =>{
             			value={newMsg}
             			type="text"
             			placeholder="You can wrote a message here!"
-            			onChange={handleChange}/>
+            			onChange={handleChange}/>  
           </div>
 
           <PostButton type="submit"/>
@@ -122,4 +122,4 @@ const handleChangeU =(event) =>{
         });
   };*/
 
-export default MessagePage
+export default MessagesPage

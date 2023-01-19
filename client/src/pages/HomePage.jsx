@@ -1,9 +1,9 @@
+import axios from "axios";
 import Navigation from "../components/Navigation";
 import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import Modal from "../components/Modal";
-// import "../App.css";
 import { useState } from "react";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
@@ -55,6 +55,27 @@ const HomePage = () => {
       console.log(res.data);
     });
 
+
+
+
+
+const req = async () => {
+  const data = await axios.get('/api/annonces', {
+    headers: {
+      "ngrok-skip-browser-warning": "69420"
+    }
+  })
+
+  console.log(data.data)
+    // .then(response => {
+    //   console.log(response)
+    //   console.log("ok");
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
+}
+
   return (
     <div className="h-screen w-full flex flex-col items-center justify-between p-0 m-0">
       <Navigation />
@@ -84,6 +105,7 @@ const HomePage = () => {
           }}
         />
       </Modal>
+
     </div>
   );
 };

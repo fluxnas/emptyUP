@@ -1,57 +1,49 @@
 import { pool } from "../models/dbPool.mjs";
-import cloudinary from "cloudinary";
-import { request } from "express";
-import multer from "multer";
+import { v2 as cloudinary } from "cloudinary";
 
-const storage = multer.memoryStorage();
-const maxSize = 5000000;
-const upload = multer({ storage, limits: { fileSize: maxSize } });
-
-export const uploadImage = (req, res) => {
-  
-  upload.single("image")(req, res, (err) => {
+// export const uploadImage = (req, res) => {
+//     const file = req.files.image
+//     cloudinary.uploader
+//     .upload(file.tempFilePath)
+//     .then(result => {
+//         console.log(result)
+//         const public_id = result.public_id
+//         const building_id = "2"
+//         console.log(public_id)
+//         res.send(public_id)
+//         pool.query("insert into images (cloudinary_id, image_url, building_id) values ($1, $2, $3) RETURNING *",
+//         [result.public_id, result.secure_url, building_id])
+//     })
     
-      // Use `req.file` to access the file that was uploaded
-      const data = {
-        image: req.file.buffer,
-      };
-      console.log(req.file.buffer)
-      
-      const building_id = "3";
-      cloudinary.v2.uploader
-        .upload(req.file.originalname, {resource_type: "auto" })
-        .then((image) => {
-          pool
-            .query(
-              "insert into images (cloudinary_id, image_url, building_id ) values ($1, $2, $3) RETURNING * ",
-              [image.public.id, image.secure_url, building_id]
-            )
-            .then((result) => {
-              result = result.rows[0];
-              res.status(201).send({
-                status: "success",
-                data: {
-                  message: "Image Uploaded Successfully",
-                  cloudinary_id: result.cloudinary_id,
-                  image_url: result.image_url,
-                },
-              });
-            })
-            .catch((e) => {
-              res.status(500).send({
-                message: "failure",
-                e,
-              });
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-          res.status(500).send({
-            message: "Upload failed",
-            error: error,
-          });
-        });
-    })
-  
+//     .catch(error => {
+//         console.log(error)
+//         res.send(error)
+//     });
+// }
+
+
+
+
+export const uploadImage = async (req, res) => {
+    const file  = await req.files.image
+    try{
+        const result = await cloudinary.uploader.upload(file.tempFilePath)
+        console.log(result.public_id)
+        const public_id = result.public_id
+        const admin_id = "2"
+        const building = await pool.query("select id from buildings where admin_id = $1", [admin_id])
+        const building_id = building.rows[0].id
+        const date = new Date()
+        await pool.query("insert into images (cloudinary_id, image_url, building_id, dateofpost) values ($1, $2, $3, $4)",
+        [result.public_id, result.secure_url, building_id, date])
+        return res.send({ info: "image succesfully uploaded" })
+
+    }catch (error) {
+        console.log(error)
+        res.status(500).send({ error: "invalid request" });
+      }
+
 }
-// find alternative to cloudinary ? 
+
+
+

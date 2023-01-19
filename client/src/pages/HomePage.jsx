@@ -1,3 +1,4 @@
+import axios from "axios";
 import Navigation from "../components/Navigation";
 import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
@@ -22,6 +23,27 @@ const onClickReg=() => {
             setModalActive(false);
             setModalActiveReg(true)}
 
+
+
+
+
+const req = async () => {
+  const data = await axios.get('/api/annonces', {
+    headers: {
+      "ngrok-skip-browser-warning": "69420"
+    }
+  })
+
+  console.log(data.data)
+    // .then(response => {
+    //   console.log(response)
+    //   console.log("ok");
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
+}
+
   return (
     <div className="h-screen w-full flex flex-col items-center justify-between p-0 m-0">
       <Navigation />
@@ -30,6 +52,7 @@ const onClickReg=() => {
       </LeafletContainer>
       
       <UploadLogo setActive={setModalActive}/>
+      <button onClick={() => req()}> try</button>
       
       <Modal active={modalActive} setActive={setModalActive}>
         <p className="flex justify-center text-base">You need to register and login before uploading spaces. </p>
@@ -49,6 +72,7 @@ const onClickReg=() => {
           setModalActiveLog(true);
         }}/>
       </Modal>
+
     </div>
 
 

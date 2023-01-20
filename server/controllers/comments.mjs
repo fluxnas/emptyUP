@@ -47,7 +47,7 @@ export const deleteComment = async () => {
         "DELETE * FROM comments WHERE users_id=$1",
         [id]
     )
-    return res.send({info: "comment delete"})
+    return res.send({info: "comment deleted"})
     }
     catch{
         res.status(500).json({ error: err.message })

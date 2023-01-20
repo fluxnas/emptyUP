@@ -59,7 +59,7 @@ export const getOneAnnonce = async (req, res) => {
 
 export const deleteAnnonce = async (req, res) => {
   const id = req.params.id;
-  const user_id = "1";
+  const user_id = req.decoded
   const verif = await pool.query("SELECT user_id from annonces where id = $1", [
     id,
   ]);

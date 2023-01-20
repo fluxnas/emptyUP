@@ -4,14 +4,44 @@ import { pool } from "../models/Client.mjs"
 // all messages
 export const getMessages = async ( req, res ) =>{
     try {
-        const allMessages = await pool.query(
-            "SELECT FROM messages"
+        const allMessages = await pool.query("SELECT FROM messages")
+        console.log(allMessages.rows ) 
+
+            if ( allMessages.rows.length === 0 ) {
+                return res.status(400)
+                .json({ message: "No data to be desplayed"})
+            }
+            return res.status(200)
+            .json(allMessages.rows)
+        } catch (err){
+            console.error(err.message)
+        }
+    }
+
+// one message
+export const getOneMessage = async ( req, res ) =>{ 
+    const { id } = req.params.id
+    if ( !id ) {
+        res.status(400)
+        .send("no ID provided")
+    }
+    try {
+        const query = await pool.query(
+            "SELECT * FROM messages WHERE id = $1",
+            [id]
         )
-        res.json(allMessages.rows)
+        console.log(query)
+    if (query.rows.length === 0) {
+        return res.status(404)
+        .send("no message found")
+    }
+    return res.status(200)
+    .json(query.rows)
     } catch (err) {
-        console.error( err.message)
+        console.error(err.message)
     }
 }
+
 // create message
 export const createMessage = async ( req, res ) =>{
     try {

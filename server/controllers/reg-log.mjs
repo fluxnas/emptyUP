@@ -129,24 +129,3 @@ export const deleteUser = async ( req, res ) =>{
   }
 }
 
-// // get one user by sorting id into filterd 
-// router.get('/test/:id/:field', async (req, res) => {
-//     const fields = ['username', 'email', 'password']
-//     if (!fields.includes(req.params.field)) {
-//       return res.status(400).json({message: "Invalid field"})
-//     }
-//     try {
-//     // utilise la concatenation pour y ajouter le field
-//       const test = await pool.query("SELECT " + req.params.field + " FROM users WHERE id = $1", [req.params.id])
-//     // si la ligne est null message d'erreur 
-//       if (test.rows.length === 0) {
-//         res.status(404).json({ message: "No user" });
-//       } else {
-//     // sinon renvoi les params du field 
-//         res.json({ [req.params.field]: test.rows[0][req.params.field] })
-//       }
-//     } catch (err) {
-//       console.error(err.message)
-//       res.status(500).json({ message: "Internal Server Error" })
-//     }
-//   })

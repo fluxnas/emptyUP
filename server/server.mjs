@@ -5,14 +5,12 @@ import * as dotenv from "dotenv"
 import jwtauth from "./middleware/verifToken.mjs"
 import fileUpload from "express-fileupload"
 import { dbConnect }from "./models/dbConnect.mjs"
-import { login, register } from "./controllers/reg-log.mjs"
-import { createOneBuilding, deleteBuilding,getAdress, 
-        getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/buildings.mjs";
-import { createUser, deleteUser, getUsers, oneUser } from "./controllers/user.mjs";
+import { login, register, createUser, deleteUser, getUsers, oneUser } from "./controllers/reg-log.mjs"
+import { createOneBuilding, deleteBuilding,getAdress, getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/buildings.mjs";
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
-import { allLikes, createLike } from "./controllers/likes.mjs"
+import { allLikes, createLike, getOneLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
-import { createMessage, deleteMessage, getMessages } from "./controllers/messages.mjs";
+import { createMessage, deleteMessage, getMessages, getOneMessage } from "./controllers/messages.mjs";
 
 
 
@@ -72,9 +70,15 @@ server.put('/api/updatebuilding/:id', updateBuilding)
 server.delete('/api/deletebuilding', deleteBuilding)
 
 // MESSAGES
+// all messages
 server.get('/api/allmessages', getMessages)
+// one message
+server.get('/api/onemessage',getOneMessage)
+// create message
 server.post('/api/message', createMessage)
+// delete message
 server.delete('/api/delmessage', deleteMessage)
+
 // ANNONCES
 // all annonces
 server.get('/api/annonces', getAnnonces)
@@ -90,6 +94,8 @@ server.delete('/api/annonce/:id', deleteAnnonce)
 // LIKES
 // all likes
 server.get('/api/getlikes', allLikes)
+// one like
+server.get('/api/onelike', getOneLike)
 // create likes
 server.post('/api/like', createLike)
 // delete like

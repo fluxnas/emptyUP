@@ -5,7 +5,7 @@ import { promisify } from "util";
 promisify(JWT.verify);
 
 // middleware pour l'authentification du token
-const jwtAuthentification = async (req, res, next) => {
+export const jwtAuthentification = async (req, res, next) => {
 
     const token = await req.cookies.access_token;
 
@@ -23,4 +23,3 @@ const jwtAuthentification = async (req, res, next) => {
     });
   }
 
-export default jwtAuthentification

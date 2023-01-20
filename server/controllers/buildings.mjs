@@ -34,11 +34,15 @@ export const getBuilding = async (req, res) => {
 };
 
 export const addBuilding = async (req, res) => {
-  const { adress, zipcode, city, type } = req.body;
-  const file  = await req.files.image
+  const { adress, zipcode, city, type} = req.body;
+  // const adress = "rue tonton"
+  // const zipcode = "1234"
+  // const city = "bxl"
+  // const type = "house"
+  const file  = req.files.image
   console.log(file)
   const dateofpost = new Date()
-  const admin_id = req.decoded
+  const admin_id = "2"
   if (!adress || !zipcode || !city || !type) {
     return res.status(400).json({ error: "Missing parameters" });
   }

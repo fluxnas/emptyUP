@@ -36,6 +36,7 @@ export const getBuilding = async (req, res) => {
 export const addBuilding = async (req, res) => {
   const { adress, zipcode, city, type } = req.body;
   const file  = await req.files.image
+  console.log(file)
   const dateofpost = new Date()
   const admin_id = req.decoded
   if (!adress || !zipcode || !city || !type) {
@@ -43,7 +44,6 @@ export const addBuilding = async (req, res) => {
   }
   try {
     const result = await cloudinary.uploader.upload(file.tempFilePath)
-    console.log(result)
     const initialImage = result.secure_url;
     console.log(initialImage)
     await pool.query(

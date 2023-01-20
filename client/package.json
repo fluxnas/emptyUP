@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "https://57c6-84-199-109-85.eu.ngrok.io/",
+  "proxy": "https://2019-84-199-109-85.eu.ngrok.io/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
@@ -12,10 +12,12 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.2",
     "dotenv": "^16.0.3",
+    "jsonwebtoken": "^9.0.0",
     "postcss-cli": "^10.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-calendar": "^4.0.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.0",
     "react-router-dom": "^6.6.2",

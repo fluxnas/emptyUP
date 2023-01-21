@@ -2,15 +2,16 @@ import express from "express"
 import bodyParser from "body-parser"
 import cookie from "cookie-parser";
 import * as dotenv from "dotenv"
-import jwtauth from "./middleware/verifToken.mjs"
 import fileUpload from "express-fileupload"
 import { dbConnect }from "./models/dbConnect.mjs"
-import { login, register, createUser, deleteUser, getUsers, oneUser } from "./controllers/reg-log.mjs"
+import { login, register, createUser, deleteUser, getUsers, oneUser, uploadProfilePic, suscribe } from "./controllers/reg-log.mjs"
 import { createOneBuilding, deleteBuilding,getAdress, getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/buildings.mjs";
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
 import { allLikes, createLike, getOneLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
 import { createMessage, deleteMessage, getMessages, getOneMessage } from "./controllers/messages.mjs";
+// import { jwtAuthentification } from "./middleware/verifyToken.mjs"
+
 
 
 
@@ -40,6 +41,9 @@ server.get('/', ( req, res ) =>{
 server.post('/api/login', login)
 // register
 server.post('/api/register', register)
+// profile picture
+server.post('/api/profilepic', uploadProfilePic)
+server.delete('/api/unsubscribe',  suscribe)
 
 // USERS
 // see all users
@@ -83,7 +87,7 @@ server.delete('/api/delmessage', deleteMessage)
 // all annonces
 server.get('/api/annonces', getAnnonces)
 // create annonce
-server.post('/api/addannonce', createAnnonce)
+server.post('/api/newannonce', createAnnonce)
 // one annonce
 server.get('/api/annonce/:id', oneAnnonce)
 // update annonce need token to make it work

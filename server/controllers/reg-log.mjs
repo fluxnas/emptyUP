@@ -2,6 +2,7 @@ import bcrypt from "bcrypt"
 import {pool} from "../models/Client.mjs"
 import JWT from "jsonwebtoken";
 import { promisify } from "util";
+import cloudinary from "../middleware/cloudinary.mjs";
 const sign = promisify(JWT.sign);
 
 
@@ -22,13 +23,13 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await pool.query(
-      `insert into users (username, email, password) values ($1, $2, $3)`,
+      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)",
       [username, email, hashedPassword]
     );
     return res.send({ info: "user succesfully added" });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send({ error: "internal server error" });
+  } catch (err) {
+    console.error(err.message);
+   
   }
 };
 
@@ -41,7 +42,7 @@ export const login = async (req, res) => {
     return res.status(400).send({ error: "invalid request" });
 
   const query = await pool.query(
-    "select username, id, email, password from users where email =$1",
+    "SELECT username, id, email, password FROM users WHERE email = $1",
     [email]
   );
 
@@ -64,13 +65,48 @@ export const login = async (req, res) => {
         httpOnly: true,
       });
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       return res.status(500).send({ error: "Cannot generate token" });
     }
   } else {
     return res.status(403).send({ error: "wrong password" });
   }
 };
+
+// add profil picture
+export const uploadProfilePic = async ( req, res ) =>{
+  const file = await req.file.image
+  try {
+    const photo = await cloudinary.uploader.upload( file.tempfilePath)
+    const user_id = req.decoded
+    const profilePic = await pool.query(
+      "INSERT INTO users (profilpicture_url) VALUES ($1) WHERE id = $2",
+      [photo.secure_url, user_id]
+    )
+    return res.send({ info: "Profil picutre successfully uploaded"})
+  } catch (err) {
+    console.error(err.message)
+    res.status(400).send({error: err})
+  }
+}
+
+// close subscribing 
+export const suscribe = async ( req, res ) =>{
+  const { id } = req.params.id
+  try {
+    const closeSubscribe = await pool.query(
+      "SELECT * FROM users WHERE id = $1",
+      [id]
+    )
+    if ( closeSubscribe.rows.length === 0 ) {
+      return res.status(404)
+      .send({ message : "successfully unsubscribed" })
+    }
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send({ error: "Internal server error"})
+  }
+}
 
 
 // Users

@@ -80,12 +80,15 @@ try {
     // const dateofpost = Date.now() needs to be set
     const dateofpost = "2023-01-19"
     const admin_id = "3"
+    const initial_image = "heehheheheheheh"
+    const buildings_adress_unique = "5"
+    // const position = "123.45.55.66"
     if ( !adress || !zipcode || !city || !type ) {
       return res.status(400).json({ error: "Missing parameters" })
     }
     const newBuilding = await pool.query (
-        "INSERT INTO buildings ( adress, zipcode, city, type, dateofpost, admin_id ) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING *",
-        [ adress, zipcode, city, type, dateofpost, admin_id ]
+        "INSERT INTO buildings ( adress, zipcode, city, type, dateofpost, admin_id, initial_image, buildings_adress_unique ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8 ) RETURNING *",
+        [ adress, zipcode, city, type, dateofpost, admin_id, initial_image, buildings_adress_unique ]
     )
     res.json(newBuilding.rows[0])
 } catch ( err ) {

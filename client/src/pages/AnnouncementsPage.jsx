@@ -8,6 +8,7 @@ import PostButton from"../components/PostButton"
 import Annoucement from "../components/Annoucement"
 import Pp from '../assets/Pp.png';
 
+
 const Username="Roro68"
 
 
@@ -22,9 +23,45 @@ const AnnoucementsPage =() => {
     const subject = newSubject
     const postToAdd={ id, content, subject}
 
+const req = async () => {
+  const data = await axios.get('/api/annonces', {
+    headers: {
+      "ngrok-skip-browser-warning": "69420"
+    }
+  })
+
+   .then(response => {
+      for (let i=1; i>0;i++) {
+      const data = response.data.data
+      const content = data[i].content
+      const subject = data[i].subject
+      const date = data[i].date
+      const id = data[i].id
+      const user_id = data[i].user_id
+      const postToAdd= {  id, content, subject, date, id, user_id}
+      posts.push(postToAdd)
+      setPosts(posts);
+      }
+  })
+      .catch(error => {
+      console.log(error);
+      });
+}
+
+req()
+
+
 
     const deletePost= (id) => {
-    setPosts(posts.filter((post) => post.id !== id));
+axios.delete('/api/annonces/'+id)
+         .then(response => {
+            console.log(response)
+         })
+         .catch(error => {
+            console.log(error);
+         });
+
+setPosts(posts.filter((post) => post.id !== id))
     }
 
 	const handleSubmit = (event) => {
@@ -86,7 +123,6 @@ const AnnoucementsPage =() => {
             		<PostButton type="submit"/>
       			</form>
             </div>
-
       		<footer className="h-1/12"></footer>
 
 		</div>

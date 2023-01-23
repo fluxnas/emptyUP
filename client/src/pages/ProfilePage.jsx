@@ -44,7 +44,7 @@ const ProfilePage = () => {
          "Welcome {Username}"</h3>
         </div>
         <div className="flex flex-col justify-between items-center h-5/6 ">
-               <NavLink to="/upload">
+            <NavLink to="/upload">
                  <UploadLogo/>
               </NavLink>
 

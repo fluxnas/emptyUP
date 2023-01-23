@@ -20,6 +20,7 @@ const FormLog = () => {
       email: inputRefEmail.current.value,
       password: inputRefPassword.current.value,
     };
+
     axios
       .post("/api/user/login", data)
       .then((response) => {

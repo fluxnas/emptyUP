@@ -7,11 +7,14 @@ import Modal from "../components/Modal";
 import { useState } from "react";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
+import FormLog2 from "../components/FormLog2";
 import LoginButton from "../components/LoginButton";
 import RegisterButton from "../components/RegisterButton";
-import axios from "axios";
+import LoginPicto from "../components/LoginPicto"
+
 
 const HomePage = () => {
+
   const [modalActive, setModalActive] = useState(false);
   const [modalActiveLog, setModalActiveLog] = useState(false);
   const [modalActiveReg, setModalActiveReg] = useState(false);
@@ -25,6 +28,7 @@ const HomePage = () => {
     setModalActive(false);
     setModalActiveReg(true);
   };
+
 
  const [buildings, setBuildings] = useState([]);
 
@@ -56,36 +60,18 @@ const HomePage = () => {
     });
 
 
-
-
-
-const req = async () => {
-  const data = await axios.get('/api/annonces', {
-    headers: {
-      "ngrok-skip-browser-warning": "69420"
-    }
-  })
-
-  console.log(data.data)
-    // .then(response => {
-    //   console.log(response)
-    //   console.log("ok");
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    // });
-}
-
   return (
     <div className="h-screen w-full flex flex-col items-center justify-between p-0 m-0">
-      <Navigation />
+
+      <LoginPicto setActive={setModalActive} />
+
       <LeafletContainer>
         <LeafletMap buildings={buildings}/>
       </LeafletContainer>
       <UploadLogo setActive={setModalActive} />
       <Modal active={modalActive} setActive={setModalActive}>
         <p className="flex justify-center text-base">
-          You need to register and login before uploading spaces.{" "}
+          You need to register and login before{" "}
         </p>
         <div className="flex justify-around">
           <LoginButton onClick={onClickLog} />
@@ -94,7 +80,7 @@ const req = async () => {
       </Modal>
 
       <Modal active={modalActiveLog} setActive={setModalActiveLog}>
-        <FormLog />
+        <FormLog/>
       </Modal>
       <Modal active={modalActiveReg} setActive={setModalActiveReg}>
         <FormReg

@@ -16,46 +16,42 @@ const AnnoucementsPage =() => {
 	const [posts, setPosts] = useState([]);
 	const [newPost, setNewPost] = useState("")
 	const [newSubject, setNewSubject] = useState("")
+  const id = new Date().getTime()
+  const content = newPost
+  const subject = newSubject
+  const postToAdd={ id, content, subject}
 
-
-    const id = new Date().getTime()
-    const content = newPost
-    const subject = newSubject
-    const postToAdd={ id, content, subject}
-
-const req = async () => {
-  const data = await axios.get('/api/annonces', {
-    headers: {
-      "ngrok-skip-browser-warning": "69420"
+  const req = async () => {
+    try {
+        const response = await axios.get('/api/annonces', {
+          headers: {
+            "ngrok-skip-browser-warning": "69420"
+          }
+        });
+        const dat = response.data.data
+        const newPosts = dat.map(post => {
+          const content = post.content;
+          const subject = post.subject;
+          const date = post.date;
+          const id = post.id;
+          const user_id=post.user_id
+          return { id, content, subject, date, user_id};
+        });
+        setPosts(newPosts)
     }
-  })
+    catch (error) {
+        console.log(error);
+    }
+  }
 
-   .then(response => {
-      for (let i=1; i>0;i++) {
-      const data = response.data.data
-      const content = data[i].content
-      const subject = data[i].subject
-      const date = data[i].date
-      const id = data[i].id
-      const user_id = data[i].user_id
-      const postToAdd= {  id, content, subject, date, id, user_id}
-      posts.push(postToAdd)
-      setPosts(posts);
-      }
-  })
-      .catch(error => {
-      console.log(error);
-      });
-}
-
-req()
+  req()
 
 
 
     const deletePost= (id) => {
 axios.delete('/api/annonces/'+id)
          .then(response => {
-            console.log(response)
+            console.log("post deleted")
          })
          .catch(error => {
             console.log(error);

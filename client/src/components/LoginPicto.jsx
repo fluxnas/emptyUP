@@ -10,3 +10,6 @@ const LoginPicto = ({ setActive }) => {
 };
 
 export default LoginPicto;
+
+
+

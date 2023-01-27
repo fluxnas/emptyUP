@@ -57,7 +57,7 @@ const handleChangeU =(event) =>{
       	</NavLink>
 
      		<h3 className="text-black box-border h-1/6 font-bold text-5xl flex justify-center  ">
-				My Messages</h3>
+				My Discussions</h3>
      		
      		<div className="h-4/6 flex flex-col box-border  items-center  rounded-[25px]   "> 
 

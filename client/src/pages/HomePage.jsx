@@ -7,7 +7,6 @@ import Modal from "../components/Modal";
 import { useState } from "react";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
-import FormLog2 from "../components/FormLog2";
 import LoginButton from "../components/LoginButton";
 import RegisterButton from "../components/RegisterButton";
 import LoginPicto from "../components/LoginPicto"
@@ -71,7 +70,7 @@ const HomePage = () => {
       <UploadLogo setActive={setModalActive} />
       <Modal active={modalActive} setActive={setModalActive}>
         <p className="flex justify-center text-base">
-          You need to register and login before{" "}
+         First, You need to register and login{" "}
         </p>
         <div className="flex justify-around">
           <LoginButton onClick={onClickLog} />

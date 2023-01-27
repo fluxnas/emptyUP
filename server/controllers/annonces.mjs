@@ -20,6 +20,7 @@ export const postAnnonces = async (req, res) => {
       // i added "unique" constraint to "content" in the table like that it will check automaticly if the announcement is already in the database
       return res.status(400).send({ error: "annonce already exist" });
     }
+    console.error(err)
     res.send(err);
   }
 };

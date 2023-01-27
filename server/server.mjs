@@ -7,6 +7,8 @@ import {
   getBuildings,
   getBuilding,
   addBuilding,
+  getUserAdminBuildings,
+  deleteBuilding
 } from "./controllers/buildings.mjs";
 
 import{
@@ -14,7 +16,8 @@ import{
     getAllAnnonces,
     getOneAnnonce,
     deleteAnnonce,
-    updateAnnonce
+    updateAnnonce,
+    
 } from "./controllers/annonces.mjs"
 
 import { dbConnect } from "./models/dbConnect.mjs";
@@ -23,6 +26,7 @@ import dotenv from "dotenv";
 import { register, login,  uploadProfilPicture, unsubscribeUser, logout } from "./controllers/users.mjs";
 import { uploadImage  } from "./controllers/images.mjs";
 import jwtAuthentification from "./middleware/verifyToken.mjs";
+import errorAlert from "./middleware/errorhandler.mjs"
 import * as cloudinary from "cloudinary";
 
 
@@ -41,6 +45,7 @@ server.use(fileUpload({
     limits: {fileSize: 50 * 2024 * 1024}
 }))
 
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
@@ -49,8 +54,9 @@ cloudinary.config({
 
 
 
-server.get("/", (req, res) => {
-  res.send("hello");
+server.get("/main", (req, res) => {
+  res.send("<h1> hello </h1>");
+  // console.log(req.query)
 });
 
 // user related endpoints
@@ -59,12 +65,14 @@ server.post("/api/user/login", login);
 server.post("/api/user/profilpicture", jwtAuthentification , uploadProfilPicture  ) 
 server.delete("/api/user/unsubscribe/:id", jwtAuthentification, unsubscribeUser)
 server.get("/api/user/logout", jwtAuthentification, logout)
+server.get("/api/user/mybuildings/:id", getUserAdminBuildings )
 
 // buildings related endpoints
-server.post("/api/addbuilding", addBuilding); 
+server.post("/api/addbuilding", jwtAuthentification, addBuilding); 
 server.get("/api/buildings",getBuildings);
 server.get("/api/building",getBuilding);
-server.get("/api/buildings/:id")
+server.get("/api/buildings/:id", )
+server.delete("/api/building/delete/:id", deleteBuilding)
 
 // images related endpoints
 server.post("/api/building/uploadimage", uploadImage);
@@ -78,5 +86,6 @@ server.delete("/api/annonces/:id", deleteAnnonce)
 
 
 server.listen(5500, () => {
-  console.log("app is runing");
+  console.log("app is runing")
+
 });

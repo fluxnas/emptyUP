@@ -1,16 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
 import UploadLogo from "../components/UploadLogo";
-import Left from "../assets/Left.svg";
+import Back from "../components/Back";
 import Building from "../components/Building"
-import {useEffect} from "react";
-
 
 const UploadedPage =() => {
 
- const [buildings, setBuildings] = useState([]);
+  const [buildings, setBuildings] = useState([]);
 
   useEffect(() => {
     getBuildingsUploaded();
@@ -23,8 +21,10 @@ const UploadedPage =() => {
           "ngrok-skip-browser-warning": "69420"
         }
       });
+
       const data = response.data.data;
-      const newBuildings = data.map(building => {
+
+      const BuildingsUploaded = data.map(building => {
         const dateofpost = building.dateofpost;
         const id = building.id;
         const adress = building.adress;
@@ -34,42 +34,40 @@ const UploadedPage =() => {
         const admin_id = building.admin_id;
         return { id, adress, zipcode, city, type, dateofpost, admin_id};
       });
-      setBuildings(newBuildings);
+      setBuildings(BuildingsUploaded);
     } catch (error) {
       console.log(error);
     }
   }
 
-  useEffect(() => {
-    getBuildingsUploaded();
-  }, [buildings]);
+  const deleteBuilding= (id) => {
+    axios.delete('/api/building/delete/'+id)
+    .then(response => {
+console.log("building deleted")
+})
+.catch(error => {
+console.log(error);
+});
+  setBuildings(buildings.filter((building) => building.id !== id))
 
-  const deleteBuilding = async (id) => {
-    try {
-        const deletebuilding = await axios.delete(`/api/building/`+id)
-        setBuildings(buildings.filter((building) => building.id !== id));
-    }
-    catch (error) {
-        console.log(error);
-    }
   }
 
-  return(
-		<div className="h-screen flex flex-col ">
 
-		  <NavLink to="/profile" className="flex font-bold justify-flex-start p-2 hover:shadow-inner">
-        <img src={Left} alt="back" style={{ height: '20px', marginTop :'2px',marginRight:'3px'}}/> 
-        <a className=" text-l hover:decoration-double " alt="filters bar">
+  return(
+	<div className="h-full flex flex-col box-border">
+		  <NavLink to="/profile" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
+        <Back/>
+        <p className=" text-l hover:decoration-double " alt="back to profile">
         BACK TO PROFIL 
-        </a>
+        </p>
       </NavLink>
 
 		  <h3 className="text-black font-bold text-5xl flex justify-center py-5">
 			My Uploaded
       </h3>
 
-			<div className="">
-        <ul className=" shadow-inner h-4/6 box-border bg-slate-50  w-11/12  rounded-[25px] p-3 flex overflow-scroll  flex-col  items-start ">
+			<div className="h-4/6 flex flex-col box-border items-center rounded-[25px]">
+        <ul className=" shadow-inner h-full box-border bg-slate-50  w-11/12  rounded-[25px] p-3 flex overflow-scroll  flex-col  items-start ">
             {
               buildings.map((building) => {
                 return <Building info={building} delete={deleteBuilding} key={building.id}/>
@@ -78,9 +76,11 @@ const UploadedPage =() => {
         </ul>
       </div>
 
-		  <NavLink to="/upload">
+		  <footer className="h-1/12">
+           <NavLink to="/upload">
       <UploadLogo/>
-      </NavLink> 
+      </NavLink>
+          </footer>
 
 		</div>
 	)

@@ -3,11 +3,12 @@ import Navigation from "../components/Navigation";
 import UploadPicto from "../components/UploadPicto"
 import { NavLink } from 'react-router-dom'
 import UserLogo from "../assets/user.svg";
-import Left from "../assets/Left.svg";
+import Back from "../components/Back";
 import Heart from "../assets/heart.svg";
 import Megaphone from "../assets/Megaphone.svg";
 import MessageIcon from "../assets/MessageIcon.svg";
 import uploadpicto from "../assets/uploadpicto.png"
+import ProfilePicture from "../components/ProfilePicture"
 
 import UploadLogo from "../components/UploadLogo"
 import { useState } from "react";
@@ -35,21 +36,44 @@ const ProfilePage = () => {
 
   return (
 
-      <div className="h-screen flex flex-col ">
-        <div className="h-1/6">
-       <NavLink to="/" className="flex  box-border font-bold  p-3 hover:shadow-inner">
-              <img src={Left} alt="back" className="flex box-border" style={{ width: '30px',height: '30px', marginTop :'2px',marginRight:'3px'}}/>
-              <a className=" text-l hover:decoration-double text-left " alt="filters bar">
-              BACK TO MAP
-              </a>
+      <div className="h-screen flex flex-col box-border ">
+        <NavLink to="/" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
+          <Back/>
+          <p className=" text-l hover:decoration-double text-left " alt="back to map">
+          BACK TO MAP
+          </p>
         </NavLink>
 
-        <h3 className="text-black box-border cursor-default font-bold text-5xl  flex justify-center  ">
-         WELCOME {Username}</h3>
-        </div>
-        <div className="flex justify-between items-center h-5/6 pt-2">
-          <div className="my-3 truncate overflow: hidden; bg-cover  h-full w-1/2 bg-no-repeat" style={{ backgroundImage:"url('images/Pp.png')" }}>
+        <h3 className="text-black box-border h-1/6 font-bold text-5xl flex justify-center">
+         WELCOME {Username}
+        </h3>
+
+        <div className="flex justify-between h-4/6 pt-2">
+          <div className="h-full w-1/2 flex flex-col  justify-between ">
+            <div className="  display flex justify-center items-center">
+              <button className="text-6xl m-3">
+              +
+              </button>
+              <div className=" h-5/6 truncate overflow: hidden; rounded-full">
+                <ProfilePicture/>
+              </div>
+              </div>
+              <UnsubscribeButton setActive={setModalActive} />
+
+          <Modal active={modalActive} setActive={setModalActive}>
+            <p className="flex justify-center py-5 text-base">Are you sure you want to unsubscribe from EmptyUp ? </p>
+
+            <div className="flex px-10 py-5 justify-around">
+              <YesButton onClick={onClickYes}/>
+              <NoButton onClick={onClickNo}/>
+            </div>
+          </Modal>
+
+          <Modal active={modalActiveYes} setActive={setModalActiveYes}>
+            <p className="flex justify-center py-5 text-base">You have sucessfully unsubscribe from EmptyUp! </p>
+          </Modal>
           </div>
+
 
           <div className="flex h-full w-1/2 flex-wrap justify-between px-10">
 
@@ -63,7 +87,7 @@ const ProfilePage = () => {
             </NavLink>
 
             <NavLink to="/uploaded" className="h-1/4">
-              <button className=" h-full text-black bg-white mr-1 w-40 hover:bg-blue-800 hover:text-white  font-bold cursor-pointer  p-2 flex flex-col justify-around items-start ">
+              <button className=" h-full text-black  mr-1 w-40 hover:drop-shadow-2xl font-bold cursor-pointer  p-2 flex flex-col justify-around items-start ">
             <p className="text-sm "> SEE YOUR</p>
             <img src={uploadpicto} alt="upload" className="flex box-border" style={{ height: '30px', marginTop :'2px'}}/>
             <h4 className="text-2xl "> UPLOADED  </h4>
@@ -89,28 +113,13 @@ const ProfilePage = () => {
               </button>
             </NavLink>
 
-            <div className=" h-1/4 w-full flex justify-between">
-              <UnsubscribeButton setActive={setModalActive} />
 
-          <Modal active={modalActive} setActive={setModalActive}>
-            <p className="flex justify-center py-5 text-base">Are you sure you want to unsubscribe from EmptyUp ? </p>
-
-            <div className="flex px-10 py-5 justify-around">
-              <YesButton onClick={onClickYes}/>
-              <NoButton onClick={onClickNo}/>
-            </div>
-          </Modal>
-
-          <Modal active={modalActiveYes} setActive={setModalActiveYes}>
-            <p className="flex justify-center py-5 text-base">You have sucessfully unsubscribe from EmptyUp! </p>
-          </Modal>
 
           <NavLink to="/logout" className="w-40 h-full" >
               <button className="  h-full w-full hover:text-black hover:bg-white bg-blue-800 text-white uppercase font-bold cursor-pointer  flex flex-col justify-around items-center ">
               Logout
             </button>
           </NavLink>
-          </div>
           </div>
         </div>
 

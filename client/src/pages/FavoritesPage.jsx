@@ -1,16 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import UploadLogo from "../components/UploadLogo";
-import Left from "../assets/Left.svg";
+import Back from "../components/Back";
 
 const FavoritesPage =() => {
 	return(
 		<div className="h-screen flex flex-col "> 
 
 		<NavLink to="/profile" className="flex font-bold justify-flex-start p-2 hover:shadow-inner">
-        <img src={Left} alt="back" style={{ height: '20px', marginTop :'2px',marginRight:'3px'}}/> 
-        <a className=" text-l hover:decoration-double " alt="filters bar">
+        <Back/>
+        <p className=" text-l hover:decoration-double " alt="back to profile">
         BACK TO PROFIL 
-        </a>
+        </p>
       </NavLink>
 
 		<h3 className="text-black font-bold text-5xl flex justify-center py-5">

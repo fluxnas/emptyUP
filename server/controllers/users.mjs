@@ -110,3 +110,11 @@ export const unsubscribeUser = async (req, res) => {
       res.status(500).send({ error: "Internal server error" });
   }
 };
+
+export const logout = (request, response) => {
+  return response
+    .clearCookie("access_token")
+    .status(200)
+    .json({ message: "Successfully logged out" });
+};
+

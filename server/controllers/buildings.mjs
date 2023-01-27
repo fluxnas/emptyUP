@@ -2,10 +2,22 @@ import { pool } from "../models/dbPool.mjs";
 import pg from "pg";
 import { v2 as cloudinary } from "cloudinary";
 
+
+export const getUserAdminBuildings = async (req, res) => {
+  const user_id = req.params.id
+  try{
+    const result = await pool.query("SELECT * FROM buildings where admin_id = $1 ",
+    [user_id]);
+    
+    return res.status(200).json({data : result.rows})
+  } catch (error){
+    res.status(400).send({ error: "invalid request" });
+  }
+}
+
 export const getBuildings = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM buildings");
-    console.log(result);
+    const result = await pool.query("SELECT * FROM buildings")
 
     if (result.rows.length === 0) {
       return res.status(400).json({ message: "No data to be displayed" });
@@ -34,11 +46,15 @@ export const getBuilding = async (req, res) => {
 };
 
 export const addBuilding = async (req, res) => {
-  const { adress, zipcode, city, type } = req.body;
-  const file  = await req.files.image
+  const { adress, zipcode, city, type} = req.body;
+  // const adress = "rue tonton"
+  // const zipcode = "1234"
+  // const city = "bxl"
+  // const type = "house"
+  const file  = req.files.image
   console.log(file)
   const dateofpost = new Date()
-  const admin_id = req.decoded
+  const admin_id = "2"
   if (!adress || !zipcode || !city || !type) {
     return res.status(400).json({ error: "Missing parameters" });
   }
@@ -59,26 +75,32 @@ export const addBuilding = async (req, res) => {
 
 
 export const updateBuilding = async (req, res) => {
+  try {
+    const  id  = req.params
+    const { adress, zipcode, city, type } = req.body;
+    const update = await pool.query(
+        "UPDATE buildings SET adress = $1, zipcode = $2, city = $3, type = $4 WHERE id = $5", 
+        [adress, zipcode, city, type, id ]
+    )
+    res.json("building updated successfully")
+} catch (err) {
+    console.error(err.message)
+    res.status(500).json("Error updating building ")
+}
+}
  
-};
 
 
 export const deleteBuilding = async (req, res) => {
   const id = req.params.id;
-  const admin_id = req.decoded
-  const verif = await pool.query("SELECT admin_id from buildings where id = $1", [
-    id,
-  ]);
-  if (verif.rows[0].user_id !== admin_id) {
-    res.status(400).send({ info: "not authorized" });
-  }
+  const admin_id = "2"
+  // const verif = await pool.query("SELECT admin_id from buildings where id = $1", [
+  //   id,
+  // ]);
+  // if (verif.rows[0].user_id !== admin_id) {
+  //   return res.status(400).send({ info: "not authorized" });
+  // }
   try {
-    const result = await pool.query("SELECT * FROM buildings WHERE id = $1", [
-      id,
-    ]);
-    if (result.rows.length === 0) {
-      return res.status(404).send({ error: "building not found" });
-    }
     await pool.query("DELETE FROM buildings WHERE id = $1", [id]);
     return res
       .status(200)

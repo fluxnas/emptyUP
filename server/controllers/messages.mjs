@@ -32,13 +32,34 @@ export const postMessage = async (req, res) => {
     const hours = (new Date().getHours() + " : " + new Date().getMinutes()) 
     const date = new Date() + hours 
     try{
-    await pool.query("INSERT INTO messages (user_id, content, date)")
-    } catch(error){
-        console.error(error)
+        const discussion = await pool.query("SELECT * from discussion where id = $1",
+        [req.params.id])  // endpoint => :id => discussion id 
+        const user_ids = discussion.rows[0].user_id
+        const discussion_id = discussion.rows[0].id
+        if(user_ids.includes(user_id)) {
+            // Insert the message into the messages table with the obtained discussion_id
+            await pool.query("INSERT INTO messages (user_id, content, date, discussion_id) VALUES ($1, $2, $3, $4)", 
+            [user_id, content, date, discussion_id]);
+            return res.status(201).json({
+                status: 'success',
+                message: 'message posted',
+                });
+        }else{
+            res.status(401).json({
+                status: 'error',
+                message: 'Unauthorized: User is not part of this discussion',
+            });
+        }
+           
+    }catch(error) {
+        console.error(error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Error posting message',
+        });
     }
-
-
 }
+
 
 export const deleteMessage = (req, res) => {
 

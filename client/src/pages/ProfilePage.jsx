@@ -1,15 +1,11 @@
-import ReactDOM from 'react-dom'
-import Navigation from "../components/Navigation";
-import UploadPicto from "../components/UploadPicto"
 import { NavLink } from 'react-router-dom'
-import UserLogo from "../assets/user.svg";
-import Back from "../components/Back";
 import Heart from "../assets/heart.svg";
 import Megaphone from "../assets/Megaphone.svg";
 import MessageIcon from "../assets/MessageIcon.svg";
 import uploadpicto from "../assets/uploadpicto.png"
 import ProfilePicture from "../components/ProfilePicture"
-
+import LogoutButton from "../components/LogoutButton"
+import Logo from "../components/Logo";
 import UploadLogo from "../components/UploadLogo"
 import { useState } from "react";
 import Modal from "../components/Modal";
@@ -22,7 +18,6 @@ const Username="Roro68"
 const ProfilePage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [modalActiveYes, setModalActiveYes] = useState(false);
-  const [modalActiveNo, setModalActiveNo] = useState(false);
 
   const onClickYes=() => {
     setModalActive(false);
@@ -30,21 +25,16 @@ const ProfilePage = () => {
   }
 
   const onClickNo=() => {
-      setModalActive(false);
-      setModalActiveNo(true)
   }
 
   return (
 
-      <div className="h-screen flex flex-col box-border ">
-        <NavLink to="/" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
-          <Back/>
-          <p className=" text-l hover:decoration-double text-left " alt="back to map">
-          BACK TO MAP
-          </p>
-        </NavLink>
-
-        <h3 className="text-black box-border h-1/6 font-bold text-5xl flex justify-center">
+      <div className="h-screen font-custom1  w-screen flex flex-col box-border ">
+        <div className="flex h-1/12 w-full box-border justify-between p-5 ">
+          <Logo/>
+          <LogoutButton/>
+        </div>
+        <h3 className="font-custom1 cursor-default text-black box-border h-1/6 font-bold text-5xl flex justify-center">
          WELCOME {Username}
         </h3>
 
@@ -54,8 +44,8 @@ const ProfilePage = () => {
               <button className="text-6xl m-3">
               +
               </button>
-              <div className=" h-5/6 truncate overflow: hidden; rounded-full">
-                <ProfilePicture/>
+              <div className=" h-96 w-96 flex items-center truncate overflow: hidden; rounded-full">
+              <ProfilePicture/>
               </div>
               </div>
               <UnsubscribeButton setActive={setModalActive} />
@@ -75,56 +65,50 @@ const ProfilePage = () => {
           </div>
 
 
-          <div className="flex h-full w-1/2 flex-wrap justify-between px-10">
+          <div className="flex h-full w-1/2 flex-wrap justify-between px-28 pb-10">
 
-            <NavLink to="/favorites" className="h-1/4">
-            <button className=" w-40 h-full text-black mr-1 bg-white hover:bg-blue-800 hover:text-white  font-bold cursor-pointer  p-2 flex flex-col justify-around items-start ">
-            <p className="text-sm "> SEE YOUR</p>
+            <NavLink to="/favorites" className="">
+            <button className=" border h-48 w-48 shadow rounded-xl mr-1 hover:bg-blue-800 hover:text-white font-bold cursor-pointer p-2 flex flex-col justify-around items-center">
+            <p className="text-sm  "> SEE YOUR</p>
             <img src={Heart} alt="back" className="flex box-border" style={{ height: '30px', marginTop :'2px'}}/>
-            <h4 className="text-2xl "> FAVORITES  </h4>
+            <h4 className="text-2xl  "> FAVORITES  </h4>
             <p className="text-sm "> SPACES </p>
             </button>
             </NavLink>
 
-            <NavLink to="/uploaded" className="h-1/4">
-              <button className=" h-full text-black  mr-1 w-40 hover:drop-shadow-2xl font-bold cursor-pointer  p-2 flex flex-col justify-around items-start ">
-            <p className="text-sm "> SEE YOUR</p>
+            <NavLink to="/uploaded" className="">
+              <button className="border h-48 w-48 shadow rounded-xl mr-1 hover:bg-blue-800 hover:text-white font-bold cursor-pointer p-2 flex flex-col justify-around items-center">
+            <p className="text-sm  "> SEE YOUR</p>
             <img src={uploadpicto} alt="upload" className="flex box-border" style={{ height: '30px', marginTop :'2px'}}/>
-            <h4 className="text-2xl "> UPLOADED  </h4>
-            <p className="text-sm "> SPACES </p>
+            <h4 className="text-2xl  "> UPLOADED  </h4>
+            <p className="text-sm  "> SPACES </p>
             </button>
             </NavLink>
 
-            <NavLink to="/announcements" className="h-1/4">
-              <button className=" h-full text-black bg-white w-40 mr-1 hover:bg-blue-800 hover:text-white  font-bold cursor-pointer  p-2 flex flex-col justify-around items-start ">
+            <NavLink to="/announcements" className="">
+              <button className=" border h-48 w-48 shadow rounded-xl mr-1 hover:bg-blue-800 hover:text-white font-bold cursor-pointer p-2 flex flex-col justify-around items-center">
             <p className="text-sm "> SEE THE</p>
             <img src={Megaphone} alt="megaphone" className="flex box-border" style={{ height: '30px', marginTop :'2px'}}/>
             <h4 className="text-2xl "> POSTS  </h4>
-            <p className="text-sm text-left ">OF COMMUNITY </p>
+            <p className="text-sm text-left  ">OF COMMUNITY </p>
             </button>
             </NavLink>
 
-            <NavLink to="/messages" className="h-1/4">
-              <button className="h-full  w-40 text-black bg-white mr-1 hover:bg-blue-800 hover:text-white  font-bold cursor-pointer  p-2 flex flex-col justify-around items-start">
-            <p className="text-sm "> SEE YOUR</p>
+            <NavLink to="/messages">
+              <button className=" border h-48 w-48 shadow rounded-xl mr-1 hover:bg-blue-800 hover:text-white font-bold cursor-pointer p-2 flex flex-col justify-around items-center">
+            <p className="text-sm"> SEE YOUR</p>
             <img src={MessageIcon} alt="message" className="flex box-border" style={{height: '30px', marginTop :'2px'}}/>
             <h4 className="text-2xl "> DISCUSSIONS  </h4>
-             <p className="text-sm text-left ">WITH COMMUNITY </p>
+             <p className="text-sm text-left">WITH COMMUNITY </p>
               </button>
             </NavLink>
 
-
-
-          <NavLink to="/logout" className="w-40 h-full" >
-              <button className="  h-full w-full hover:text-black hover:bg-white bg-blue-800 text-white uppercase font-bold cursor-pointer  flex flex-col justify-around items-center ">
-              Logout
-            </button>
-          </NavLink>
           </div>
         </div>
-
-        <footer className="h-1/12 flex justify-center  ">
-        <UploadLogo/>
+        <footer className="h-1/12 flex justify-center">
+          <NavLink to="/upload" className=" ">
+            <UploadLogo />
+          </NavLink>
         </footer>
       </div>
         )

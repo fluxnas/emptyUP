@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom'
 import UploadLogo from "../components/UploadLogo";
 import Back from "../components/Back";
 import Building from "../components/Building"
-
+import LogoutButton from "../components/LogoutButton"
+import uploadpicto from "../assets/uploadpicto.png"
 const UploadedPage =() => {
 
   const [buildings, setBuildings] = useState([]);
@@ -54,16 +55,21 @@ console.log(error);
 
 
   return(
-	<div className="h-full flex flex-col box-border">
-		  <NavLink to="/profile" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
-        <Back/>
-        <p className=" text-l hover:decoration-double " alt="back to profile">
-        BACK TO PROFIL 
-        </p>
-      </NavLink>
+	<div className="font-custom1  h-screen w-screen flex flex-col box-border p-0 m-0 ">
+      <div className="flex h-1/12 w-full box-border justify-between p-5 ">
+        <NavLink to="/profile" className="flex box-border h-full font-bold   hover:shadow-inner">
+          <Back/>
+            <p className=" text-l " alt="back to profile">
+            BACK TO PROFIL
+            </p>
+        </NavLink>
+       <LogoutButton/>
+      </div>
 
-		  <h3 className="text-black font-bold text-5xl flex justify-center py-5">
+		  <h3 className="uppercase text-black font-bold text-5xl flex justify-center py-5">
 			My Uploaded
+         <img src={uploadpicto} alt="upload" className="flex box-border" style={{ height: '50px', marginLeft :'20px',marginTop :'2px'}}/>
+
       </h3>
 
 			<div className="h-4/6 flex flex-col box-border items-center rounded-[25px]">

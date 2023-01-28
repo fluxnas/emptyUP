@@ -10,7 +10,7 @@ import FormLog from "../components/FormLog";
 import LoginButton from "../components/LoginButton";
 import RegisterButton from "../components/RegisterButton";
 import LoginPicto from "../components/LoginPicto"
-
+import Logo from "../components/Logo"
 
 const HomePage = () => {
 
@@ -60,36 +60,42 @@ const HomePage = () => {
 
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-between p-0 m-0">
-
-      <LoginPicto setActive={setModalActive} />
-
+    <div className="font-custom1  h-screen w-screen flex flex-col box-border m-0 p-0 ">
+      <div className="flex h-1/12 w-full box-border justify-between p-5 ">
+        <Logo/>
+        <LoginPicto setActive={setModalActive}/>
+      </div>
+      <div className=" h-5/6  ">
       <LeafletContainer>
         <LeafletMap buildings={buildings}/>
       </LeafletContainer>
-      <UploadLogo setActive={setModalActive} />
-      <Modal active={modalActive} setActive={setModalActive}>
-        <p className="flex justify-center text-base">
-         First, You need to register and login{" "}
-        </p>
-        <div className="flex justify-around">
-          <LoginButton onClick={onClickLog} />
-          <RegisterButton onClick={onClickReg} />
-        </div>
-      </Modal>
+      </div>
 
-      <Modal active={modalActiveLog} setActive={setModalActiveLog}>
-        <FormLog/>
-      </Modal>
-      <Modal active={modalActiveReg} setActive={setModalActiveReg}>
-        <FormReg
+      <footer className="h-1/12 flex justify-center">
+        <UploadLogo setActive={setModalActive} />
+        <Modal active={modalActive} setActive={setModalActive}>
+          <p className="flex justify-center text-base">
+          First, You need to register and login{" "}
+          </p>
+          <div className="flex justify-around">
+            <LoginButton onClick={onClickLog} />
+            <RegisterButton onClick={onClickReg} />
+          </div>
+        </Modal>
+
+        <Modal active={modalActiveLog} setActive={setModalActiveLog}>
+          <FormLog/>
+        </Modal>
+        <Modal active={modalActiveReg} setActive={setModalActiveReg}>
+          <FormReg
           onSubmit={(event) => {
             event.preventDefault();
             setModalActiveReg(false);
             setModalActiveLog(true);
-          }}
-        />
-      </Modal>
+            }}
+          />
+        </Modal>
+      </footer>
 
     </div>
   );

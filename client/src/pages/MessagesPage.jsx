@@ -1,3 +1,4 @@
+import LogoutButton from "../components/LogoutButton"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRef, useState } from "react";
@@ -6,7 +7,7 @@ import UploadLogo from "../components/UploadLogo";
 import Back from "../components/Back";
 import PostButton from"../components/PostButton"
 import Message from "../components/Message"
-
+import MessageIcon from "../assets/MessageIcon.svg"
 const Username="Roro68"
 //change with backend
 const MessagesPage =() => {
@@ -48,18 +49,23 @@ const handleChangeU =(event) =>{
 }
 
 	return(
-		  <div className="h-screen flex flex-col box-border " id="box">
-				<NavLink to="/profile" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
-        		<Back/>
-        			<a className=" text-l hover:decoration-double text-left " alt="filters bar">
-        			BACK TO PROFIL 
-        			</a>
-      	</NavLink>
+		  <div className="h-screen font-custom1  w-screen flex flex-col box-border p-0 m-0 ">
+      <div className="flex h-1/12 w-full box-border justify-between p-5 ">
+        <NavLink to="/profile" className="flex box-border h-full font-bold">
+          <Back/>
+            <p className=" text-l " alt="back to profile">
+            BACK TO PROFIL
+            </p>
+        </NavLink>
+       <LogoutButton/>
+      </div>
 
-     		<h3 className="text-black box-border h-1/6 font-bold text-5xl flex justify-center  ">
-				My Discussions</h3>
+     		<h3 className="text-black uppercase box-border h-1/6 font-bold text-5xl flex justify-center  ">
+				My Discussions
+         <img src={MessageIcon} alt="megaphone" className="flex box-border" style={{ height: '45px', marginLeft :'20px',marginTop :'2px'}}/>
+         </h3>
      		
-     		<div className="h-4/6 flex flex-col box-border  items-center  rounded-[25px]   "> 
+     		<div className="h-4/6 flex flex-col box-border  items-center  rounded-[25px]   ">
 
 				<ul className=" shadow-inner h-4/6 box-border bg-slate-50  w-11/12  rounded-[25px] p-3 flex overflow-scroll  flex-col  items-start ">
         				{msgs.map((msg) => (

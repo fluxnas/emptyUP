@@ -2,13 +2,13 @@ import Logonotext from "../assets/logonotext.png";
 
 const UploadLogo = ({ setActive }) => {
   return (
-    <div>
-    <div className="flex flex-col items-center text-center text-black font-bold text-lg  my-2 w-15" onClick={() => setActive(true)}>
-    <img src={Logonotext} alt="Upload a building" className="p-1 flex justify-center item-center w-14  hover:shadow"/>
-    <p className="justify-center text-black flex items-center text-xs font-bold px-2 text-center w-15"> UPLOAD A SPACE </p>
-    </div>
-    </div>
+    <div  className=" hover:shadow border rounded-3xl p-1 px-3 flex items-center justify-start text-center text-black font-bold text-lg w-30 mb-4 " onClick={() => setActive(true)}>
+ <p className=" text-l pr-1">Upload</p>
+    <img src={Logonotext} alt="Upload a building" className=" p-1 w-7 flex hover:bg-white justify-center font-bold item-center   "/>
+ <p className=" text-l pl-1">Spaces</p>
+</div>
     );
 };
 
 export default UploadLogo;
+

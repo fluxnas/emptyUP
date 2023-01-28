@@ -1,3 +1,4 @@
+import LogoutButton from "../components/LogoutButton"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
@@ -9,7 +10,9 @@ import Annoucement from "../components/Annoucement"
 import UploadLogo from "../components/UploadLogo";
 import Pp from '../assets/Pp.png';
 import { v4 as uuidv4 } from 'uuid';
+import Megaphone from "../assets/Megaphone.svg"
 const Username="Roro68"
+
 
 const AnnoucementsPage =() => {
 const [posts, setPosts] = useState([]);
@@ -77,15 +80,19 @@ setNewSubject("")
 }
 
 return (
-     <div className="h-full flex flex-col box-border">
-        <NavLink to="/profile" className="flex h-1/12 box-border font-bold  p-3 hover:shadow-inner">
-              <Back/>
-              <p className=" text-l hover:decoration-double text-left " alt="filters bar">
-              BACK TO PROFIL
-              </p>
-  </NavLink>
+     <div className="font-custom1 h-screen w-screen flex flex-col box-border p-0 m-0 ">
+      <div className="flex h-1/12 w-full box-border justify-between p-5 ">
+        <NavLink to="/profile" className="flex box-border h-full font-bold   hover:shadow-inner">
+          <Back/>
+            <p className=" text-l " alt="back to profile">
+            BACK TO PROFIL
+            </p>
+        </NavLink>
+       <LogoutButton/>
+      </div>
      	<h3 className="text-black uppercase box-border h-1/6 font-bold text-5xl flex justify-center">
 			Posts
+      <img src={Megaphone} alt="megaphone" className="flex box-border" style={{ height: '40px', marginLeft :'20px'}}/>
       </h3>
 
       <div className="h-4/6 flex flex-col box-border items-center rounded-[25px] ">

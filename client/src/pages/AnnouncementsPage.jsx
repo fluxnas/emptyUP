@@ -11,6 +11,10 @@ import UploadLogo from "../components/UploadLogo";
 import Pp from '../assets/Pp.png';
 import { v4 as uuidv4 } from 'uuid';
 import Megaphone from "../assets/Megaphone.svg"
+import Logo from "../components/Logo"
+
+
+
 const Username="Roro68"
 
 
@@ -69,7 +73,7 @@ const postToAdd={ id, content, subject}
 setPosts(prevPosts => [...prevPosts, postToAdd])
 setNewPost("")
 setNewSubject("")
-   axios.post(apiUrl+'/add', postToAdd)
+axios.post(apiUrl+'/add', postToAdd)
    .then(response => {
       console.log("post added")
    })
@@ -80,17 +84,13 @@ setNewSubject("")
 }
 
 return (
-     <div className="font-custom1 h-screen w-screen flex flex-col box-border p-0 m-0 ">
-      <div className="flex h-1/12 w-full box-border justify-between p-5 ">
-        <NavLink to="/profile" className="flex box-border h-full font-bold   hover:shadow-inner">
-          <Back/>
-            <p className=" text-l " alt="back to profile">
-            BACK TO PROFIL
-            </p>
-        </NavLink>
-       <LogoutButton/>
-      </div>
-     	<h3 className="text-black uppercase box-border h-1/6 font-bold text-5xl flex justify-center">
+      <div className="h-screen font-custom1  w-screen flex flex-col box-border ">
+        <div className="flex h-1/12 w-full box-border justify-between px-5 pt-5">
+          <Logo/>
+          <LogoutButton/>
+        </div>
+
+     	<h3 className="h-1/6 uppercase text-black font-bold text-5xl flex items-center justify-center">
 			Posts
       <img src={Megaphone} alt="megaphone" className="flex box-border" style={{ height: '40px', marginLeft :'20px'}}/>
       </h3>
@@ -126,11 +126,12 @@ return (
       	</form>
       </div>
 
-      <footer className="h-1/12">
-        <NavLink to="/upload">
-          <UploadLogo/>
-        </NavLink>
-      </footer>
+       <footer className="h-1/12  pt-4 flex justify-center">
+          <NavLink to="/upload" className=" ">
+            <UploadLogo />
+          </NavLink>
+        </footer>
+
 		</div>
 	)
 }

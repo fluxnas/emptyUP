@@ -94,7 +94,7 @@ const ProfilePage = () => {
             </button>
             </NavLink>
 
-            <NavLink to="/messages">
+            <NavLink to="/discussions">
               <button className=" border h-48 w-48 shadow rounded-xl mr-1 hover:bg-blue-800 hover:text-white font-bold cursor-pointer p-2 flex flex-col justify-around items-center">
             <p className="text-sm"> SEE YOUR</p>
             <img src={MessageIcon} alt="message" className="flex box-border" style={{height: '30px', marginTop :'2px'}}/>

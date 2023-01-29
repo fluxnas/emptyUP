@@ -3,7 +3,6 @@ import Picture from "../components/Picture"
 const Username="Roro68"
 const date=new Date().toLocaleDateString()
 
-
 const Building = (props) => {
   return(
     <li className="flex justify-between  ">

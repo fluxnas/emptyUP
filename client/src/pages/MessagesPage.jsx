@@ -8,6 +8,8 @@ import Back from "../components/Back";
 import PostButton from"../components/PostButton"
 import Message from "../components/Message"
 import MessageIcon from "../assets/MessageIcon.svg"
+import Logo from "../components/Logo"
+
 const Username="Roro68"
 //change with backend
 const MessagesPage =() => {
@@ -48,19 +50,14 @@ const handleChangeU =(event) =>{
   setNewUsername(event.target.value)
 }
 
-	return(
-		  <div className="h-screen font-custom1  w-screen flex flex-col box-border p-0 m-0 ">
-      <div className="flex h-1/12 w-full box-border justify-between p-5 ">
-        <NavLink to="/profile" className="flex box-border h-full font-bold">
-          <Back/>
-            <p className=" text-l " alt="back to profile">
-            BACK TO PROFIL
-            </p>
-        </NavLink>
-       <LogoutButton/>
-      </div>
+  return(
+    <div className="h-screen font-custom1  w-screen flex flex-col box-border ">
+        <div className="flex h-1/12 w-full box-border justify-between px-5 pt-5 ">
+          <Logo/>
+          <LogoutButton/>
+        </div>
 
-     		<h3 className="text-black uppercase box-border h-1/6 font-bold text-5xl flex justify-center  ">
+     		<h3 className="h-1/6 uppercase text-black font-bold text-5xl flex items-center justify-center">
 				My Discussions
          <img src={MessageIcon} alt="megaphone" className="flex box-border" style={{ height: '45px', marginLeft :'20px',marginTop :'2px'}}/>
          </h3>
@@ -96,7 +93,12 @@ const handleChangeU =(event) =>{
       	</form>
       </div>
 
-      <footer className="h-1/12"></footer>
+      <footer className="h-1/12 flex pt-4 items-end justify-center">
+          <NavLink to="/upload">
+            <UploadLogo />
+          </NavLink>
+        </footer>
+
 		</div>
 	)
 }

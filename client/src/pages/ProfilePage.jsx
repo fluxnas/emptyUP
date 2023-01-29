@@ -30,21 +30,21 @@ const ProfilePage = () => {
   return (
 
       <div className="h-screen font-custom1  w-screen flex flex-col box-border ">
-        <div className="flex h-1/12 w-full box-border justify-between p-5 ">
+        <div className="flex h-1/12 w-full box-border justify-between px-5 pt-5 ">
           <Logo/>
           <LogoutButton/>
         </div>
-        <h3 className="font-custom1 cursor-default text-black box-border h-1/6 font-bold text-5xl flex justify-center">
+        <h3 className="font-custom1 border-box cursor-default text-black box-border h-1/6 font-bold text-5xl flex items-center justify-center">
          WELCOME {Username}
         </h3>
 
-        <div className="flex justify-between h-4/6 pt-2">
+        <div className="flex justify-between h-4/6 border-box pt-2">
           <div className="h-full w-1/2 flex flex-col  justify-between ">
             <div className="  display flex justify-center items-center">
               <button className="text-6xl m-3">
               +
               </button>
-              <div className=" h-96 w-96 flex items-center truncate overflow: hidden; rounded-full">
+              <div className=" h-96 w-9 flex items-center truncate overflow: hidden; rounded-full">
               <ProfilePicture/>
               </div>
               </div>
@@ -105,8 +105,8 @@ const ProfilePage = () => {
 
           </div>
         </div>
-        <footer className="h-1/12 flex justify-center">
-          <NavLink to="/upload" className=" ">
+        <footer className="h-1/12 pt-4 flex justify-center">
+          <NavLink to="/upload">
             <UploadLogo />
           </NavLink>
         </footer>

@@ -72,7 +72,7 @@ const HomePage = () => {
       </div>
 
       <footer className="h-1/12 flex justify-center">
-        <UploadLogo setActive={setModalActive} />
+        <UploadLogo setActive={setModalActive} className="cursor-pointer"/>
         <Modal active={modalActive} setActive={setModalActive}>
           <p className="flex justify-center text-base">
           First, You need to register and login{" "}

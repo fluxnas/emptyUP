@@ -13,7 +13,6 @@ const FormLog = () => {
     event.preventDefault();
     console.log(inputRefEmail.current.value);
     console.log(inputRefPassword.current.value);
-    navigate("/upload");
     setIsSubmitting(true);
 
     const data = {

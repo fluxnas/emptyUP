@@ -54,19 +54,6 @@ export const createLike = async ( req, res ) =>{
         console.error( err.message )
     }
 }
-<<<<<<< HEAD
-
-// delete Likes
-
-export const deleteLike = async ( req, res ) =>{
-    try {
-        const { id } = req.params
-        const deleteLike = await pool.query(
-            "DELETE FROM like_per_buildig WHERE id = $1",
-            [id]
-        )
-        res.json("Well unliked!")
-=======
 // delete like
 export const deleteLike = async ( req, res ) =>{
     try {
@@ -74,7 +61,6 @@ export const deleteLike = async ( req, res ) =>{
             "DELETE * FROM like_per_building WHERE id = $1"
         )
         res.json("U did remove your like")
->>>>>>> 1d9ef52e7af7d56c7b2441f73a30b45fcee07a92
     } catch (err) {
         console.error( err.message )
     }

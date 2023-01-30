@@ -46,15 +46,15 @@ export const getBuilding = async (req, res) => {
 };
 
 export const addBuilding = async (req, res) => {
-  const { adress, zipcode, city, type} = req.body;
-  // const adress = "rue tonton"
+  const { adress, zipcode, city, type, position} = req.body;
+  // const adress = "rue loulou"
   // const zipcode = "1234"
   // const city = "bxl"
-  // const type = "house"
+  // const type = "house"  // => infos lambda pour tester de post photo avec Insomnia/Postman
   const file  = req.files.image
   console.log(file)
   const dateofpost = new Date()
-  const admin_id = "2"
+  const admin_id = "1"
   if (!adress || !zipcode || !city || !type) {
     return res.status(400).json({ error: "Missing parameters" });
   }
@@ -63,8 +63,8 @@ export const addBuilding = async (req, res) => {
     const initialImage = result.secure_url;
     console.log(initialImage)
     await pool.query(
-      "insert into buildings (adress, zipcode, city, type, dateofpost, admin_id, initial_image) values ($1, $2, $3, $4, $5, $6, $7)",
-      [adress, zipcode, city, type, dateofpost, admin_id, initialImage]
+      "insert into buildings (adress, zipcode, city, type, dateofpost, admin_id, initial_image, position) values ($1, $2, $3, $4, $5, $6, $7, $8)",
+      [adress, zipcode, city, type, dateofpost, admin_id, initialImage, position]
     );
     return res.status(201).send({ info: "building successfully added" });
   } catch (error) {
@@ -93,7 +93,7 @@ export const updateBuilding = async (req, res) => {
 
 export const deleteBuilding = async (req, res) => {
   const id = req.params.id;
-  const admin_id = "2"
+  const admin_id = "2" // => change to "req.decoded"
   // const verif = await pool.query("SELECT admin_id from buildings where id = $1", [
   //   id,
   // ]);

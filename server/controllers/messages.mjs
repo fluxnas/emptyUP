@@ -1,32 +1,5 @@
 import { pool } from "../models/Client.mjs"
 
-<<<<<<< HEAD
-// All messages
-export const getMessages = async ( req, res ) =>{
-    try {
-        const allMessages = await pool.query(
-            "SELECT * FROM messages"
-        )
-        res.json(allMessages.rows)
-    } catch (error) {
-        console.error( error.message)
-    }
-}
-
-// get one user's messages 
-export const getUserLastMessage = async ( req, res ) =>{
-    try {
-        const {user_id} = req.decoded
-    const lastMessage = await pool.query(
-        "SELECT content FROM messages WHERE user_id =  ORDER BY id DESC LIMIT $1",
-        [user_id]
-    )
-    res.json(lastMessage.rows)
-    } catch (error) {
-        console.error(error.message)
-    }
-} 
-=======
 
 // all messages
 export const getMessages = async ( req, res ) =>{
@@ -98,4 +71,3 @@ export const deleteMessage = async ( req, res ) =>{
         console.error( err.message)
     }
 }
->>>>>>> 1d9ef52e7af7d56c7b2441f73a30b45fcee07a92

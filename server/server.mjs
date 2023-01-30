@@ -7,11 +7,7 @@ import { dbConnect }from "./models/dbConnect.mjs"
 import { login, register, createUser, deleteUser, getUsers, oneUser, uploadProfilePic, suscribe } from "./controllers/reg-log.mjs"
 import { createOneBuilding, deleteBuilding,getAdress, getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/buildings.mjs";
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
-<<<<<<< HEAD
-import { createLike, deleteLike } from "./controllers/likes.mjs"
-=======
-import { allLikes, createLike, getOneLike } from "./controllers/likes.mjs"
->>>>>>> 1d9ef52e7af7d56c7b2441f73a30b45fcee07a92
+import { allLikes, createLike, getOneLike, deleteLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
 import { createMessage, deleteMessage, getMessages, getOneMessage } from "./controllers/messages.mjs";
 // import { jwtAuthentification } from "./middleware/verifyToken.mjs"
@@ -106,13 +102,8 @@ server.get('/api/getlikes', allLikes)
 server.get('/api/onelike', getOneLike)
 // create likes
 server.post('/api/like', createLike)
-<<<<<<< HEAD
 // delete likes
 server.delete('/api/like/:id', deleteLike)
-=======
-// delete like
-server.delete('/api/eraselike', )
->>>>>>> 1d9ef52e7af7d56c7b2441f73a30b45fcee07a92
 
 // IMAGES
 // upload images

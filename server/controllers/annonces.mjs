@@ -1,5 +1,20 @@
 import { pool } from "../models/Client.mjs"
 
+// create annonce
+export const createAnnonce = async ( req, res ) =>{
+        try {
+        const date = new Date()
+        const user_id = "8" //add the regular Id
+        const { content, subject } = req.body
+        const newAnnonce = await pool.query (
+            "INSERT INTO annonces ( user_id, content, date, subject ) VALUES ( $1, $2, $3,$4 ) RETURNING *",
+            [ user_id, content, date, subject ]
+        )
+        res.send({info: "new annonce added"})
+    } catch ( err ) {
+        console.error( err.message )
+    }
+}
 // All annonces
 export const getAnnonces = async ( req, res ) =>{
     try {
@@ -11,21 +26,6 @@ export const getAnnonces = async ( req, res ) =>{
         console.error(err.message)
     }
 }
-
-// create annonce
-export const createAnnonce = async ( req, res ) =>{
-    try {
-        const { user_id, content, date } = req.body
-        const newAnnonce = await pool.query (
-            "INSERT INTO annonces ( user_id, content, date ) VALUES ( $1, $2, $3 ) RETURNING *",
-            [ user_id, content, date ]
-        )
-        res.json(newAnnonce.rows[0])
-    } catch ( err ) {
-        console.error( err.message )
-    }
-}
-
 // get one annonce
 export const oneAnnonce = async ( req, res ) =>{
     const { id } = req.params

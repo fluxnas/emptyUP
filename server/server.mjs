@@ -6,10 +6,10 @@ import fileUpload from "express-fileupload"
 import { dbConnect }from "./models/dbConnect.mjs"
 import { login, register, createUser, deleteUser, getUsers, oneUser, uploadProfilePic, suscribe } from "./controllers/reg-log.mjs"
 import { createOneBuilding, deleteBuilding,getAdress, getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/buildings.mjs";
-import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
+import { postAnnonces, deleteAnnonce, getOneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
 import { allLikes, createLike, getOneLike, deleteLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
-import { createMessage, deleteMessage, getMessages, getLastMessage,  } from "./controllers/messages.mjs";
+import { postMessage, deleteMessage, getMessages, getLastMessage,  } from "./controllers/messages.mjs";
 import { createDiscussion ,deleteDiscussion } from "./controllers/discussion.mjs"
 import { jwtAuthentification } from "./middleware/verifyToken.mjs"
 
@@ -80,17 +80,17 @@ server.get('/api/getmessages', getMessages)
 // one message
 server.get('/api/lastmessage', getLastMessage)
 // create message
-server.post('/api/newmessage', createMessage)
+server.post('/api/newmessage', postMessage)
 // delete message
 server.delete('/api/delmessage', deleteMessage)
 
 // ANNONCES
 // all annonces
-server.get('/api/getannonces', getAnnonces)
-// create annonce
-server.post('/api/newannonce', createAnnonce)
+server.get('/api/getannonces', postAnnonces)
+// // create annonce need to be created 
+// server.post('/api/newannonce', createAnnonce)
 // one annonce
-server.get('/api/annonce/:id', oneAnnonce)
+server.get('/api/annonce/:id', getOneAnnonce)
 // update annonce need token to make it work
 server.put('/api/annonce/:id', updateAnnonce)
 // delete annonce

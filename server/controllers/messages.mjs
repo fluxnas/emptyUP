@@ -28,7 +28,7 @@ export const getLastMessage = async (req, res) => {
 
 export const postMessage = async (req, res) => {
     const user_id = req.decoded
-    const { content } = req.body
+    const {content } = req.body
     const hours = (new Date().getHours() + " : " + new Date().getMinutes()) 
     const date = new Date() + hours 
     try{

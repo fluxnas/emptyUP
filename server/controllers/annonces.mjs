@@ -1,4 +1,4 @@
-import { pool } from "../models/dbPool.mjs";
+import { pool } from "../models/Client.mjs"
 
 export const postAnnonces = async (req, res) => {
   const { content, subject, city } = req.body;

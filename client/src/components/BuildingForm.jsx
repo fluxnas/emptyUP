@@ -18,15 +18,17 @@ const BuildingForm = ({ submit }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const newBuilding = {
+      initial_image: image,
       city: inputRefCity.current.value,
       zipcode: inputRefZipcode.current.value,
       adress: inputRefAddress.current.value,
       // position: [coordinates.lat, coordinates.lon],
       type: inputRefType.current.value,
       admin_id: JSON.parse(localStorage.getItem("user_id")),
+      // coordinates: coordinates
     };
 
-    console.log(newBuilding);
+     console.log(newBuilding);
     // submit(newBuilding);
 
     const address =
@@ -46,19 +48,26 @@ const BuildingForm = ({ submit }) => {
         setCoordinates({ lat, lon });
       });
 
-    const formData = new FormData();
-    formData.append("image", image);
+    // const formData = new FormData();
+    // formData.append("image", image);
+    // formData.append("city", inputRefCity.current.value);
+    // formData.append("zipcode", inputRefZipcode.current.value);
+    // formData.append("adress", inputRefAddress.current.value);
+    // formData.append("type", inputRefType.current.value);
+    // formData.append("admin_id", JSON.parse(localStorage.getItem("user_id")));
+    // console.log(formData)
 
-    axios
-      .post("/api/building/uploadimage", formData)
-      .then((response) => {
-        console.log(response);
-        // setIsSubmitting(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        // setIsSubmitting(false);
-      });
+
+    // axios
+    //   .post("/api/building/uploadimage", formData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     // setIsSubmitting(false);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     // setIsSubmitting(false);
+    //   });
     axios
       .post("/api/addbuilding", newBuilding)
       .then((response) => {

@@ -2,9 +2,10 @@
   "name": "emptyup",
   "version": "1.0.0",
   "description": "team project",
-  "main": "./server/server.mjs",
+  "main": "server.mjs",
   "scripts": {
-    "server": "nodemon ./server/server.mjs"
+    "server": "nodemon server.mjs",
+    "dev": "nodemon ./server/server.mjs"
   },
   "repository": {
     "type": "git",

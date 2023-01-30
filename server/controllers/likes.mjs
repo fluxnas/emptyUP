@@ -13,3 +13,18 @@ export const createLike = async ( req, res ) =>{
         console.error( err.message )
     }
 }
+
+// delete Likes
+
+export const deleteLike = async ( req, res ) =>{
+    try {
+        const { id } = req.params
+        const deleteLike = await pool.query(
+            "DELETE FROM like_per_buildig WHERE id = $1",
+            [id]
+        )
+        res.json("Well unliked!")
+    } catch (err) {
+        console.error( err.message )
+    }
+}

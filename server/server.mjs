@@ -10,7 +10,7 @@ import { createOneBuilding, deleteBuilding,getAdress,
         getBuildings,getCity,getZipcode,oneBuilding, updateBuilding } from "./controllers/building.mjs";
 import { createUser, deleteUser, getUsers, oneUser } from "./controllers/user.mjs";
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
-import { createLike } from "./controllers/likes.mjs"
+import { createLike, deleteLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
 
 
@@ -83,6 +83,8 @@ server.put('/api/annonce/:id', updateAnnonce)
 server.delete('/api/annonce/:id', deleteAnnonce)
 // create likes
 server.post('/api/like', createLike)
+// delete likes
+server.delete('/api/like/:id', deleteLike)
 
 // IMAGES
 // upload images

@@ -1,7 +1,7 @@
 import { pool } from "../models/dbPool.mjs";
 
 export const postAnnonces = async (req, res) => {
-  const { content, subject } = req.body;
+  const { content, subject, city } = req.body;
   const date = new Date();
   const user_id = "2";
 
@@ -11,8 +11,8 @@ export const postAnnonces = async (req, res) => {
 
   try {
     const query = await pool.query(
-      "insert into annonces (user_id,content, date, subject) values ($1, $2, $3, $4) RETURNING *",
-      [user_id, content, date, subject]
+      "insert into annonces (user_id,content, date, subject, city) values ($1, $2, $3, $4, $5) RETURNING *",
+      [user_id, content, date, subject, city]
     );
     return res.send({ message: "announce correctly added" });
   } catch (err) {

@@ -62,20 +62,20 @@ server.get("/main", (req, res) => {
 // user related endpoints
 server.post("/api/user/register", register);
 server.post("/api/user/login", login);
-server.post("/api/user/profilpicture", jwtAuthentification , uploadProfilPicture  ) 
+server.post("/api/user/profilpicture", uploadProfilPicture  ) 
 server.delete("/api/user/unsubscribe/:id", jwtAuthentification, unsubscribeUser)
 server.get("/api/user/logout", jwtAuthentification, logout)
 server.get("/api/user/mybuildings/:id", getUserAdminBuildings )
 
 // buildings related endpoints
-server.post("/api/addbuilding", jwtAuthentification, addBuilding); 
+server.post("/api/addbuilding", addBuilding); 
 server.get("/api/buildings",getBuildings);
 server.get("/api/building",getBuilding);
 server.get("/api/buildings/:id", )
 server.delete("/api/building/delete/:id", deleteBuilding)
 
 // images related endpoints
-server.post("/api/building/uploadimage", uploadImage);
+server.post("/api/building/uploadimage", uploadImage);  
 
 // announcement
 server.post("/api/annonces/add", postAnnonces)

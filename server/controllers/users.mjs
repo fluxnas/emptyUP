@@ -86,9 +86,10 @@ export const login = async (req, res) => {
 
 export const uploadProfilPicture = async (req, res) => {
   const file = await req.files.image
+  
   try{
       const result = await cloudinary.uploader.upload(file.tempFilePath)
-      const user_id = req.decoded
+      const user_id = "2"
       const profilPicture = await pool.query('insert into users (profilpicture_url) values ($1) where id = $2', 
       [result.secure_url, user_id ]);
       return res.send({ info : `profil picture succesfully uploaded for user ${user_id} `})
@@ -111,8 +112,8 @@ export const unsubscribeUser = async (req, res) => {
   }
 };
 
-export const logout = (request, response) => {
-  return response
+export const logout = (req, res) => {
+  return res
     .clearCookie("access_token")
     .status(200)
     .json({ message: "Successfully logged out" });

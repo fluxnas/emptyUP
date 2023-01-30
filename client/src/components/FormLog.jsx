@@ -8,7 +8,7 @@ const FormLog = () => {
   const inputRefEmail = useRef();
   const inputRefPassword = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
     console.log(inputRefEmail.current.value);
@@ -20,12 +20,13 @@ const FormLog = () => {
       email: inputRefEmail.current.value,
       password: inputRefPassword.current.value,
     };
+
     axios
       .post("/api/user/login", data)
       .then((response) => {
         const userId = response.data.id;
         console.log(userId);
-        localStorage.setItem('user_id', userId)
+        localStorage.setItem("user_id", userId);
         setIsSubmitting(false);
       })
       .catch((error) => {

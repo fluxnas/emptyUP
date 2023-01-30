@@ -9,7 +9,6 @@ const Message = (props) => {
 		<button className="text-2xl text-blue-800 pr-2 mb-3 w-5" onClick={()=>props.delete(props.info.id)} > x
 		</button>
 
-		<NavLink to="/message" className="flex">
 		<Picture />
 		<div className="flex flex-col   ">
 		<h5 className="text-blue-800 text-xl font-bold capitalize p-0 m-0">{props.info.username}{""}</h5>
@@ -18,7 +17,6 @@ const Message = (props) => {
 		"{props.info.name}{""}"
 		</p>
 		</div>
-		</NavLink> 
 		</li>
 		)
 }

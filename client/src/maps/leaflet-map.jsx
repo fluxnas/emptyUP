@@ -26,8 +26,8 @@ export const LeafletMap = ({ buildings }) => {
       {buildings.map((building) => (
         <Marker
           position={{
-            lat: building.position[0],
-            lng: building.position[1],
+            lat: building.lat,
+            lng: building.lon,
             zoom: 13,
           }}
           icon={userIcon}

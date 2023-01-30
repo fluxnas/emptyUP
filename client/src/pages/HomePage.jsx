@@ -4,17 +4,18 @@ import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import Modal from "../components/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
 import LoginButton from "../components/LoginButton";
 import RegisterButton from "../components/RegisterButton";
+import LoginPicto from "../components/LoginPicto";
+import Logo from "../components/Logo";
 
 const HomePage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [modalActiveLog, setModalActiveLog] = useState(false);
   const [modalActiveReg, setModalActiveReg] = useState(false);
-  const [modalActiveSearch, setModalActiveSearch] = useState(false);
 
   const onClickLog = () => {
     setModalActive(false);
@@ -26,116 +27,101 @@ const HomePage = () => {
     setModalActiveReg(true);
   };
 
-  //  const [buildings, setBuildings] = useState([]);
+  const [buildings, setBuildings] = useState([]);
 
-  const buildings = [
-    {
-      city: "Brussels",
-      zipcode: 1020,
-      adress: "park Laeken",
-      type: "Housing",
-      admin_id: "1",
-      position: [50.8931869, 4.358479],
-    },
-    {
-      city: "Brussels",
-      zipcode: 1200,
-      adress: "rue Fabry 59",
-      type: "Housing",
-      admin_id: "2",
-      position: [50.8384638, 4.4364727],
-    },
-    {
-      city: "Brussels",
-      zipcode: 1000,
-      adress: "Cantersteen 1",
-      type: "Gardens",
-      admin_id: "3",
-      position: [50.844851, 4.3567924],
-    },
-    {
-      city: "Antwerpen",
-      zipcode: 2018,
-      adress: "Central Station",
-      type: "Gardens",
-      admin_id: "3",
-      position: [51.2172, 4.4211],
-    },
-  ];
+  useEffect(() => {
+    getAllBuildings();
+  }, []);
 
-  const filteredBuildingsCity = buildings.filter(
-    (building) => building.city === "Brussels"
-  );
-  const filteredBuildingsAdmin = buildings.filter(
-    (building) => building.admin_id === "3"
-  );
-  console.log(filteredBuildingsCity);
-  console.log(filteredBuildingsAdmin);
-  // axios
-  //   .get("/api/buildings", {
-  //     headers: {
-  //       "ngrok-skip-browser-warning": "69420",
-  //     },
-  //   })
-  //   .then((res) => {
-  //     console.log(res.data);
-  //   });
+  useEffect(() => {
+    console.log(buildings);
+  }, [buildings]);
 
-  // const req = async () => {
-  //   const data = await axios.get('/api/annonces', {
-  //     headers: {
-  //       "ngrok-skip-browser-warning": "69420"
-  //     }
-  //   })
+  const getAllBuildings = async () => {
+    try {
+      const response = await axios.get("/api/buildings", {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      });
 
-  // console.log(data.data)
-  // .then(response => {
-  //   console.log(response)
-  //   console.log("ok");
-  // })
-  // .catch(error => {
-  //   console.log(error);
-  // });
-  // }
+      const buildingsData = response.data.data;
+
+      const buildingsAll = buildingsData.map((building) => {
+        const dateofpost = building.dateofpost;
+        const id = building.id;
+        const adress = building.adress;
+        const city = building.city;
+        const type = building.type;
+        const zipcode = building.zipcode;
+        const admin_id = building.admin_id;
+        const position = building.position;
+        const lat = building.lat;
+        const lon = building.lon;
+        return {
+          id,
+          adress,
+          zipcode,
+          city,
+          type,
+          dateofpost,
+          admin_id,
+          lat,
+          lon
+        };
+      });
+      setBuildings(buildingsAll);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const filteredBuildingsCity = buildings.filter(
+  //   (building) => building.city === "Brussels"
+  // );
+  // const filteredBuildingsAdmin = buildings.filter(
+  //   (building) => building.admin_id === "3"
+  // );
+  // console.log(filteredBuildingsCity);
+  // console.log(filteredBuildingsAdmin);
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-between p-0 m-0">
-      <Navigation setActive={setModalActiveSearch} />
-      <LeafletContainer>
-        <LeafletMap buildings={buildings} />
-      </LeafletContainer>
-      <UploadLogo setActive={setModalActive} />
-      <Modal active={modalActive} setActive={setModalActive}>
-        <p className="flex justify-center text-base">
-          You need to register and login before uploading spaces.{" "}
-        </p>
-        <div className="flex justify-around">
-          <LoginButton onClick={onClickLog} />
-          <RegisterButton onClick={onClickReg} />
-        </div>
-      </Modal>
+    <div className="font-custom1  h-screen w-screen flex flex-col box-border m-0 p-0 ">
+      <div className="flex h-1/12 w-full box-border justify-between p-5 ">
+        <Logo />
+        <LoginPicto setActive={setModalActive} />
+      </div>
+      <div className=" h-5/6  ">
+        <LeafletContainer>
+          <LeafletMap buildings={buildings} />
+        </LeafletContainer>
+      </div>
 
-      <Modal active={modalActiveLog} setActive={setModalActiveLog}>
-        <FormLog />
-      </Modal>
-      <Modal active={modalActiveReg} setActive={setModalActiveReg}>
-        <FormReg
-          onSubmit={(event) => {
-            event.preventDefault();
-            setModalActiveReg(false);
-            setModalActiveLog(true);
-          }}
-        />
-      </Modal>
-      <Modal active={modalActiveSearch} setActive={setModalActiveSearch}>
-        <form>
-          <input
-            type="text"
-            placeholder="Enter your zipcode, address and city"
+      <footer className="h-1/12 flex justify-center">
+        <UploadLogo setActive={setModalActive} className="cursor-pointer" />
+        <Modal active={modalActive} setActive={setModalActive}>
+          <p className="flex justify-center text-base">
+            First, You need to register and login{" "}
+          </p>
+          <div className="flex justify-around">
+            <LoginButton onClick={onClickLog} />
+            <RegisterButton onClick={onClickReg} />
+          </div>
+        </Modal>
+
+        <Modal active={modalActiveLog} setActive={setModalActiveLog}>
+          <FormLog />
+        </Modal>
+        <Modal active={modalActiveReg} setActive={setModalActiveReg}>
+          <FormReg
+            onSubmit={(event) => {
+              event.preventDefault();
+              setModalActiveReg(false);
+              setModalActiveLog(true);
+            }}
           />
-          <button>Go!</button>
-        </form>
-      </Modal>
+        </Modal>
+      </footer>
     </div>
   );
 };

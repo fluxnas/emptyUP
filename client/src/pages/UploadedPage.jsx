@@ -1,27 +1,92 @@
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useRef, useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
 import UploadLogo from "../components/UploadLogo";
-import Left from "../assets/Left.svg";
+import Back from "../components/Back";
+import Building from "../components/Building"
+import LogoutButton from "../components/LogoutButton"
+import uploadpicto from "../assets/uploadpicto.png"
+import Logo from "../components/Logo"
 
 const UploadedPage =() => {
-	return(
-		<div className="h-screen flex flex-col "> 
 
-		<NavLink to="/profile" className="flex font-bold justify-flex-start p-2 hover:shadow-inner">
-        <img src={Left} alt="back" style={{ height: '20px', marginTop :'2px',marginRight:'3px'}}/> 
-        <a className=" text-l hover:decoration-double " alt="filters bar">
-        BACK TO PROFIL 
-        </a>
-      </NavLink>
+  const [buildings, setBuildings] = useState([]);
 
-		<h3 className="text-black font-bold text-5xl flex justify-center py-5">
-			My Uploaded</h3>
+  useEffect(() => {
+    getBuildingsUploaded();
+  }, []);
 
-			<div className="h-screen">
+  const getBuildingsUploaded = async () => {
+    try {
+      const response = await axios.get('/api/user/mybuildings/2', {
+        headers: {
+          "ngrok-skip-browser-warning": "69420"
+        }
+      });
+
+      const data = response.data.data;
+
+      const BuildingsUploaded = data.map(building => {
+        const dateofpost = building.dateofpost;
+        const id = building.id;
+        const adress = building.adress;
+        const city = building.city;
+        const type = building.type;
+        const zipcode = building.zipcode;
+        const admin_id = building.admin_id;
+        return { id, adress, zipcode, city, type, dateofpost, admin_id};
+      });
+      setBuildings(BuildingsUploaded);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const deleteBuilding= (id) => {
+    axios.delete('/api/building/delete/'+id)
+    .then(response => {
+console.log("building deleted")
+})
+.catch(error => {
+console.log(error);
+});
+  setBuildings(buildings.filter((building) => building.id !== id))
+
+  }
+
+
+  return(
+<div className="h-screen font-custom1  w-screen flex flex-col box-border ">
+        <div className="flex h-1/12 w-full box-border justify-between px-5 pt-5 ">
+          <Logo/>
+          <LogoutButton/>
+        </div>
+
+
+		  <h3 className="h-1/6 uppercase text-black font-bold text-5xl flex items-center justify-center">
+			My Uploaded
+         <img src={uploadpicto} alt="upload" className="flex box-border" style={{ height: '50px', marginLeft :'20px',marginTop :'2px'}}/>
+
+      </h3>
+
+			<div className="h-4/6 mx-2 flex flex-col box-border items-center rounded-[25px]">
+        <ul className=" shadow-inner h-full box-border bg-slate-50  w-11/12  rounded-[25px] p-3 flex overflow-scroll  flex-col  items-start ">
+            {
+              buildings.map((building) => {
+                return <Building info={building} delete={deleteBuilding} key={building.id}/>
+              })
+            }
+        </ul>
       </div>
-		<NavLink to="/upload">
-      <UploadLogo/> 
-      
-      </NavLink> 
+
+		  <footer className="h-1/12  pt-4 flex justify-center">
+          <NavLink to="/upload" className=" ">
+            <UploadLogo />
+          </NavLink>
+        </footer>
+
+
 		</div>
 	)
 }

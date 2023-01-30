@@ -5,7 +5,7 @@ import { LeafletContainer } from "../maps/formMap/leaflet-container";
 import { LeafletMap } from "../maps/formMap/leaflet-map";
 import { Popup } from "react-leaflet";
 
-const BuildingForm = ({ submit }) => {
+const BuildingForm = () => {
   const inputRefCity = useRef();
   const inputRefZipcode = useRef();
   const inputRefAddress = useRef();
@@ -17,66 +17,87 @@ const BuildingForm = ({ submit }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const newBuilding = {
-      initial_image: image,
-      city: inputRefCity.current.value,
-      zipcode: inputRefZipcode.current.value,
-      adress: inputRefAddress.current.value,
-      // position: [coordinates.lat, coordinates.lon],
-      type: inputRefType.current.value,
-      admin_id: JSON.parse(localStorage.getItem("user_id")),
-      // coordinates: coordinates
-    };
-
-     console.log(newBuilding);
-    // submit(newBuilding);
 
     const address =
-    inputRefZipcode.current.value +
-    " " +
-    inputRefAddress.current.value +
-    ", " +
-    inputRefCity.current.value;
+      inputRefZipcode.current.value +
+      " " +
+      inputRefAddress.current.value +
+      ", " +
+      inputRefCity.current.value;
 
     axios
-    .get(
-      `https://nominatim.openstreetmap.org/search?q=${address}&format=json&limit=1`
+      .get(
+        `https://nominatim.openstreetmap.org/search?q=${address}&format=json&limit=1`
       )
       .then((response) => {
-        console.log(response.data[0]);
-        const { lat, lon } = response.data[0];
-        setCoordinates({ lat, lon });
-      });
+        if (response.data[0]) {
+          console.log(response.data[0]);
+          const { lat, lon } = response.data[0];
+          setCoordinates({ lat, lon });
+          //console.log(coordinates);
 
-    // const formData = new FormData();
-    // formData.append("image", image);
-    // formData.append("city", inputRefCity.current.value);
-    // formData.append("zipcode", inputRefZipcode.current.value);
-    // formData.append("adress", inputRefAddress.current.value);
-    // formData.append("type", inputRefType.current.value);
-    // formData.append("admin_id", JSON.parse(localStorage.getItem("user_id")));
-    // console.log(formData)
+          const newBuilding = {
+            initial_image: image,
+            city: inputRefCity.current.value,
+            zipcode: inputRefZipcode.current.value,
+            adress: inputRefAddress.current.value,
+            position: [response.data[0].lat, response.data[0].lon],
+            type: inputRefType.current.value,
+            admin_id: JSON.parse(localStorage.getItem("user_id")),
+          };
 
+          
+          const formData = new FormData();
+          formData.append("image", image);
+          formData.append("city", inputRefCity.current.value);
+          formData.append("zipcode", inputRefZipcode.current.value);
+          formData.append("adress", inputRefAddress.current.value);
+          // formData.append("position",  coordinates);
+          // formData.append("position", JSON.stringify([response.data[0].lat, response.data[0].lon]));
+          formData.append("lat",  response.data[0].lat);
+          formData.append("lon",  response.data[0].lon);
+          formData.append("type", inputRefType.current.value);
+          formData.append("admin_id", JSON.parse(localStorage.getItem("user_id")));
+        
+          axios
+            .post("/api/addbuilding", formData)
+            .then((response) => {
+              console.log(response);
+              // setIsSubmitting(false);
+            })
+            .catch((error) => {
+              console.log(error);
+              // setIsSubmitting(false);
+            });
+        } else {
+          console.error("No data returned from API request");
+        }
 
-    // axios
-    //   .post("/api/building/uploadimage", formData)
-    //   .then((response) => {
-    //     console.log(response);
-    //     // setIsSubmitting(false);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     // setIsSubmitting(false);
-    //   });
-    axios
-      .post("/api/addbuilding", newBuilding)
-      .then((response) => {
-        console.log(response);
-        // setIsSubmitting(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        // setIsSubmitting(false);
+        // setCoordinates({ lat, lon });
+        // console.log(coordinates);
+
+        // const newBuilding = {
+        //   initial_image: image,
+        //   city: inputRefCity.current.value,
+        //   zipcode: inputRefZipcode.current.value,
+        //   adress: inputRefAddress.current.value,
+        //   position: [response.data[0].lat, response.data[0].lon],
+        //   type: inputRefType.current.value,
+        //   admin_id: JSON.parse(localStorage.getItem("user_id")),
+        // };
+
+        //
+
+        // axios
+        //   .post("/api/addbuilding", newBuilding)
+        //   .then((response) => {
+        //     console.log(response);
+        //     // setIsSubmitting(false);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //     // setIsSubmitting(false);
+        //   });
       });
   };
   return (
@@ -94,38 +115,39 @@ const BuildingForm = ({ submit }) => {
             onChange={(event) => {
               if (event.target.files && event.target.files[0]) {
                 setImage(event.target.files[0]);
+                console.log(event.target.files[0]);
                 //URL.createObjectURL(event.target.files[0])
               }
             }}
-            />
-            </Form.Group>
-            <Form.Group controlId="city">
-            <Form.Label>City: </Form.Label>
-            <Form.Control
+          />
+        </Form.Group>
+        <Form.Group controlId="city">
+          <Form.Label>City: </Form.Label>
+          <Form.Control
             type="text"
             ref={inputRefCity}
             placeholder="Enter your city"
-            />
-            </Form.Group>
-            <Form.Group controlId="zipcode">
-            <Form.Label>Zipcode: </Form.Label>
-            <Form.Control
+          />
+        </Form.Group>
+        <Form.Group controlId="zipcode">
+          <Form.Label>Zipcode: </Form.Label>
+          <Form.Control
             type="text"
             ref={inputRefZipcode}
             placeholder="Enter your zipcode"
-            />
-            </Form.Group>
-            <Form.Group controlId="address">
-            <Form.Label>Address: </Form.Label>
-            <Form.Control
+          />
+        </Form.Group>
+        <Form.Group controlId="address">
+          <Form.Label>Address: </Form.Label>
+          <Form.Control
             type="text"
             ref={inputRefAddress}
             placeholder="Enter your address"
-            />
-            </Form.Group>
-            <Form.Group controlId="typeSelect">
-            <Form.Label>Type: </Form.Label>
-            <select ref={inputRefType}>
+          />
+        </Form.Group>
+        <Form.Group controlId="typeSelect">
+          <Form.Label>Type: </Form.Label>
+          <select ref={inputRefType}>
             <option value="All"></option>
             <option value="Housing">Housing</option>
             <option value="Gardens">Gardens</option>
@@ -142,11 +164,11 @@ const BuildingForm = ({ submit }) => {
             <Popup className="popup">
               {image && (
                 <img
-                src={image}
-                alt="selected photo"
-                style={{ width: "150px", height: "150px" }}
+                  src={image}
+                  alt="selected photo"
+                  style={{ width: "150px", height: "150px" }}
                 />
-                )}
+              )}
               <p>City: {inputRefCity.current.value}</p>
               <p>Zipcode: {inputRefZipcode.current.value}</p>
               <p>Address: {inputRefAddress.current.value}</p>
@@ -159,4 +181,3 @@ const BuildingForm = ({ submit }) => {
   );
 };
 export default BuildingForm;
-

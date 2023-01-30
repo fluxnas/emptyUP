@@ -44,7 +44,7 @@ const [modalActiveLog, setModalActiveLog] = useState(false);
 
 
     </div>
-    );
+  );
 };
 
 export default Navigation;

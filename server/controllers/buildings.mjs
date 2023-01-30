@@ -78,17 +78,17 @@ export const createOneBuilding = async ( req, res ) =>{
 try {
     const { adress, zipcode, city, type } = req.body
     // const dateofpost = Date.now() needs to be set
-    const dateofpost = "2023-01-19"
+    const dateofpost = new Date
     const admin_id = "3"
     const initial_image = "heehheheheheheh"
-    const buildings_adress_unique = "5"
-    // const position = "123.45.55.66"
+    
+    
     if ( !adress || !zipcode || !city || !type ) {
       return res.status(400).json({ error: "Missing parameters" })
     }
     const newBuilding = await pool.query (
-        "INSERT INTO buildings ( adress, zipcode, city, type, dateofpost, admin_id, initial_image, buildings_adress_unique ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8 ) RETURNING *",
-        [ adress, zipcode, city, type, dateofpost, admin_id, initial_image, buildings_adress_unique ]
+        "INSERT INTO buildings ( adress, zipcode, city, type, dateofpost, admin_id, initial_image) VALUES ( $1, $2, $3, $4, $5, $6, $7) RETURNING *",
+        [ adress, zipcode, city, type, dateofpost, admin_id, initial_image ]
     )
     res.json(newBuilding.rows[0])
 } catch ( err ) {

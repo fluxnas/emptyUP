@@ -1,60 +1,63 @@
 import { pool } from "../models/Client.mjs"
 
 
-// all messages
 export const getMessages = async ( req, res ) =>{
+    const user_id = "3" //req.decoded
     try {
-        const allMessages = await pool.query("SELECT FROM messages")
-        console.log(allMessages.rows ) 
-
-            if ( allMessages.rows.length === 0 ) {
-                return res.status(400)
-                .json({ message: "No data to be desplayed"})
-            }
-            return res.status(200)
-            .json(allMessages.rows)
-        } catch (err){
-            console.error(err.message)
-        }
-    }
-
-// one message
-export const getOneMessage = async ( req, res ) =>{ 
-    const { id } = req.params.id
-    if ( !id ) {
-        res.status(400)
-        .send("no ID provided")
-    }
-    try {
-        const query = await pool.query(
-            "SELECT * FROM messages WHERE id = $1",
-            [id]
-        )
-        console.log(query)
-    if (query.rows.length === 0) {
-        return res.status(404)
-        .send("no message found")
-    }
-    return res.status(200)
-    .json(query.rows)
-    } catch (err) {
-        console.error(err.message)
+        const allMessages = await pool.query(
+            "SELECT * FROM messages where user_id = $1", 
+            [user_id]
+        );
+        res.json(allMessages.rows)
+    } catch (error) {
+        console.error( error.message)
     }
 }
 
-// create message
-export const createMessage = async ( req, res ) =>{
-    try {
-        const date = new Date()
-        const discussion_id = "3"
-        const { user_id, content, admin } = req.body
-        const newChat = await pool.query(
-            "INSERT INTO messages ( user_id, content, date, discussion_id, admin ) VALUES ( $1, $2, $3, $4, $5 ) RETURNING *",
-            [user_id, content, date, discussion_id, admin]
+export const getLastMessage = async (req, res) => {
+    const user_id = "3" //req.decoded
+    try{
+        const lastMessage = await pool.query(
+            "SELECT content FROM messages ORDER BY id DESC LIMIT 1 where user_id = $1",
+            [user_id]
         )
-        res.json(newChat.rows[0])
-    } catch (err) {
-        console.error(err.message)
+        return res.json(lastMessage.rows)
+    }catch (error) {
+        console.error( error.message)
+    }
+}
+
+export const createMessage = async (req, res) => {
+    const user_id =  "1" //req.decoded
+    const { content } = req.body
+    const hours = (new Date().getHours() + " : " + new Date().getMinutes()) 
+    const date = new Date() + hours 
+    try{
+        const discussion = await pool.query("SELECT * from discussion where id = $1",
+        [req.params.id])  // endpoint => :id => discussion id 
+        const user_ids = discussion.rows[0].user_id
+        const discussion_id = discussion.rows[0].id
+        if(user_ids.includes(user_id)) {
+            // Insert the message into the messages table with the obtained discussion_id
+            await pool.query("INSERT INTO messages (user_id, content, date, discussion_id) VALUES ($1, $2, $3, $4)", 
+            [user_id, content, date, discussion_id]);
+            return res.status(201).json({
+                status: 'success',
+                message: 'message posted',
+                });
+        }else{
+            res.status(401).json({
+                status: 'error',
+                message: 'Unauthorized: User is not part of this discussion',
+            });
+        }
+           
+    }catch(error) {
+        console.error(error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Error posting message',
+        });
     }
 }
 

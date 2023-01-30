@@ -9,8 +9,9 @@ import { createOneBuilding, deleteBuilding,getAdress, getBuildings,getCity,getZi
 import { createAnnonce, deleteAnnonce, getAnnonces, oneAnnonce, updateAnnonce } from "./controllers/annonces.mjs";
 import { allLikes, createLike, getOneLike, deleteLike } from "./controllers/likes.mjs"
 import { uploadImage, deleteUploadImage } from "./controllers/photos.mjs";
-import { createMessage, deleteMessage, getMessages, getOneMessage } from "./controllers/messages.mjs";
-// import { jwtAuthentification } from "./middleware/verifyToken.mjs"
+import { createMessage, deleteMessage, getMessages, getLastMessage,  } from "./controllers/messages.mjs";
+import { createDiscussion ,deleteDiscussion } from "./controllers/discussion.mjs"
+import { jwtAuthentification } from "./middleware/verifyToken.mjs"
 
 
 
@@ -38,7 +39,7 @@ server.get('/', ( req, res ) =>{
     res.send("Hello")
 })
 // login
-server.post('/api/login', login)
+server.post('/api/login', jwtAuthentification, login)
 // register
 server.post('/api/register', register)
 // profile picture
@@ -47,9 +48,9 @@ server.delete('/api/unsubscribe',  suscribe)
 
 // USERS
 // see all users
-server.get('/api/allusers', getUsers)
+server.get('/api/getusers', getUsers)
 // create user
-server.post('/api/adduser', createUser)
+server.post('/api/newuser', createUser)
 // one user
 server.get('/api/user/:id', oneUser)
 // delete user
@@ -57,7 +58,7 @@ server.delete('api/deleteuser', deleteUser)
 
 // BUILDINGS
 // all buildings
-server.get('/api/allbuildings', getBuildings)
+server.get('/api/getbuildings', getBuildings)
 // one building
 server.get('/api/building/:id', oneBuilding )
 // building zipcode
@@ -67,25 +68,25 @@ server.get('/api/building/city/:city', getCity)
 // building adress
 server.get('/api/building/adress/:adress', getAdress)
 // create building
-server.post('/api/addbuilding', createOneBuilding)
+server.post('/api/newbuilding', createOneBuilding)
 // update building
 server.put('/api/updatebuilding/:id', updateBuilding)
 // delete building
-server.delete('/api/deletebuilding', deleteBuilding)
+server.delete('/api/deletebuilding/:id', deleteBuilding)
 
 // MESSAGES
 // all messages
-server.get('/api/allmessages', getMessages)
+server.get('/api/getmessages', getMessages)
 // one message
-server.get('/api/onemessage',getOneMessage)
+server.get('/api/lastmessage', getLastMessage)
 // create message
-server.post('/api/message', createMessage)
+server.post('/api/newmessage', createMessage)
 // delete message
 server.delete('/api/delmessage', deleteMessage)
 
 // ANNONCES
 // all annonces
-server.get('/api/annonces', getAnnonces)
+server.get('/api/getannonces', getAnnonces)
 // create annonce
 server.post('/api/newannonce', createAnnonce)
 // one annonce
@@ -99,11 +100,16 @@ server.delete('/api/annonce/:id', deleteAnnonce)
 // all likes
 server.get('/api/getlikes', allLikes)
 // one like
-server.get('/api/onelike', getOneLike)
+server.get('/api/like/:id', getOneLike)
 // create likes
-server.post('/api/like', createLike)
+server.post('/api/newlike', createLike)
 // delete likes
 server.delete('/api/like/:id', deleteLike)
+
+// DISCUSSIONS
+// create a message
+server.post('/api/newdiscussion', createDiscussion)
+server.delete('/api/deldiscussion/:id', deleteDiscussion)
 
 // IMAGES
 // upload images

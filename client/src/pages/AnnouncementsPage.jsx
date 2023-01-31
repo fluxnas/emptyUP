@@ -12,7 +12,7 @@ import Pp from '../assets/Pp.png';
 import { v4 as uuidv4 } from 'uuid';
 import Megaphone from "../assets/Megaphone.svg"
 import Logo from "../components/Logo"
-
+import SearchButton from "../components/SearchButton"
 
 
 const Username="Roro68"
@@ -22,6 +22,7 @@ const AnnoucementsPage =() => {
 const [posts, setPosts] = useState([]);
 const [newPost, setNewPost] = useState("")
 const [newSubject, setNewSubject] = useState("")
+const [newCity, setNewCity] = useState("")
 const apiUrl = '/api/annonces';
 
 useEffect(() => {
@@ -43,7 +44,8 @@ const subject = post.subject;
 const date = post.date;
 const id = post.id;
 const user_id=post.user_id
-return { id, content, subject, date, user_id};
+const city= post.city
+return { id, content, subject, date, user_id, city};
 });
 setPosts(newPosts)
 }
@@ -69,7 +71,8 @@ event.preventDefault()
 const id = uuidv4();
 const content = newPost
 const subject = newSubject
-const postToAdd={ id, content, subject}
+const city = newCity
+const postToAdd={ id, content, subject, city}
 setPosts(prevPosts => [...prevPosts, postToAdd])
 setNewPost("")
 setNewSubject("")
@@ -80,8 +83,11 @@ axios.post(apiUrl+'/add', postToAdd)
    .catch(error => {
       console.log(error);
    });
-
 }
+
+
+
+
 
 return (
       <div className="h-screen font-custom1  w-screen flex flex-col box-border ">
@@ -90,10 +96,13 @@ return (
           <LogoutButton/>
         </div>
 
-     	<h3 className="h-1/6 uppercase text-black font-bold text-5xl flex items-center justify-center">
+     	<h3 className="h-1/12 m-1 uppercase text-black font-bold text-5xl flex items-center justify-center">
 			Posts
       <img src={Megaphone} alt="megaphone" className="flex box-border" style={{ height: '40px', marginLeft :'20px'}}/>
+
       </h3>
+      <SearchButton/>
+
 
       <div className="h-4/6 flex flex-col box-border items-center rounded-[25px] ">
 				<ul className=" shadow-inner h-4/6 box-border bg-slate-50  w-11/12  rounded-[25px] p-3 flex overflow-scroll flex-col items-start ">
@@ -110,6 +119,15 @@ return (
                     value={newSubject}
                     onChange={e => setNewSubject(e.target.value)}
             		   placeholder="Enter the subject"
+            />
+            <h4 className="font-bold text-sm italic ">
+            CITY:
+            </h4>
+            <input className=" italic h-4 bg-slate-50 text-xs mx-3 text-blue-800 shadow-inner p-3 text-center"
+                   type="text"
+                    value={newCity}
+                    onChange={e => setNewCity(e.target.value)}
+                   placeholder="Enter your city"
             />
           </div>
 

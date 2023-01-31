@@ -14,7 +14,7 @@ const FormLog = () => {
     console.log(inputRefEmail.current.value);
     console.log(inputRefPassword.current.value);
     setIsSubmitting(true);
-
+    navigate("/upload");
     const data = {
       email: inputRefEmail.current.value,
       password: inputRefPassword.current.value,

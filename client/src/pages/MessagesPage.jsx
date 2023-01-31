@@ -1,19 +1,12 @@
 import LogoutButton from "../components/LogoutButton"
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
-import Back from "../components/Back";
-import ProfilePicture from "../components/ProfilePicture"
 import PostButton from"../components/PostButton"
 import Annoucement from "../components/Annoucement"
 import UploadLogo from "../components/UploadLogo";
-import Pp from '../assets/Pp.png';
 import { v4 as uuidv4 } from 'uuid';
-import Megaphone from "../assets/Megaphone.svg"
 import Logo from "../components/Logo"
-import Message from "../components/Message"
-import MessageIcon from "../assets/MessageIcon.svg"
 
 const UserName2="Red Bull Forever"
 const Username="Roro68"

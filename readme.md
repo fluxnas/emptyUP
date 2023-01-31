@@ -1,5 +1,7 @@
-# Description 
+# Statut 
+Work in progress 
 
+# Description 
 Empty up is an application that lists the empty buildings of a city. It is based on the community of people who are looking for places that upload and feed the site.  
 
 The application is presented as a map where are pinned the buildings uploaded by all users with or without account.   
@@ -51,3 +53,10 @@ A search system allows you to filter the buildings thanks to :
 - Dotenv
 - Nodemon
 - Pg
+
+# Collaborators
+Arseniia Damaksina   
+Estime Vangu  
+Aurore Van Damme  
+Jiacinto Branducci  
+Hanna Autajon Connier   

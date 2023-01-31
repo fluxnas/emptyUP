@@ -20,13 +20,14 @@ import{
     
 } from "./controllers/annonces.mjs"
 
+import { cloudinaryConfig } from "./models/cloudinaryconfig.mjs";
+
 import { dbConnect } from "./models/dbConnect.mjs";
 import cookie from "cookie-parser";
 import dotenv from "dotenv";
 import { register, login,  uploadProfilPicture, unsubscribeUser, logout, getInfoUsers } from "./controllers/users.mjs";
 import { uploadImage  } from "./controllers/images.mjs";
 import jwtAuthentification from "./middleware/verifyToken.mjs";
-import errorAlert from "./middleware/errorhandler.mjs"
 import * as cloudinary from "cloudinary";
 
 
@@ -34,30 +35,18 @@ import * as cloudinary from "cloudinary";
 dotenv.config();
 dbConnect();
 const server = express();
+cloudinaryConfig();
 
 
 server.use(express.json());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cookie(process.env.SECRET_JWT));
-server.use(fileUpload({
+server.use(fileUpload({   
     useTempFiles: true,
     limits: {fileSize: 50 * 2024 * 1024}
 }))
 
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
-});
-
-
-
-server.get("/main", (req, res) => {
-  res.send("<h1> hello </h1>");
-  // console.log(req.query)
-});
 
 // user related endpoints
 server.post("/api/user/register", register);

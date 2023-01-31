@@ -78,9 +78,12 @@ export const uploadProfilePic = async ( req, res ) =>{
   const file = await req.file.image
   try {
     const photo = await cloudinary.uploader.upload( file.tempfilePath)
-    const user_id = req.decoded
+    console.log(photo.public_id)
+    const public_id = photo.public_id
+    const user_id =  "1" //req.decoded
+    const user = await pool.query(" SELECT id FROM users WHERE id = $1", [ user ])
     const profilePic = await pool.query(
-      "INSERT INTO users (profilpicture_url) VALUES ($1) WHERE id = $2",
+      "INSERT INTO users (profil_picture_url) VALUES =$1",
       [photo.secure_url, user_id]
     )
     return res.send({ info: "Profil picutre successfully uploaded"})

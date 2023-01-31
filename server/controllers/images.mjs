@@ -8,7 +8,7 @@ export const uploadImage = async (req, res) => {
     console.log(file)
     try{
         const result = await cloudinary.uploader.upload(file.tempFilePath)
-        const admin_id = "2"
+        const admin_id = req.userId
         const building = await pool.query("select id from buildings where admin_id = $1", [admin_id])
         const building_id = building.rows[0].id
         const date = new Date()

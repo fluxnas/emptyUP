@@ -4,6 +4,7 @@ import bcrypt, { hash } from "bcrypt";
 import JWT from "jsonwebtoken";
 import { promisify } from "util";
 import dotenv from "dotenv";
+import { v2 as cloudinary } from "cloudinary"
 
 const sign = promisify(JWT.sign);
 
@@ -58,20 +59,20 @@ export const login = async (req, res) => {
   
 
   const result = query.rows[0];
+  
   const match = await bcrypt.compare(password, result.password);
-
   if (match) {
     try {
-      const token = await sign({ email }, process.env.SECRET_JWT, {
+      const token = await sign({id: result.id, email: email}, process.env.SECRET_JWT, {
         algorithm: "HS512",
         expiresIn: "1h",
       });
-      console.log(token);
+      console.log(token)
       // return res.send({ token });  => it works when asking to response send the token, but "cannot generate" when sending to the cookie
       res.cookie("access_token", token, {
         httpOnly: true,
       });
-      res.send({id : `${query.rows[0].id}`})
+      res.send({id : `${result.id}`})
       
       
     } catch (err) {
@@ -86,21 +87,36 @@ export const login = async (req, res) => {
 
 export const uploadProfilPicture = async (req, res) => {
   const file = await req.files.image
+  console.log(file)
   
   try{
       const result = await cloudinary.uploader.upload(file.tempFilePath)
-      const user_id = "2"
-      const profilPicture = await pool.query('insert into users (profilpicture_url) values ($1) where id = $2', 
-      [result.secure_url, user_id ]);
-      return res.send({ info : `profil picture succesfully uploaded for user ${user_id} `})
+      const picture_url = result.secure_url
+      console.log(result.secure_url)
+      const user_id = req.userId
+      await pool.query("UPDATE users SET profilpicture_url = $1 WHERE id = $2", 
+      [picture_url, user_id])
+      return res.status(201).send({ info: "profil picture successfully uploaded" })
   }catch(err) {
       res.status(400).send({error : err})
   }
 }
 
+export const getInfoUsers = async (req, res) => {
+  const user_id = req.params.id
+  try{
+  const userInfo = await pool.query("SELECT username, profilpicture_url FROM users where id =$1", 
+  [user_id])
+  return res.json({ data : userInfo.rows[0]})
+  } catch(error){
+    res.status(400).json({error: error})
+
+  }
+}
+
 export const unsubscribeUser = async (req, res) => {
   const id = req.params.id;
-  try {
+  try { 
       const result = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
       if (result.rows.length === 0) {
           return res.status(404).send({ error: "user not found" });

@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
 import UploadLogo from "../components/UploadLogo";
-import Back from "../components/Back";
 import Building from "../components/Building"
 import LogoutButton from "../components/LogoutButton"
 import uploadpicto from "../assets/uploadpicto.png"
@@ -61,7 +59,7 @@ console.log(error);
         <div className="flex h-1/12 w-full box-border justify-between px-5 pt-5 ">
           <Logo/>
           <LogoutButton/>
-        </div>
+</div>
 
 
 		  <h3 className="h-1/6 uppercase text-black font-bold text-5xl flex items-center justify-center">

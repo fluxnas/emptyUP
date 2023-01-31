@@ -5,6 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 export const uploadImage = async (req, res) => {
     const file  = await req.files.image
+    console.log(file)
     try{
         const result = await cloudinary.uploader.upload(file.tempFilePath)
         const admin_id = "2"

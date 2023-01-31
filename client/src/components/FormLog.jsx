@@ -8,11 +8,12 @@ const FormLog = () => {
   const inputRefEmail = useRef();
   const inputRefPassword = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
     console.log(inputRefEmail.current.value);
     console.log(inputRefPassword.current.value);
+    navigate("/upload");
     setIsSubmitting(true);
     navigate("/upload");
     const data = {
@@ -25,7 +26,7 @@ const FormLog = () => {
       .then((response) => {
         const userId = response.data.id;
         console.log(userId);
-        localStorage.setItem('user_id', userId)
+        localStorage.setItem("user_id", userId);
         setIsSubmitting(false);
       })
       .catch((error) => {

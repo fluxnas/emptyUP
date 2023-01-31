@@ -84,7 +84,7 @@ const FormReg = ({ onSubmit }) => {
           />
           <label htmlFor="input">
             The information provided on this website does not constitute legal
-            advice, instead all the information and materials...learn more
+            advice, instead all the information and materials...<a>learn more</a>
           </label>
         </div>
         <div className="buttonDiv">

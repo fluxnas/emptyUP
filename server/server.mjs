@@ -23,7 +23,7 @@ import{
 import { dbConnect } from "./models/dbConnect.mjs";
 import cookie from "cookie-parser";
 import dotenv from "dotenv";
-import { register, login,  uploadProfilPicture, unsubscribeUser, logout } from "./controllers/users.mjs";
+import { register, login,  uploadProfilPicture, unsubscribeUser, logout, getInfoUsers } from "./controllers/users.mjs";
 import { uploadImage  } from "./controllers/images.mjs";
 import jwtAuthentification from "./middleware/verifyToken.mjs";
 import errorAlert from "./middleware/errorhandler.mjs"
@@ -62,13 +62,14 @@ server.get("/main", (req, res) => {
 // user related endpoints
 server.post("/api/user/register", register);
 server.post("/api/user/login", login);
-server.post("/api/user/profilpicture", uploadProfilPicture  ) 
+server.get("/api/user/profil/:id", getInfoUsers)
+server.post("/api/user/profilpicture", uploadProfilPicture) 
 server.delete("/api/user/unsubscribe/:id", jwtAuthentification, unsubscribeUser)
 server.get("/api/user/logout", jwtAuthentification, logout)
 server.get("/api/user/mybuildings/:id", getUserAdminBuildings )
 
 // buildings related endpoints
-server.post("/api/addbuilding", addBuilding); 
+server.post("/api/addbuilding",jwtAuthentification ,addBuilding); 
 server.get("/api/buildings",getBuildings);
 server.get("/api/building",getBuilding);
 server.get("/api/buildings/:id", )

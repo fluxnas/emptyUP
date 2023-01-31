@@ -1,7 +1,7 @@
 import { pool } from "../models/dbPool.mjs";
 
 export const getMessages = async ( req, res ) =>{
-    const user_id = req.decoded
+    const user_id = req.userId
     try {
         const allMessages = await pool.query(
             "SELECT * FROM messages where user_id = $1", 
@@ -14,7 +14,7 @@ export const getMessages = async ( req, res ) =>{
 }
 
 export const getLastMessage = async (req, res) => {
-    const user_id = req.decoded
+    const user_id = req.userId
     try{
         const lastMessage = await pool.query(
             "SELECT content FROM messages ORDER BY id DESC LIMIT 1 where user_id = $1",
@@ -26,17 +26,18 @@ export const getLastMessage = async (req, res) => {
     }
 }
 
+
 export const postMessage = async (req, res) => {
-    const user_id = req.decoded
+    const user_id = req.userId
     const { content } = req.body
     const hours = (new Date().getHours() + " : " + new Date().getMinutes()) 
     const date = new Date() + hours 
     try{
         const discussion = await pool.query("SELECT * from discussion where id = $1",
         [req.params.id])  // endpoint => :id => discussion id 
-        const user_ids = discussion.rows[0].user_id
+        const user = discussion.rows[0].user_id
         const discussion_id = discussion.rows[0].id
-        if(user_ids.includes(user_id)) {
+        if(user === user_id) {
             // Insert the message into the messages table with the obtained discussion_id
             await pool.query("INSERT INTO messages (user_id, content, date, discussion_id) VALUES ($1, $2, $3, $4)", 
             [user_id, content, date, discussion_id]);

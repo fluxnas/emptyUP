@@ -19,7 +19,7 @@ export const getUserAdminBuildings = async (req, res) => {
 export const getBuildings = async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM buildings");
-
+   
     if (result.rows.length === 0) {
       return res.status(400).json({ message: "No data to be displayed" });
     }
@@ -48,14 +48,14 @@ export const getBuilding = async (req, res) => {
 
 export const addBuilding = async (req, res) => {
   const { adress, zipcode, city, type, lat, lon } = req.body;
-  // const adress = "rue loulou"
-  // const zipcode = "1234"
-  // const city = "bxl"
-  // const type = "house"  // => infos lambda pour tester de post photo avec Insomnia/Postman
   const file = req.files.image
-  console.log(file);
   const dateofpost = new Date();
-  const admin_id = "1";
+  const user_id = req.userId
+  const admin_id = user_id
+  
+  if (user_id !== req.userId){
+    res.status(401).json({ error : "user unhautorized"})
+  }
   if (!adress || !zipcode || !city || !type) {
     return res.status(400).json({ error: "Missing parameters" });
   }
@@ -79,7 +79,7 @@ export const addBuilding = async (req, res) => {
     );
     return res.status(201).send({ info: "building successfully added" });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(400).send({ error: "invalid request" });
   }
 };
@@ -87,7 +87,7 @@ export const addBuilding = async (req, res) => {
 export const updateBuilding = async (req, res) => {
   try {
     const id = req.params;
-    const { adress, zipcode, city, type } = req.body;
+    const { adress, zipcode, city, type } = req.userId;
     const update = await pool.query(
       "UPDATE buildings SET adress = $1, zipcode = $2, city = $3, type = $4 WHERE id = $5",
       [adress, zipcode, city, type, id]
@@ -101,13 +101,13 @@ export const updateBuilding = async (req, res) => {
 
 export const deleteBuilding = async (req, res) => {
   const id = req.params.id;
-  const admin_id = "2"; // => change to "req.decoded"
-  // const verif = await pool.query("SELECT admin_id from buildings where id = $1", [
-  //   id,
-  // ]);
-  // if (verif.rows[0].user_id !== admin_id) {
-  //   return res.status(400).send({ info: "not authorized" });
-  // }
+  const admin_id = req.userId; 
+  const verif = await pool.query("SELECT admin_id from buildings where id = $1", [
+    id,
+  ]);
+  if (verif.rows[0].user_id !== admin_id) {
+    return res.status(400).send({ info: "not authorized" });
+  }
   try {
     await pool.query("DELETE FROM buildings WHERE id = $1", [id]);
     return res.status(200).send({ message: "building deleted successfully" });

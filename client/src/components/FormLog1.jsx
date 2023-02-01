@@ -8,14 +8,12 @@ const FormLog1 = () => {
   const inputRefEmail = useRef();
   const inputRefPassword = useRef();
   const [isSubmitting1, setIsSubmitting1] = useState(false);
+  const [user_id, setuser_id] = useState(false);
 
   const onSubmitHandler1= (event) => {
     event.preventDefault();
-    console.log(inputRefEmail.current.value);
-    console.log(inputRefPassword.current.value);
-    navigate("/profile");
-    setIsSubmitting1(true);
-    navigate("/profile");
+
+
     const data = {
       email: inputRefEmail.current.value,
       password: inputRefPassword.current.value,
@@ -25,7 +23,9 @@ const FormLog1 = () => {
       .post("/api/user/login", data)
       .then((response) => {
         const userId = response.data.id;
+        setuser_id (userId)
         console.log(userId);
+
         localStorage.setItem("user_id", userId);
         setIsSubmitting1(false);
       })
@@ -33,6 +33,12 @@ const FormLog1 = () => {
         console.log(error);
         setIsSubmitting1(false);
       });
+
+      console.log(inputRefEmail.current.value);
+    console.log(inputRefPassword.current.value);
+    navigate("/profile/"+user_id);
+    setIsSubmitting1(true);
+    navigate("/profile/"+user_id);
   };
 
   return (

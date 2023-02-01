@@ -34,7 +34,12 @@ export const LeafletMap = ({ buildings }) => {
           }}
           icon={userIcon}
         >
-          <Popup>
+          <Popup
+            onClick={() => {
+              navigate('/building');
+              console.log("redict")
+            }}
+          >
             <img src={building.initial_image}></img>
             <p>City: {building.city}</p>
             <p>Zipcode: {building.zipcode}</p>

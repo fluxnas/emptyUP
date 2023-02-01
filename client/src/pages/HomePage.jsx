@@ -41,7 +41,11 @@ const HomePage = () => {
     setModalActive1(false);
     setModalActiveReg1(true);
   };
-  
+
+  const onClickPopup = () => {
+    console.log()
+  }
+
   const [buildings, setBuildings] = useState([]);
 
   useEffect(() => {

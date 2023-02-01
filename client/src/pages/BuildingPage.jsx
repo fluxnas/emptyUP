@@ -23,7 +23,6 @@ const [id_building, setId_Building]=useState("")
   }, []);
 
   useEffect(() => {
-    console.log(buildings);
   }, [buildings]);
 
   const getAllBuildings = async () => {
@@ -77,19 +76,22 @@ const [id_building, setId_Building]=useState("")
 
   const req = async () => {
   try {
-    const response = await axios.get("/comments/"+id_building, {
+
+    const response = await axios.get("/api/building/"+29+"/comments", {
         headers: {
           "ngrok-skip-browser-warning": "69420"
         }
       });
-      console.log (response)
-      const dat = response.data.data
+
+      const dat = response.data.info
+      console.log (dat)
       const newComments = dat.map(comment => {
         const content = comment.content;
-        const date = comment.date;
         const id = comment.id;
+        const date = comment.date;
         const user_id=comment.user_id
-        return { id, content, date, user_id};
+        const building_id=comment.building_id
+        return { id, content, building_id, user_id, date};
       });
       setComments(newComments)
       }
@@ -98,33 +100,26 @@ const [id_building, setId_Building]=useState("")
       }
     }
 
-const deleteComment= (id) => {
-axios.delete(+'/building/'+id)
-.then(response => {
-console.log("comment deleted")
-})
-.catch(error => {
-console.log(error);
-});
-setComments(prevComments => prevComments.filter((comment) => comment.id !== id))
-}
 
 const handleSubmit = (event) => {
-event.preventDefault()
-const id = uuidv4();
-const content = newComment
-const commentToAdd={ id, content}
-setComments(prevComments => [...prevComments, commentToAdd])
-setNewComment("")
-axios.post("/building/"+'/add', commentToAdd)
-   .then(response => {
-      console.log("comment added")
-   })
-   .catch(error => {
-      console.log(error);
-   });
-}
+  event.preventDefault()
+  const id = uuidv4();
+  const buildingid = buildings[0].id;
+  console.log(buildings[0].id)
+  const content = newComment
 
+  const commentToAdd={id, content}
+  setComments(prevComments => [...prevComments, commentToAdd])
+  setNewComment("")
+
+  axios.post("/api/building/29/postcomment", commentToAdd)
+    .then(response => {
+      console.log("comment added")
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
 
   return (
     <div className="font-custom1  h-screen w-screen flex flex-col m-0 p-0">
@@ -164,7 +159,7 @@ axios.post("/building/"+'/add', commentToAdd)
       </div>
       <div className="w-1/2 h-full flex flex-col">
       <ul className=" shadow-inner h-4/6 box-border bg-slate-50 w-11/12  rounded-[25px] p-3 flex overflow-scroll flex-col items-start ">
-              {comments.map((comment) => (<Comment info={comment} delete={deleteComment} key={comment.id}/>
+              {comments.map((comment) => (<Comment info={comment} key={comment.id}/>
               ))}
             </ul>
         <form className="p-3 mt-4 flex justify-between box-border flex-col items-center border-dotted border-3 border border-black rounded-[25px] h-2/6 w-11/12" action="submit" onSubmit={handleSubmit}>

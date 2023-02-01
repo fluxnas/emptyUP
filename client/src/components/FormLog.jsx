@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
 import LoginButton from "../components/LoginButton";
+import jwt from "jsonwebtoken"
 
 const FormLog = () => {
   const navigate = useNavigate();
@@ -11,8 +12,6 @@ const FormLog = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(inputRefEmail.current.value);
-    console.log(inputRefPassword.current.value);
     navigate("/upload");
     setIsSubmitting(true);
 
@@ -21,11 +20,12 @@ const FormLog = () => {
       password: inputRefPassword.current.value,
     };
 
+
     axios
       .post("/api/user/login", data)
       .then((response) => {
         const userId = response.data.id;
-        console.log(userId);
+        //console.log(userId);
         localStorage.setItem("user_id", userId);
         setIsSubmitting(false);
       })
@@ -33,6 +33,7 @@ const FormLog = () => {
         console.log(error);
         setIsSubmitting(false);
       });
+      
   };
 
   return (

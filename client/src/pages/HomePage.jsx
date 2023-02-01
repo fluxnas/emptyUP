@@ -58,6 +58,7 @@ const HomePage = () => {
         const position = building.position;
         const lat = building.lat;
         const lon = building.lon;
+        const initial_image = building.initial_image;
         return {
           id,
           adress,
@@ -67,7 +68,8 @@ const HomePage = () => {
           dateofpost,
           admin_id,
           lat,
-          lon
+          lon,
+          initial_image,
         };
       });
       setBuildings(buildingsAll);

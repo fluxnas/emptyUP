@@ -4,6 +4,7 @@ import axios from "axios";
 import { LeafletContainer } from "../maps/formMap/leaflet-container";
 import { LeafletMap } from "../maps/formMap/leaflet-map";
 import { Popup } from "react-leaflet";
+import jwt from "jsonwebtoken";
 
 const BuildingForm = () => {
   const inputRefCity = useRef();
@@ -36,29 +37,15 @@ const BuildingForm = () => {
           setCoordinates({ lat, lon });
           //console.log(coordinates);
 
-          const newBuilding = {
-            initial_image: image,
-            city: inputRefCity.current.value,
-            zipcode: inputRefZipcode.current.value,
-            adress: inputRefAddress.current.value,
-            position: [response.data[0].lat, response.data[0].lon],
-            type: inputRefType.current.value,
-            admin_id: JSON.parse(localStorage.getItem("user_id")),
-          };
-
-          
           const formData = new FormData();
           formData.append("image", image);
           formData.append("city", inputRefCity.current.value);
           formData.append("zipcode", inputRefZipcode.current.value);
           formData.append("adress", inputRefAddress.current.value);
-          // formData.append("position",  coordinates);
-          // formData.append("position", JSON.stringify([response.data[0].lat, response.data[0].lon]));
-          formData.append("lat",  response.data[0].lat);
-          formData.append("lon",  response.data[0].lon);
+          formData.append("lat", response.data[0].lat);
+          formData.append("lon", response.data[0].lon);
           formData.append("type", inputRefType.current.value);
-          formData.append("admin_id", JSON.parse(localStorage.getItem("user_id")));
-        
+
           axios
             .post("/api/addbuilding", formData)
             .then((response) => {
@@ -72,33 +59,8 @@ const BuildingForm = () => {
         } else {
           console.error("No data returned from API request");
         }
-
-        // setCoordinates({ lat, lon });
-        // console.log(coordinates);
-
-        // const newBuilding = {
-        //   initial_image: image,
-        //   city: inputRefCity.current.value,
-        //   zipcode: inputRefZipcode.current.value,
-        //   adress: inputRefAddress.current.value,
-        //   position: [response.data[0].lat, response.data[0].lon],
-        //   type: inputRefType.current.value,
-        //   admin_id: JSON.parse(localStorage.getItem("user_id")),
-        // };
-
-        //
-
-        // axios
-        //   .post("/api/addbuilding", newBuilding)
-        //   .then((response) => {
-        //     console.log(response);
-        //     // setIsSubmitting(false);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //     // setIsSubmitting(false);
-        //   });
       });
+    
   };
   return (
     <div className="h-full w-full flex">

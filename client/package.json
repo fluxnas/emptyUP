@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "https://83b1-84-199-109-85.eu.ngrok.io/",
+  "proxy": "https://46c7-212-239-164-17.eu.ngrok.io/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.2",
     "dotenv": "^16.0.3",
+    "js-cookie": "^3.0.1",
     "jsonwebtoken": "^9.0.0",
     "postcss-cli": "^10.1.0",
     "react": "^18.2.0",
@@ -28,9 +29,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start", 
+    "build": "react-app-rewired build", 
+    "test": "react-app-rewired test", 
     "eject": "react-scripts eject",
     "build:css": "postcss src/styles/styles.css -o src/styles/public/styles.css"
   },
@@ -53,7 +54,17 @@
     ]
   },
   "devDependencies": {
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
     "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.4"
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "tailwindcss": "^3.2.4",
+    "url": "^0.11.0"
   }
 }

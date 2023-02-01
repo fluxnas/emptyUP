@@ -15,13 +15,13 @@ export const postAnnonces = async (req, res) => {
       [user_id, content, date, subject, city]
     );
     return res.send({ message: "announce correctly added" });
-  } catch (err) {
-    if (err.code === "23505") {
+  } catch (error) {
+    if (error.code === "23505") {
       // i added "unique" constraint to "content" in the table like that it will check automaticly if the announcement is already in the database
       return res.status(400).send({ error: "annonce already exist" });
     }
-    console.error(err)
-    res.send(err);
+    console.error(error)
+    res.status(500).json({error : "server error"})
   }
 };
 
@@ -34,14 +34,15 @@ export const getAllAnnonces = async (req, res) => {
     }
     return res.status(200).json({data : result.rows} );
   } catch (error) {
-    res.status(400).send({ error: "invalid request" });
+    console.error(error)
+    res.status(500).send({ error: "server error" });
   }
 };
 
 export const getOneAnnonce = async (req, res) => {
   const id = req.params.id;
   if (!id) {
-    res.status(400).send("no id provided");
+    return res.status(400).send("no id provided");
   }
   try {
     const query = await pool.query("SELECT * FROM annonces WHERE id = $1", [
@@ -52,7 +53,8 @@ export const getOneAnnonce = async (req, res) => {
     }
     return res.status(200).json(query.rows);
   } catch (error) {
-    res.status(500).send({ error: "Internal server error" });
+    console.error(error)
+    return res.status(500).send({ error: "Internal server error" });
   }
 };
 
@@ -62,9 +64,9 @@ export const deleteAnnonce = async (req, res) => {
   const verif = await pool.query("SELECT user_id from annonces where id = $1", [
     id,
   ]);
-  // if (verif.rows[0].user_id !== user_id) {                    /// l'activer que quand middleware auth ok
-  //   res.status(400).send({ info: "not authorized" });
-  // }                                            
+  if (verif.rows[0].user_id !== user_id) {                    /// l'activer que quand middleware auth ok
+    res.status(400).send({ info: "not authorized" });
+  }                                            
   try {
     const result = await pool.query("SELECT * FROM annonces WHERE id = $1", [
       id,
@@ -77,22 +79,24 @@ export const deleteAnnonce = async (req, res) => {
       .status(200)
       .send({ message: "announcement deleted successfully" });
   } catch (error) {
-    res.status(500).send({ error: "Internal server error" });
+    console.error(error)
+    return res.status(500).send({ error: "Internal server error" });
   }
 };
 
 export const updateAnnonce = async (req, res) => {
   const id = req.params.id;
   if (!id) {
-    res.status(404).json({ message: "no announcement" });
+    return res.status(404).json({ message: "no announcement" });
   }
   try {
     await pool.query("update annonces set content = $1 where id = $2", [
       content,
       id,
     ]);
-    res.statu(200).send("announcement modified");
+    return res.statu(200).send("announcement modified");
   } catch (error) {
-    res.send(error);
+    console.error(error)
+    return res.status(500).json({error : "server error!"})
   }
 };

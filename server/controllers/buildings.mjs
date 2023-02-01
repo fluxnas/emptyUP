@@ -79,7 +79,7 @@ export const addBuilding = async (req, res) => {
     );
     return res.status(201).send({ info: "building successfully added" });
   } catch (error) {
-    // console.log(error);
+    console.error(error);
     res.status(400).send({ error: "invalid request" });
   }
 };

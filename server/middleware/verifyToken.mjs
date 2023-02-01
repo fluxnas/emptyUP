@@ -6,7 +6,7 @@ promisify(JWT.verify);
 
 // middleware pour l'authentification du token
 const jwtAuthentification = async (req, res, next) => {
-  console.log(req.cookies);
+  console.log(req.cookies + " hello");
   const token = await req.cookies.access_token;
   if (!token) {
     return res.status(401).send({ error: "authorized first" });

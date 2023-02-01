@@ -4,7 +4,7 @@ import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
 import Modal from "../components/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
 import FormLog1 from "../components/FormLog1";
@@ -20,7 +20,7 @@ const HomePage = () => {
   const [modalActiveLog, setModalActiveLog] = useState(false);
   const [modalActiveLog1, setModalActiveLog1] = useState(false);
   const [modalActiveReg, setModalActiveReg] = useState(false);
-  const [modalActiveReg1, setModalActiveReg1] = useState(false);
+  const [modalActiveReg1, setModalActiveReg1] = useState(false);;
 
   const onClickLog = () => {
     setModalActive(false);
@@ -31,6 +31,17 @@ const HomePage = () => {
     setModalActive(false);
     setModalActiveReg(true);
   };
+
+  const onClickLog1 = () => {
+    setModalActive1(false);
+    setModalActiveLog1(true);
+  };
+
+  const onClickReg1 = () => {
+    setModalActive1(false);
+    setModalActiveReg1(true);
+  };
+  
   const [buildings, setBuildings] = useState([]);
 
   useEffect(() => {
@@ -81,37 +92,6 @@ const HomePage = () => {
       console.log(error);
     }
   };
-
-
- const [buildings, setBuildings] = useState([]);
-
-  // const buildings = [
-  //   {
-  //     city: "Brussels",
-  //     zipcode: 1200,
-  //     adress: "rue Fabry 59",
-  //     type: "Housing",
-  //     admin_id: "2",
-  //   },
-  //   {
-  //     city: "Brussels",
-  //     zipcode: 1000,
-  //     adress: "Cantersteen 1",
-  //     type: "Gardens",
-  //     admin_id: "3",
-  //   },
-  // ];
-
-  axios
-    .get("/api/buildings", {
-      headers: {
-        "ngrok-skip-browser-warning": "69420",
-      },
-    })
-    .then((res) => {
-      console.log(res.data);
-    });
-
 
   return (
     <div className="font-custom1  h-screen w-screen flex flex-col box-border m-0 p-0 ">

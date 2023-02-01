@@ -31,15 +31,55 @@ const HomePage = () => {
     setModalActive(false);
     setModalActiveReg(true);
   };
+  const [buildings, setBuildings] = useState([]);
 
-  const onClickLog1 = () => {
-    setModalActive1(false);
-    setModalActiveLog1(true);
-  };
+  useEffect(() => {
+    getAllBuildings();
+  }, []);
 
-  const onClickReg1 = () => {
-    setModalActive1(false);
-    setModalActiveReg1(true);
+  useEffect(() => {
+    console.log(buildings);
+  }, [buildings]);
+
+  const getAllBuildings = async () => {
+    try {
+      const response = await axios.get("/api/buildings", {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      });
+
+      const buildingsData = response.data.data;
+
+      const buildingsAll = buildingsData.map((building) => {
+        const dateofpost = building.dateofpost;
+        const id = building.id;
+        const adress = building.adress;
+        const city = building.city;
+        const type = building.type;
+        const zipcode = building.zipcode;
+        const admin_id = building.admin_id;
+        const position = building.position;
+        const lat = building.lat;
+        const lon = building.lon;
+        const initial_image = building.initial_image;
+        return {
+          id,
+          adress,
+          zipcode,
+          city,
+          type,
+          dateofpost,
+          admin_id,
+          lat,
+          lon,
+          initial_image,
+        };
+      });
+      setBuildings(buildingsAll);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 

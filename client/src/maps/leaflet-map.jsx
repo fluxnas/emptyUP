@@ -1,4 +1,5 @@
 import markerIcon from "leaflet/dist/images/marker-icon.png";
+import { useNavigate } from "react-router-dom";
 import { Marker, useMap, Popup } from "react-leaflet";
 import useGeoLocation from "../hooks/geoLocationHook";
 import useUserDefaultLocation from "../hooks/userDefaultPositionHook";
@@ -8,6 +9,7 @@ import L from "leaflet";
 export const LeafletMap = ({ buildings }) => {
   const { position } = useGeoLocation();
   const { userLocation } = useUserDefaultLocation(position);
+  const navigate = useNavigate();
 
   const map = useMap();
 
@@ -33,6 +35,7 @@ export const LeafletMap = ({ buildings }) => {
           icon={userIcon}
         >
           <Popup>
+            <img src={building.initial_image}></img>
             <p>City: {building.city}</p>
             <p>Zipcode: {building.zipcode}</p>
             <p>Address: {building.adress}</p>

@@ -2,38 +2,37 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
 import LoginButton from "../components/LoginButton";
-import jwt from "jsonwebtoken"
 
-const FormLog = () => {
+const FormLog1 = () => {
   const navigate = useNavigate();
   const inputRefEmail = useRef();
   const inputRefPassword = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting1, setIsSubmitting1] = useState(false);
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler1= (event) => {
     event.preventDefault();
-    navigate("/upload");
-    setIsSubmitting(true);
-    navigate("/upload");
+    console.log(inputRefEmail.current.value);
+    console.log(inputRefPassword.current.value);
+    navigate("/profile");
+    setIsSubmitting1(true);
+    navigate("/profile");
     const data = {
       email: inputRefEmail.current.value,
       password: inputRefPassword.current.value,
     };
 
-
     axios
       .post("/api/user/login", data)
       .then((response) => {
         const userId = response.data.id;
-        //console.log(userId);
+        console.log(userId);
         localStorage.setItem("user_id", userId);
-        setIsSubmitting(false);
+        setIsSubmitting1(false);
       })
       .catch((error) => {
         console.log(error);
-        setIsSubmitting(false);
+        setIsSubmitting1(false);
       });
-      
   };
 
   return (
@@ -41,7 +40,7 @@ const FormLog = () => {
       <form
         className="flex flex-col"
         onSubmit={(event) => {
-          onSubmitHandler(event);
+          onSubmitHandler1(event);
         }}
       >
         <div className="inputDiv">
@@ -64,4 +63,4 @@ const FormLog = () => {
   );
 };
 
-export default FormLog;
+export default FormLog1;

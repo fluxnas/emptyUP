@@ -3,11 +3,10 @@ import Heart from "../assets/heart.svg";
 import Megaphone from "../assets/Megaphone.svg";
 import MessageIcon from "../assets/MessageIcon.svg";
 import uploadpicto from "../assets/uploadpicto.png"
-import ProfilePicture from "../components/ProfilePicture"
 import LogoutButton from "../components/LogoutButton"
 import Logo from "../components/Logo";
 import UploadLogo from "../components/UploadLogo"
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Modal from "../components/Modal";
 import UnsubscribeButton from "../components/UnsubscribeButton"
 import YesButton from "../components/YesButton"
@@ -16,12 +15,37 @@ import DownloadPicture from "../components/DownloadPicture"
 import axios from "axios";
 
 const Username="Roro68"
-const apiUrl = '/api/annonces';
 
 const ProfilePage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [modalActiveYes, setModalActiveYes] = useState(false);
+  const [showPicture, setshowPicture] = useState("");
 
+useEffect(() => {
+req();
+}, [])
+
+const req = async () => {
+try {
+    const response = await axios.get("api/user/profil/" , {
+            headers: {
+            "ngrok-skip-browser-warning": "69420"
+            }
+          });
+    console.log (response)
+    //const dat = response.data.data
+    //const newPicture = dat.map(picture => {
+      //const content = picture.value;
+     // const id = picture.id;
+    //  return { id, content};
+     // });
+   // setshowPicture(newPicture)
+    }
+
+catch (error) {
+console.log(error);
+}
+}
 
 
   const onClickYes=() => {
@@ -49,6 +73,9 @@ const ProfilePage = () => {
           <div className="h-full w-1/2 flex flex-col  justify-center ">
             <div className=" w-full h-full flex justify-around items-center">
               <DownloadPicture/>
+              <div className="h-72 w-72 border shadow overflow:hidden rounded-full truncate ">
+                <img src= {showPicture}  className=" scale-100  origin-top font-Custom1" />
+              </div>
 
             </div>
             <div className="h-1/12 p-0 m-0 box-border flex">

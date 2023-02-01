@@ -3,18 +3,18 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import LoginButton from "../components/LoginButton";
 
-const FormLog = () => {
+const FormLog1 = () => {
   const navigate = useNavigate();
   const inputRefEmail = useRef();
   const inputRefPassword = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting1, setIsSubmitting1] = useState(false);
 
   const onSubmitHandler1= (event) => {
     event.preventDefault();
     console.log(inputRefEmail.current.value);
     console.log(inputRefPassword.current.value);
     navigate("/profile");
-    setIsSubmitting(true);
+    setIsSubmitting1(true);
     navigate("/profile");
     const data = {
       email: inputRefEmail.current.value,
@@ -27,11 +27,11 @@ const FormLog = () => {
         const userId = response.data.id;
         console.log(userId);
         localStorage.setItem("user_id", userId);
-        setIsSubmitting(false);
+        setIsSubmitting1(false);
       })
       .catch((error) => {
         console.log(error);
-        setIsSubmitting(false);
+        setIsSubmitting1(false);
       });
   };
 
@@ -63,4 +63,4 @@ const FormLog = () => {
   );
 };
 
-export default FormLog;
+export default FormLog1;

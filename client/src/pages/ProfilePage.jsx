@@ -27,7 +27,7 @@ req();
 
 const req = async () => {
 try {
-    const response = await axios.get("api/user/profil/1" , {
+    const response = await axios.get("api/user/profil/" , {
             headers: {
             "ngrok-skip-browser-warning": "69420"
             }

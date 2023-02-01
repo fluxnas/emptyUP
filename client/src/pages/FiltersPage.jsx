@@ -2,7 +2,7 @@ import Navigation from "../components/Navigation";
 import UploadLogo from "../components/UploadLogo";
 import { LeafletContainer } from "../maps/leaflet-container";
 import { LeafletMap } from "../maps/leaflet-map";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 const FiltersPage = () => {
@@ -15,6 +15,10 @@ const FiltersPage = () => {
   useEffect(() => {
     console.log(buildings);
   }, [buildings]);
+
+  const inputRefCity = useRef();
+  const inputRefZipcode = useRef();
+  const inputRefType = useRef();
 
   const getAllBuildings = async () => {
     try {
@@ -52,6 +56,53 @@ const FiltersPage = () => {
         };
       });
       setBuildings(buildingsAll);
+      console.log(buildings)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const city = inputRefCity.current.value;
+    const zipcode = inputRefZipcode.current.value;
+    const type = inputRefType.current.value;
+
+    try {
+      const response = await axios.get(`/api/building/type/${type}`, {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      });
+
+      const buildingsData = response.data;
+     
+      const buildingsAll = buildingsData.map((building) => {
+        const dateofpost = building.dateofpost;
+        const id = building.id;
+        const adress = building.adress;
+        const city = building.city;
+        const type = building.type;
+        const zipcode = building.zipcode;
+        const admin_id = building.admin_id;
+        const position = building.position;
+        const lat = building.lat;
+        const lon = building.lon;
+        const initial_image = building.initial_image;
+        return {
+          id,
+          adress,
+          zipcode,
+          city,
+          type,
+          dateofpost,
+          admin_id,
+          lat,
+          lon,
+          initial_image,
+        };
+      });
+      setBuildings(buildingsAll);
     } catch (error) {
       console.log(error);
     }
@@ -59,22 +110,31 @@ const FiltersPage = () => {
 
   return (
     <div className="font-custom1  h-screen w-screen flex flex-col m-0 p-0">
-      <form className="flex flex-col" style={{ width: "30vw" }}>
-      <label>
-          City: <input type="text" placeholder="Enter your city"/>
+      <form
+        className="flex flex-col"
+        style={{ width: "30vw" }}
+        onSubmit={handleSubmit}
+      >
+        <label>
+          City:
+          <input type="text" placeholder="Enter your city" ref={inputRefCity} />
         </label>
         <label>
-          Zipcode: <input type="text" placeholder="Enter your zipcode"/>
+          Zipcode:
+          <input
+            type="text"
+            placeholder="Enter your zipcode"
+            ref={inputRefZipcode}
+          />
         </label>
         <label>
           Type:
-          <select>
+          <select ref={inputRefType}>
             <option value="All">All</option>
             <option value="Housing">Housing</option>
             <option value="Gardens">Gardens</option>
             <option value="Factories">Factories</option>
             <option value="Offices">Offices</option>
-            <option value="Multiple">Multiple</option>
           </select>
         </label>
         <button
@@ -85,64 +145,10 @@ const FiltersPage = () => {
         </button>
       </form>
       <div className=" h-5/6  ">
-      <LeafletContainer>
-        <LeafletMap buildings={buildings}/>
-      </LeafletContainer>
+        <LeafletContainer>
+          <LeafletMap buildings={buildings} />
+        </LeafletContainer>
       </div>
-      {/* //   <Navigation />
-    //   <label>Type
-    //     <select>
-    //       <option value="All">All</option>
-    //       <option value="Housing">Housing</option>
-    //       <option value="Gardens">Gardens</option>
-    //       <option value="Factories">Factories</option>
-    //       <option value="Offices">Offices</option>
-    //       <option value="Multiple">Multiple</option>
-    //     </select>
-    //   </label>
-
-    // //<Modal active={modalActive} setActive={setModalActive}>
-    // //	<Calendar onChange={setValue} value={value} />
-    // </Modal>
-
-    // <div>
-    // <input type="checkbox" id="commented" name="commented"/>
-    // <label for="commented">Most commented</label>
-    // </div>
-    // <div>
-    // <input type="checkbox" id="less commented" name="commented"/>
-    // <label for="commented">Less commented</label>
-    // </div>
-
-    // <LeafletContainer>
-    // <LeafletMap />
-    // </LeafletContainer>
-    // <UploadLogo setActive={setModalActiveLogo} />
-    // <Modal active={modalActiveLogo} setActive={setModalActiveLogo}>
-    // <p>You need to register and login before uploading spaces. </p>
-    // <button onClick={() => {
-    //   setModalActiveLogo(false);
-    //   setModalActiveLog(true);
-    // }}>Login
-    // </button>
-
-    // <button onClick={() => {
-    //   setModalActiveLogo(false);
-    //   setModalActiveReg(true);
-    // }}>Register
-    // </button>
-    // </Modal>
-
-    // <Modal active={modalActiveLog} setActive={setModalActiveLog}>
-    // <FormLog/>
-    // </Modal>
-    // <Modal active={modalActiveReg} setActive={setModalActiveReg}>
-    // <FormReg onSubmit={(event) => {
-    //   event.preventDefault();
-    //   setModalActiveReg(false);
-    //   setModalActiveLog(true);
-    // }}/>
-    // </Modal> */}
     </div>
   );
 };

@@ -12,7 +12,6 @@ const FormLog = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    navigate("/upload");
     setIsSubmitting(true);
     navigate("/upload");
     const data = {

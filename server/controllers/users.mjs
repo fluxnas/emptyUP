@@ -40,6 +40,9 @@ export const register = async (req, res) => {
   }
 };
 
+
+//////////////// Login that redirect to the profil page
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -67,28 +70,78 @@ export const login = async (req, res) => {
         algorithm: "HS512",
         expiresIn: "1h",
       });
-      console.log(token)
       // return res.send({ token });  => it works when asking to response send the token, but "cannot generate" when sending to the cookie
       res.cookie("access_token", token, {
         httpOnly: true,
       });
       res.redirect(`/api/user/profil/${result.id}`)  /// try to redirect immediatly to the specific user profil
       res.send({id : `${result.id}`})
-      
-      
+
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return res.status(500).send({ error: "Cannot generate token" });
     }
   } else {
+    console.error(err)
     return res.status(403).send({ error: "wrong password" });
   }
 };
 
 
+// ///////////// Login controller that redirect to the building form
+
+// export const loginRedirectToBuildings = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password)
+//     return res.status(400).send({ error: "invalid request" });
+
+//   const query = await pool.query(
+//     "select username, id, email, password from users where email =$1",
+//     [email]
+//   );
+
+
+    
+//   if (query.rowCount === 0) {
+//     return res.status(404).send({ error: "user do not exists" });
+//   }
+  
+
+//   const result = query.rows[0];
+  
+//   const match = await bcrypt.compare(password, result.password);
+//   if (match) {
+//     try {
+//       const token = await sign({id: result.id, email: email}, process.env.SECRET_JWT, {
+//         algorithm: "HS512",
+//         expiresIn: "1h",
+//       });
+//       console.log(token)
+//       // return res.send({ token });  => it works when asking to response send the token, but "cannot generate" when sending to the cookie
+//       res.cookie("access_token", token, {
+//         httpOnly: true,
+//       });
+//       res.redirect(`/api/addbuilding`)  /// try to redirect immediatly to addbuilding form
+//       res.send({id : `${result.id}`})
+      
+      
+//     } catch (err) {
+//       console.log(err);
+//       return res.status(500).send({ error: "Cannot generate token" });
+//     }
+//   } else {
+//     return res.status(403).send({ error: "wrong password" });
+//   }
+// };
+
+
 export const uploadProfilPicture = async (req, res) => {
   const file = await req.files.image
   console.log(file)
+  if(!file){
+    res.status(500).json({error: "file missing"})
+  }
   
   try{
       const result = await cloudinary.uploader.upload(file.tempFilePath)
@@ -108,9 +161,13 @@ export const getInfoUsers = async (req, res) => {
   try{
   const userInfo = await pool.query("SELECT username, profilpicture_url FROM users where id =$1", 
   [user_id])
+  if(!userInfo.rows[0]){
+    return res.status(404).json({error : "user not found"})
+  }
   return res.json({ data : userInfo.rows[0]})
   } catch(error){
-    res.status(400).json({error: error})
+    console.error(errror)
+    return res.status(500).json({error: "server error"})
 
   }
 }

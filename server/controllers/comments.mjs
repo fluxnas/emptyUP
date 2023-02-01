@@ -1,22 +1,24 @@
-import { pool } from "../models/pool.mjs"
+import { pool } from "../models/dbPool.mjs";
 
 
 //////////////////////// ALL COMMENTS FOR ONE BUILDING ////////////////////////////
 
-export const comments = async (req, res) => {
-    const admin_id = "5"
+export const getComments = async (req, res) => {
+    const building_id = req.params.id
+    if(!building_id){
+        return res.status(400).send({error : "no building comments founded"})
+    }
+    try{
     await pool.query(
         "SELECT * FROM comments WHERE building_id=$1", 
-        [admin_id], 
-        (err, result)=> {
-            if (err) {
-                res.status(500).json({ error: err.message });
-            } else {
-                res.json(result.rows);
-            }
-        }
-    )
+        [building_id])
+        return res.json({info: result.rows});
+    }catch(error){
+        console.error(error)
+        return res.status(500).json({error : "server error!"})
+    }
 }
+
 
 
 //////////////////////// POST COMMENT ////////////////////////////
@@ -24,9 +26,8 @@ export const postComment = async (req, res) => {
     try {
     const {content} = req.body
     const dateofpost = new Date()
-    // const user_id = "9"
-    const building_id = "1"
-    const user_id =  "6"
+    const building_id = req.params.id
+    const user_id =  req.userId
     await pool.query (
         "INSERT INTO comments (building_id, content, user_id, date) VALUES ($1, $2, $3, $4)", 
         [building_id, content, user_id, dateofpost] 

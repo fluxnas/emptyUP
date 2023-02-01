@@ -72,6 +72,7 @@ export const login = async (req, res) => {
       res.cookie("access_token", token, {
         httpOnly: true,
       });
+      res.redirect(`/api/user/profil/${result.id}`)  /// try to redirect immediatly to the specific user profil
       res.send({id : `${result.id}`})
       
       

@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import { useState } from "react";
 import FormReg from "../components/FormReg";
 import FormLog from "../components/FormLog";
+import FormLog1 from "../components/FormLog1";
 import LoginButton from "../components/LoginButton";
 import RegisterButton from "../components/RegisterButton";
 import LoginPicto from "../components/LoginPicto"
@@ -31,19 +32,9 @@ const HomePage = () => {
     setModalActiveReg(true);
   };
 
-const onClickLog = () => {
-    setModalActive(false);
-    setModalActiveLog(true);
-  };
-
   const onClickLog1 = () => {
     setModalActive1(false);
     setModalActiveLog1(true);
-  };
-
-  const onClickReg = () => {
-    setModalActive(false);
-    setModalActiveReg(true);
   };
 
   const onClickReg1 = () => {
@@ -88,19 +79,19 @@ const onClickLog = () => {
         <Logo/>
         <LoginPicto setActive={setModalActive1}/>
         <Modal className="z-1" active={modalActive1} setActive={setModalActive1}>
-          <p className="flex justify-center text-base">
+          <p className="z-1 flex justify-center text-base">
           You need to register and login{" "}
           </p>
-        <div className="flex justify-around">
+        <div className=" z-1 flex justify-around">
             <LoginButton onClick={onClickLog1} />
             <RegisterButton onClick={onClickReg1} />
           </div>
         </Modal>
 
-        <Modal active={modalActiveLog1} setActive={setModalActiveLog1}>
+        <Modal className=" z-1 " active={modalActiveLog1} setActive={setModalActiveLog1}>
           <FormLog1/>
         </Modal>
-        <Modal active={modalActiveReg1} setActive={setModalActiveReg1}>
+        <Modal className=" z-1 " active={modalActiveReg1} setActive={setModalActiveReg1}>
           <FormReg
           onSubmit={(event) => {
             event.preventDefault();

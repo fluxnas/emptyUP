@@ -72,8 +72,7 @@ export const login = async (req, res) => {
       res.cookie("access_token", token, {
         httpOnly: true,
       });
-      res.redirect(`/api/user/profil/${result.id}`); /// try to redirect immediatly to the specific user profil
-      res.send({ id: `${result.id}` });
+     return res.send({ id: `${result.id}` });
     } catch (err) {
       console.error(err);
       return res.status(500).send({ error: "Cannot generate token" });
@@ -109,7 +108,7 @@ export const uploadProfilPicture = async (req, res) => {
 };
 
 export const getInfoUsers = async (req, res) => {
-  // const user_id = req.params.id;   =>> not usefull since the user is auth by a token 
+  const user_id = req.userId //=>> not usefull since the user is auth by a token 
   try {
     const userInfo = await pool.query(
       "SELECT username, profilpicture_url FROM users where id =$1",
@@ -120,10 +119,11 @@ export const getInfoUsers = async (req, res) => {
     }
     return res.json({ data: userInfo.rows[0] });
   } catch (error) {
-    console.error(errror);
+    console.error(error);
     return res.status(500).json({ error: "server error" });
   }
 };
+
 
 export const unsubscribeUser = async (req, res) => {
   const id = req.params.id;

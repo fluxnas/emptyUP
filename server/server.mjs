@@ -4,14 +4,15 @@ import fileUpload from "express-fileupload";
 
 import {
   getBuildings,
-  getBuilding,
+  getBuildingby,
   addBuilding,
   getUserAdminBuildings,
   deleteBuilding,
   getOneBuilding,
   getZipcode,
   getCity,
-  getAdress
+  getAdress,
+  getType
 } from "./controllers/buildings.mjs";
 
 import {
@@ -61,22 +62,22 @@ server.use(
 server.post("/api/user/register", register);
 server.post("/api/user/login", login);
 server.get("/api/user/profile",jwtAuthentification, getInfoUsers);
-server.post("/api/user/profilepicture", uploadProfilPicture);
+server.post("/api/user/profilepicture",jwtAuthentification, uploadProfilPicture);
 server.delete("/api/user/unsubscribe/:id",jwtAuthentification,unsubscribeUser);
 server.get("/api/user/logout", jwtAuthentification, logout);
 server.get("/api/user/mybuildings/:id", getUserAdminBuildings);
 
 // buildings related endpoints
 server.post("/api/addbuilding", jwtAuthentification, addBuilding);
-server.get("/api/buildings", getBuildings);
-server.get("/api/building", getBuilding);
+server.get("/api/building", getBuildings);
+server.get("/api/building", getBuildingby);
 server.get("/api/building/:id", getOneBuilding);
-server.get("/api/buildings/:id", jwtAuthentification, getUserAdminBuildings);
+server.get("/api/building/:id", jwtAuthentification, getUserAdminBuildings);
 server.delete("/api/building/delete/:id", deleteBuilding);
 server.get('/api/building/zipcode/:zipcode', getZipcode)
 server.get('/api/building/city/:city', getCity)
 server.get('/api/building/adress/:adress', getAdress)
-server.get('/api/building/type/:type', getAdress)
+server.get('/api/building/type/:type', getType)
 
 // images related endpoints
 server.post("/api/building/uploadimage", uploadImage);

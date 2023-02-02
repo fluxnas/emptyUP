@@ -45,7 +45,7 @@ export const getOneBuilding = async (req, res) => {
   }
 };
 
-export const getBuilding = async (req, res) => {
+export const getBuildingby = async (req, res) => {
   const { adress, zipcode, city, type } = req.body;
 
   try {
